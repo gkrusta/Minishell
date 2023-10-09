@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/09 19:29:21 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:42:26 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,4 @@ int main(int argc, char **argv, char **env)
 		free(input);
 	}
 	return (0);
-	*/
-	printf("Hola mundo\n");
 }

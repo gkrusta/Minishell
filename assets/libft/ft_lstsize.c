@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/09 13:17:25 by pvilchez         ###   ########.fr       */
+/*   Created: 2023/04/30 19:32:31 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/07/18 14:05:38 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int main(void)
+int	ft_lstsize(t_list *lst)
 {
-	char *str;
-	char* username;
+	int	len;
 
-	username = getenv("USER"); 
-	printf("\n\nUSER is: @%s", username); 
-	str = readline("\n>>> "); 
-	printf();
-	return (0);
+	len = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		len++;
+	}
+	return (len);
 }

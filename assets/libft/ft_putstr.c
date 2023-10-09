@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/09 13:01:41 by gkrusta          ###   ########.fr       */
+/*   Created: 2023/05/02 16:52:18 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/07/13 17:26:58 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
+int	ft_putstr(char *str)
+{
+	int	i;
 
-#endif
+	i = 0;
+	if (!str)
+		return (write(1, "(null)", 6));
+	while (str[i])
+	{
+		write (1, &str[i], 1);
+		i++;
+	}
+	return (i);
+}

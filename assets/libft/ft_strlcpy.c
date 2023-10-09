@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/09 12:59:39 by gkrusta          ###   ########.fr       */
+/*   Created: 2023/04/24 19:13:39 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/05/01 18:01:00 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int main(void)
+size_t	ft_strlcpy(char *dest, char const *src, size_t size)
 {
-	char *str;
-	char* username;
+	size_t	i;
+	size_t	res;
 
-	username = getenv("USER"); 
-	printf("\n\nUSER is: @%s", username); 
-	str = readline("\n>>> "); 
-	//printf()
-	return (0);
+	i = 0;
+	res = 0;
+	while (src[res])
+		res++;
+	if (size > 0)
+	{
+		while (src[i] && i < (size - 1))
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
+	}
+	return (res);
 }

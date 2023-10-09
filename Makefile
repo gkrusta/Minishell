@@ -6,13 +6,13 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/09 13:36:02 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/10/09 14:16:50 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -g -lreadline
+CC = gcc -lreadline
 CFLAGS = -Wall -Wextra -Werror
 REMOVE = rm -rf
 

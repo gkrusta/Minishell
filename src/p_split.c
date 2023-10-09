@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char	*add_spaces(char *str)
+/* char	*add_spaces(char *str)
 {
 	int	i;
 
@@ -10,3 +10,4 @@ char	*add_spaces(char *str)
 		
 	}
 }
+ */

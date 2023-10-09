@@ -3,18 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
+#    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/09 13:36:02 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/10/09 15:25:23 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -g -lreadline
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 REMOVE = rm -rf
+LREADLINE = -lreadline
 
 OBJ_PATH = obj
 SRC_PATH = src
@@ -38,7 +39,7 @@ YELLOW = \033[1;38;5;226m
 all: $(LIBFT_LIB_PATH) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(LIBFT_LIB_PATH) $(HEADERS) -o $@
+	@$(CC) $(OBJ) $(LIBFT_LIB_PATH) $(HEADERS) $(LREADLINE) -o $@
 	@echo "\n$(ORANGE)$(U_LINE)$(NAME): Mandatory Compiled$(RESET) \n"
 
 $(LIBFT_LIB_PATH):

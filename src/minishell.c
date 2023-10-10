@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/10 12:15:25 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/10 22:15:58 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(int argc, char **argv, char **env)
 {
 	char	*input;
 	char	*username;
-	char	**splited;
+	char	**tokens;
 	int		i;
 
 	(void)argc;
@@ -49,9 +49,14 @@ int main(int argc, char **argv, char **env)
 		if (ft_strlen(input) > 0)
 		{
 			add_history(input);
-			splited = p_split(input);
+			tokens = p_split(input);
 		}
 		printf("added to history: %s\n", input);
+		while (tokens[i])
+		{
+			ft_printf("%s\n", tokens[i]);
+			i++;
+		}
 		free(input);
 	}
 	return (0);

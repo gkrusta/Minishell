@@ -4,7 +4,7 @@ int	ft_isspace(char c)
 {
 	if (c == '\t' || c == '\n' || c == '\v')
 		return (1);
-	if (c == '\f' || c == '\r' || c == ' ' || c == '\0')
+	if (c == '\f' || c == '\r' || c == ' ')
 		return (1);
 	return (0);
 }
@@ -32,15 +32,22 @@ char	**add_token(char **splited, char *buff)
 int	chk_end_token(char *input, int *i, int *start)
 {
 	static int	type;
+	int			used;
 
 	if (*start == 0)
 	{
 		*start = 1;
+		used = 0;
 		type = assign_type(input[*i]);
+		while (type == 6)
+		{
+			*i = *i + 1;
+			type = assign_type(input[*i]);
+		}
 	}
-	if (continue_read(input[*i], type, *start))
-		return (1);
-	return (0);
+	if (!end_token(input[*i], type, *start, &used))
+		return (0);
+	return (1);
 }
 
 char	*read_token(char *input, int *i)
@@ -53,7 +60,7 @@ char	*read_token(char *input, int *i)
 	c = ft_calloc(sizeof(char), 2);
 	buff = ft_calloc(sizeof(char), 1);
 	start = 0;
-	while (!ft_isspace(input[*i]) && chk_end_token(input, i, &start))
+	while (input[*i] && !chk_end_token(input, i, &start))
 	{
 		c[0] = input[*i];
 		aux = buff;
@@ -75,20 +82,10 @@ char	**p_split(char *input)
 	tokens = ft_calloc(sizeof(char *), 1);
 	while (input[i])
 	{
-		if (!ft_isspace(input[i]))
-		{
-			buff = read_token(input, &i);
-			tokens = add_token(tokens, buff);
-			//free(buff);
-		}
-		else
-			i++;
+		buff = read_token(input, &i);
+		tokens = add_token(tokens, buff);
+		free(buff);
 	}
 	i = 0;
-	while (tokens[i])
-	{
-		ft_printf("%s\n", tokens[i]);
-		i++;
-	}
 	return (tokens);
 }

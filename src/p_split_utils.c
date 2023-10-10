@@ -12,27 +12,32 @@ int	assign_type(char c)
 		return (4);
 	else if (c == 39)
 		return (5);
+	else if (ft_isspace(c))
+		return (6);
 	else
 		return (0);
 }
 
-int	continue_read(char c, int type, int start)
+int	end_token(char c, int type, int start, int *used)
 {
-	static int	used;
+	int	new_type;
 
-	if (start == 0)
-		used = 0;
-	if (type == 1 && c == '<' && used == 0)
-		used++;
-	else if (type == 2 && c == '>' && used == 0)
-		used++;
-	else if (type == 3 && c == '|' && used == 0)
-		used++;
-	else if (type == 4 && c == '"')
-		used++;
-	else if (type == 5 && c == 39)
-		used++;
-	if (used <= 2)
-		return (1);
-	return (0);
+	new_type = assign_type(c);
+	if (type == new_type)
+	{
+		if (type == 1 && c == '<')
+			*used = *used + 1;
+		else if (type == 2 && c == '>')
+			*used = *used + 1;
+		else if (type == 3 && c == '|')
+			*used = *used + 1;
+		else if (type == 4 && c == '"')
+			*used = *used + 1;
+		else if (type == 5 && c == 39)
+			*used = *used + 1;
+		if (type >= 1 && type <= 5 && *used >= 2)
+			return (1);
+		return (0);
+	}
+	return (1);
 }

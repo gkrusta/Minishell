@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/10 16:58:11 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/10 23:02:45 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 
 // p_split.c
 char	**p_split(char *input);
+int		ft_isspace(char c);
 // p_split_utils.c
 int		assign_type(char c);
-int		continue_read(char c, int type, int start);
+int		end_token(char c, int type, int start, int *used);
 
 #endif

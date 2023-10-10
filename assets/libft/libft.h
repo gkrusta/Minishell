@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:21:13 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/09 13:23:15 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:46:44 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
 /* bonus functions */
-typedef struct s_list
+typedef struct		s_list
 {
-	int				value;
-	int				index;
+	void			*key;
+	void			*value;
 	struct s_list	*next;
 }					t_list;
 
-t_list	*ft_lstnew(int value);
+t_list	*ft_lstnew(void *key, void *value);
 void	ft_lstadd_front(t_list **lst, t_list *new_node);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);

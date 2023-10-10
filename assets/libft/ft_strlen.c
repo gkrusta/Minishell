@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:42:43 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/05/01 18:00:52 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/10 16:20:18 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 		i++;
 	return (i);
 }

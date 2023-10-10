@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/09 16:46:19 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/10 16:43:13 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,17 @@ typedef struct		s_cmd
 	struct s_cmd	*next; // apunta al siguiente commando
 }					t_cmd;
 
+// para guardar el path
+typedef struct		s_envp
+{
+	char			*key;
+	char			*value;
+	struct s_envp	*next;
+}					t_envp;
+
 typedef struct		s_shell
 {
-	char			*path; // va a guardar el path
+	t_list			*path; // va a guardar el path
 }					t_shell;
 
 #endif

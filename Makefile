@@ -6,14 +6,14 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/09 15:25:23 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/10/10 16:17:52 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = gcc -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
 REMOVE = rm -rf
 LREADLINE = -lreadline
 

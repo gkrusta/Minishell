@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	dbg_print_tokens(char **tokens)
+void	dbg_print_array_tokens(char **tokens)
 {
 	int	i;
 

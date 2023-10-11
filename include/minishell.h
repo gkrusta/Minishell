@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/10 16:43:13 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/11 12:57:44 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct		s_envp
 
 typedef struct		s_shell
 {
-	t_list			*path; // va a guardar el path
+	char			**env_copy; // copia de varibles entornos
+	t_list			*env_lst_copy;  // copia de varibles entornos
 }					t_shell;
 
 #endif

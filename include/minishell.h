@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/09 16:46:19 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/11 14:18:40 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 #include <readline/history.h>
 
 #include "../assets/libft/libft.h"
+#include "minishell_defines.h"
+#include "minishell_structs.h"
+
 
 // structura que va a tener cada commando despues de lexer
 typedef struct		s_cmd

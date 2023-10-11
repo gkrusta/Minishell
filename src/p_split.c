@@ -9,43 +9,43 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-char	**add_token(char **splited, char *buff)
+char	**add_token(char **tokens, char *buff)
 {
 	char	**aux;
 	int		i;
 
 	i = 0;
-	while (splited[i])
+	while (tokens[i])
 		i++;
-	aux = ft_calloc(sizeof(char *), i + 1);
+	aux = (char **)ft_calloc(sizeof(char *), i + 2);
 	i = 0;
-	while (splited[i])
+	while (tokens[i])
 	{
-		aux[i] = splited[i];
+		aux[i] = tokens[i];
 		i++;
 	}
 	aux[i] = buff;
-	//free(splited);
+	free(tokens);
 	return (aux);
 }
 
 int	chk_end_token(char *input, int *i, int *start)
 {
 	static int	type;
-	int			used;
+	static int	used;
 
 	if (*start == 0)
 	{
 		*start = 1;
 		used = 0;
 		type = assign_type(input[*i]);
-		while (type == 6)
+		while (input[*i] && type == 6)
 		{
 			*i = *i + 1;
 			type = assign_type(input[*i]);
 		}
 	}
-	if (!end_token(input[*i], type, *start, &used))
+	if (!end_token(input[*i], type, &used))
 		return (0);
 	return (1);
 }
@@ -65,10 +65,12 @@ char	*read_token(char *input, int *i)
 		c[0] = input[*i];
 		aux = buff;
 		buff = ft_strjoin(aux, c);
-		//free(c);
-		//free(aux);
+		free(aux);
 		*i = *i + 1;
 	}
+	free(c);
+	if (ft_strlen(buff) == 0)
+		return (NULL);
 	return (buff);
 }
 
@@ -76,16 +78,19 @@ char	**p_split(char *input)
 {
 	int		i;
 	char	**tokens;
+	char	**aux;
 	char	*buff;
 
 	i = 0;
-	tokens = ft_calloc(sizeof(char *), 1);
+	tokens = (char **)ft_calloc(sizeof(char *), 1);
+	while (input[i] && ft_isspace(input[i]))
+		i++;
 	while (input[i])
 	{
 		buff = read_token(input, &i);
-		tokens = add_token(tokens, buff);
-		free(buff);
+		if (buff)
+			aux = add_token(tokens, buff);
+		tokens = aux;
 	}
-	i = 0;
 	return (tokens);
 }

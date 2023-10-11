@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/10 22:15:58 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:09:36 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,7 @@ int main(int argc, char **argv, char **env)
 			tokens = p_split(input);
 		}
 		printf("added to history: %s\n", input);
-		while (tokens[i])
-		{
-			ft_printf("%s\n", tokens[i]);
-			i++;
-		}
+		dbg_print_array_tokens(tokens);
 		free(input);
 	}
 	return (0);

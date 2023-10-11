@@ -18,24 +18,26 @@ int	assign_type(char c)
 		return (0);
 }
 
-int	end_token(char c, int type, int start, int *used)
+int	end_token(char c, int type, int *used)
 {
 	int	new_type;
 
 	new_type = assign_type(c);
-	if (type == new_type)
+	if (type == new_type || type == 4 || type == 5)
 	{
+		if ((type == 4 || type == 5) && *used == 2)
+			return (1);
 		if (type == 1 && c == '<')
 			*used = *used + 1;
-		else if (type == 2 && c == '>')
+		if (type == 2 && c == '>')
 			*used = *used + 1;
-		else if (type == 3 && c == '|')
+		if (type == 3 && c == '|')
 			*used = *used + 1;
-		else if (type == 4 && c == '"')
+		if (type == 4 && c == '"')
 			*used = *used + 1;
-		else if (type == 5 && c == 39)
+		if (type == 5 && c == 39)
 			*used = *used + 1;
-		if (type >= 1 && type <= 5 && *used >= 2)
+		if (type >= 1 && type <= 3 && *used > 2)
 			return (1);
 		return (0);
 	}

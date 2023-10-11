@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/11 14:09:54 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:21:55 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/history.h>
+
+#include "../assets/libft/libft.h"
+#include "minishell_defines.h"
+#include "minishell_structs.h"
+
+
 
 # include "../assets/libft/libft.h"
 

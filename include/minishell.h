@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/11 12:57:44 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/11 16:58:18 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,25 @@ typedef struct		s_cmd
 }					t_cmd;
 
 // para guardar el path
-typedef struct		s_envp
+/* typedef struct		s_envp
 {
 	char			*key;
 	char			*value;
 	struct s_envp	*next;
-}					t_envp;
+}					t_envp; */
 
 typedef struct		s_shell
 {
 	char			**env_copy; // copia de varibles entornos
 	t_list			*env_lst_copy;  // copia de varibles entornos
 }					t_shell;
+
+/* p_env */
+char	*ft_strndup(const char *str, size_t len);
+char	**ft_strddup(const char **envp);
+void	create_env_lst(t_shell *shell, char **envp);
+void	print_env_variables(t_list *env);
+void	free_params(t_shell *shell);
+
 
 #endif

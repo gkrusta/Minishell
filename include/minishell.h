@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/11 16:58:18 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/12 12:55:12 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@
 #include <readline/history.h>
 
 #include "../assets/libft/libft.h"
+#include "minishell_defines.h"
+#include "minishell_structs.h"
+
+// mini_args.c
+void	mini_args(int argc, char *argv[], int *mode);
+// p_split.c
+char	**p_split(char *input);
+int		ft_isspace(char c);
+// p_split_utils.c
+int		assign_type(char c);
+int		end_token(char c, int type, int *used);
+// p_dbg_print.c
+void	dbg_print_array_tokens(char **tokens, int mode);
 
 // structura que va a tener cada commando despues de lexer
 typedef struct		s_cmd

@@ -6,11 +6,16 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/11 16:58:39 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/12 12:53:02 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_leaks(void)
+{
+	system("leaks -q minishell");
+}
 
 void	parse_env(t_shell *shell, char **envp)
 {
@@ -21,29 +26,31 @@ void	parse_env(t_shell *shell, char **envp)
 int main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	char	*username;
+	char	**tokens;
 	t_shell	*shell;
+	int		mode;
 
-	(void)argc;
-	(void)argv;
+	if (argc > 1)
+		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
-	//atexit(ft_leaks);
-	username = getenv("USER");
-	printf("\n\nUSER is: @%s\n", username); 
+	atexit(ft_leaks);
+	printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
 	while (1)
 	{
 		input = readline("minishell> ");
-		if (!input) // si usario hace un click a ctrl + d significa que readline ha devuelto NULL
-		{
-			printf("\n");
+		if (!input || !ft_strcmp(input, "exit")) // si usario hace un click a ctrl + d significa que readline ha devuelto NULL
 			break ; // exit shell
-		}
+			
 		if (strcmp(input, "env") == 0)
 			print_env_variables(shell->env_lst_copy);
 		if (ft_strlen(input) > 0)
+		{
 			add_history(input);
+			tokens = p_split(input);
+		}
 		printf("added to history: %s\n", input);
+		dbg_print_array_tokens(tokens, mode);
 		free(input);
 	}
 	free_params(shell);

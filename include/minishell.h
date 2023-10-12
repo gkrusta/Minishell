@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 15:30:22 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:54:06 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int		end_token(char c, int type, int *used);
 void	free_tokens(t_shell *shell);
 // p_dbg_print.c
 void	dbg_print_array_tokens(char **tokens, int mode);
-
+// b_export.c
+void	export(t_shell *shell, char **args);
+// b_export_utils.c
+void	free_arg(char *arg_key, char *arg_value);
 
 /* p_env */
 char	*ft_strndup(const char *str, size_t len);

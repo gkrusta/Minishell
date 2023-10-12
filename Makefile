@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
+#    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/12 12:53:58 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/10/12 18:31:55 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -g ##-fsanitize=address
+CC = gcc -g #-fsanitize=address
 CFLAGS = -Wall -Wextra -Werror 
 REMOVE = rm -rf
 LREADLINE = -lreadline
@@ -26,7 +26,9 @@ LIBFT_LIB_PATH = assets/libft/libft.a
 
 HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include
 
-SRC_FILES = minishell.c mini_args.c p_split.c p_split_utils.c p_dbg_print.c p_env.c
+SRC_FILES = minishell.c mini_args.c\
+			p_split.c p_split_utils.c p_dbg_print.c p_env.c\
+			b_export.c b_export_utils.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

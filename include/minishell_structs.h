@@ -13,8 +13,8 @@ typedef struct		s_cmd
 
 typedef struct		s_shell
 {
-	char			**env_copy; // copia de varibles entornos
-	t_list			*env_lst_copy;  // copia de varibles entornos
+	char			**env; // copia de varibles entornos
+	t_list			*env_lst;  // copia de varibles entornos
 	char			**tokens;
 }					t_shell;
 
@@ -26,4 +26,12 @@ typedef struct		s_shell
 	struct s_envp	*next;
 }					t_envp; */
 
+// estructura que hay en libft
+/*typedef struct		s_list
+{
+	void			*key;
+	void			*value;
+	struct s_list	*next;
+}					t_list;
+*/
 #endif

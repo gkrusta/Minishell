@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 13:15:47 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/12 14:57:30 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ void	parse_env(t_shell *shell, char **envp)
 int main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	char	**tokens;
 	t_shell	*shell;
 	int		mode;
-	int		i;
 
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
@@ -48,20 +46,14 @@ int main(int argc, char **argv, char **envp)
 		if (ft_strlen(input) > 0)
 		{
 			add_history(input);
-			tokens = p_split(input);
+			shell->tokens = p_split(input);
 			printf("added to history: %s\n", input);
 			free(input);
 		}
-		dbg_print_array_tokens(tokens, mode);
+		dbg_print_array_tokens(shell->tokens, mode);
 	}
 	free_params(shell);
-	i = 0;
-	while (tokens[i])
-	{
-		free(tokens[i]);
-		i++;
-	}
-	free(tokens);
+	
 	//free (input);
 	return (0);
 }

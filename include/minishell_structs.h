@@ -15,6 +15,7 @@ typedef struct		s_shell
 {
 	char			**env_copy; // copia de varibles entornos
 	t_list			*env_lst_copy;  // copia de varibles entornos
+	char			**tokens;
 }					t_shell;
 
 // para guardar el path

@@ -43,3 +43,16 @@ int	end_token(char c, int type, int *used)
 	}
 	return (1);
 }
+
+void	free_tokens(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->tokens[i])
+	{
+		free(shell->tokens[i]);
+		i++;
+	}
+	free(shell->tokens);
+}

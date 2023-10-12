@@ -13,8 +13,16 @@ typedef struct		s_cmd
 
 typedef struct		s_shell
 {
-	char			*path; // va a guardar el path
+	char			**env_copy; // copia de varibles entornos
+	t_list			*env_lst_copy;  // copia de varibles entornos
 }					t_shell;
 
+// para guardar el path
+/* typedef struct		s_envp
+{
+	char			*key;
+	char			*value;
+	struct s_envp	*next;
+}					t_envp; */
 
 #endif

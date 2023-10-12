@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/11 14:27:34 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/12 10:37:50 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 #include "minishell_defines.h"
 #include "minishell_structs.h"
 
-
+// mini_args.c
+void	mini_args(int argc, char *argv[]);
 // p_split.c
 char	**p_split(char *input);
 int		ft_isspace(char c);

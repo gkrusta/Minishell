@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/11 14:09:36 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/12 10:24:00 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int main(int argc, char **argv, char **env)
 	char	**tokens;
 	int		i;
 
-	(void)argc;
-	(void)argv;
+	if (argc > 1)
+		mini_args(argc, argv);
 	//atexit(ft_leaks);
 	username = getenv("USER");
 	printf("\n\nUSER is: @%s\n", username); 

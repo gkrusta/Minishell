@@ -6,7 +6,7 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/11 13:58:58 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/10/12 10:24:44 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBFT_LIB_PATH = assets/libft/libft.a
 
 HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include
 
-SRC_FILES = minishell.c p_split.c p_split_utils.c p_dbg_print.c
+SRC_FILES = minishell.c mini_args.c p_split.c p_split_utils.c p_dbg_print.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

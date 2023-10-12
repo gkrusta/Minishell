@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 12:53:02 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/12 13:15:47 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int main(int argc, char **argv, char **envp)
 	char	**tokens;
 	t_shell	*shell;
 	int		mode;
+	int		i;
 
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
@@ -48,11 +49,19 @@ int main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			tokens = p_split(input);
+			printf("added to history: %s\n", input);
+			free(input);
 		}
-		printf("added to history: %s\n", input);
 		dbg_print_array_tokens(tokens, mode);
-		free(input);
 	}
 	free_params(shell);
+	i = 0;
+	while (tokens[i])
+	{
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
+	//free (input);
 	return (0);
 }

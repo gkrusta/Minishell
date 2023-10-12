@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 14:57:30 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:30:47 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			shell->tokens = p_split(input);
+			dbg_print_array_tokens(shell->tokens, mode);
+			free_tokens(shell);
 			printf("added to history: %s\n", input);
 			free(input);
 		}
-		dbg_print_array_tokens(shell->tokens, mode);
 	}
 	free_params(shell);
-	
 	//free (input);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 12:56:29 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/12 15:30:22 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_isspace(char c);
 // p_split_utils.c
 int		assign_type(char c);
 int		end_token(char c, int type, int *used);
+void	free_tokens(t_shell *shell);
 // p_dbg_print.c
 void	dbg_print_array_tokens(char **tokens, int mode);
 

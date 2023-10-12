@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 14:56:44 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:25:10 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,5 @@ void	free_params(t_shell *shell)
 		free(tmp->value);
 		free(tmp);
 	}
-	i = 0;
-	while (shell->tokens[i])
-	{
-		free(shell->tokens[i]);
-		i++;
-	}
-	free(shell->tokens);
 	free(shell);
 }

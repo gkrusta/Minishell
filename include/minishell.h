@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/13 13:26:42 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/13 16:28:42 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	print_env_variables(t_list *env);
 void	free_params(t_shell *shell);
 
 /* $ */
-void	varible_search(t_shell *env_lst, char *var);
+int 	varible_search(t_list *env_lst, char **var);
 int		check_end(char *str, int pos);
 char	*after_dolor_sign(t_shell *shell, char *str, int i);
 char	*ft_concat(char *str, char *var, char *str_end, int *pos);
 char	*str_after_var(char *str, int pos);
 void	ft_token_check(t_shell *shell);
-
+//char *ft_concat(char *str, char *var, char *str_end);
 #endif

@@ -6,7 +6,7 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/12 12:53:58 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/10/13 13:27:13 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBFT_LIB_PATH = assets/libft/libft.a
 
 HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include
 
-SRC_FILES = minishell.c mini_args.c p_split.c p_split_utils.c p_dbg_print.c p_env.c
+SRC_FILES = minishell.c mini_args.c p_split.c p_split_utils.c p_dbg_print.c p_env.c p_dollor_sign.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

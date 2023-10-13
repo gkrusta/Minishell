@@ -6,54 +6,51 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/13 10:24:42 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/13 13:29:45 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_leaks(void)
+/* void ft_leaks(void)
 {
 	system("leaks -q minishell");
-}
+} */
 
-void	parse_env(t_shell *shell, char **envp)
-{
-	shell->env = ft_strddup((const char **)envp);
-	create_env_lst(shell, envp);
-}
-
-int main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **env)
 {
 	char	*input;
-	t_shell	*shell;
-	int		mode;
+	char	*username;
+	char	**tokens;
+	int		i;
 
-	if (argc > 1)
-		mini_args(argc, argv, &mode);
-	shell = malloc(sizeof(t_shell));
-	atexit(ft_leaks);
-	printf("\n\nUSER is: @%s\n", getenv("USER"));
-	parse_env(shell, envp);
+	(void)argc;
+	(void)argv;
+	//atexit(ft_leaks);
+	username = getenv("USER");
+	printf("\n\nUSER is: @%s\n", username); 
 	while (1)
 	{
 		input = readline("minishell> ");
-		if (!input || !ft_strcmp(input, "exit")) // si usario hace un click a ctrl + d significa que readline ha devuelto NULL
-			break ; // exit shell
-			
-		if (strcmp(input, "env") == 0)
-			print_env_variables(shell->env_lst);
-		if (ft_strlen(input) > 0)
+		if (!input) // si usario hace un click a ctrl + d significa que readline ha devuelto NULL
 		{
-			add_history(input);
-			shell->tokens = p_split(input);
-			dbg_print_array_tokens(shell->tokens, mode);
-			free_tokens(shell);
-			printf("added to history: %s\n", input);
-			free(input);
+			printf("\n");
+			break ; // exit shell
 		}
+		if (strcmp(input, "env") == 0) // imprime el path
+		{
+			i = 0;
+			while (env[i])
+			{
+				printf("%s\n", env[i]);
+				i++;
+			}
+		}
+		if (strcmp(input, "test") == 0)
+			ft_token_check(tokens);
+		printf("added to history: %s\n", input);
+		dbg_print_array_tokens(tokens);
+		free(input);
 	}
-	free_params(shell);
-	//free (input);
 	return (0);
 }

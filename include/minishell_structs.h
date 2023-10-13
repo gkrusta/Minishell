@@ -13,8 +13,8 @@ typedef struct		s_cmd
 
 typedef struct		s_shell
 {
-	char			**env_copy; // copia de varibles entornos
-	t_list			*env_lst_copy;  // copia de varibles entornos
+	char			**env; // copia de varibles entornos
+	t_list			*env_lst;  // copia de varibles entornos
 	char			**tokens;
 }					t_shell;
 

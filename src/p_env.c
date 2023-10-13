@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 15:25:10 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/13 10:24:33 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,24 @@ char	*ft_strndup(const char *str, size_t len)
 char	**ft_strddup(const char **envp)
 {
 	int		i;
-	char	**env_copy;
+	char	**env;
 
 	i = 0;
 	if (envp == NULL)
 		return (NULL);
 	while(envp[i] != NULL)
 		i++;
-	env_copy = malloc(sizeof(char *) * (i + 1));
-	if (!env_copy)
+	env = malloc(sizeof(char *) * (i + 1));
+	if (!env)
 		return (0);
 	i = 0;
 	while (envp[i])
 	{
-		env_copy[i] = ft_strdup(envp[i]);
+		env[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	env_copy[i] = NULL;
-	return (env_copy);
+	env[i] = NULL;
+	return (env);
 }
 
 void	create_env_lst(t_shell *shell, char **envp)
@@ -70,7 +70,7 @@ void	create_env_lst(t_shell *shell, char **envp)
 			key = ft_strndup((const char *)envp[i], limiter - envp[i]);
 			value = ft_strdup(limiter + 1);
 			env = ft_lstnew(key, value);
-			ft_lstadd_back(&(shell->env_lst_copy), env);
+			ft_lstadd_back(&(shell->env_lst), env);
 			free(key);
 			free(value);
 		}
@@ -96,13 +96,13 @@ void	free_params(t_shell *shell)
 	t_list	*tmp;
 
 	i = 0;
-	while (shell->env_copy[i] != NULL)
-		free(shell->env_copy[i++]);
-	free(shell->env_copy);
-	while (shell->env_lst_copy)
+	while (shell->env[i] != NULL)
+		free(shell->env[i++]);
+	free(shell->env);
+	while (shell->env_lst)
 	{
-		tmp = shell->env_lst_copy;
-		shell->env_lst_copy = shell->env_lst_copy->next;
+		tmp = shell->env_lst;
+		shell->env_lst = shell->env_lst->next;
 		free(tmp->key);
 		free(tmp->value);
 		free(tmp);

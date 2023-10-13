@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 15:30:47 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/13 10:24:42 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_leaks(void)
 
 void	parse_env(t_shell *shell, char **envp)
 {
-	shell->env_copy = ft_strddup((const char **)envp);
+	shell->env = ft_strddup((const char **)envp);
 	create_env_lst(shell, envp);
 }
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv, char **envp)
 			break ; // exit shell
 			
 		if (strcmp(input, "env") == 0)
-			print_env_variables(shell->env_lst_copy);
+			print_env_variables(shell->env_lst);
 		if (ft_strlen(input) > 0)
 		{
 			add_history(input);

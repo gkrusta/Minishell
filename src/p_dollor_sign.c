@@ -105,7 +105,7 @@ char	*after_dolor_sign(t_shell *shell, char *str)
 }
 
 // to detect "$" character in a token
-void	ft_token_check(t_shell *shell, char **tokens)
+void	ft_token_check(t_shell *shell)
 {
 	int			i;
 	int			j;

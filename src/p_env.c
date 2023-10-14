@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 17:58:03 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/14 11:00:07 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	print_env_variables(t_list *env)
 	env_print = env;
 	while (env_print != NULL)
 	{
-		printf("%s=%s\n", env_print->key, env_print->value);
+		printf("%s=%s\n", (char *)env_print->key, (char *)env_print->value);
 		env_print = env_print->next;
 	}
 }

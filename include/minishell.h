@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/13 16:28:42 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:41:48 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,10 @@ char	*ft_concat(char *str, char *var, char *str_end, int *pos);
 char	*str_after_var(char *str, int pos);
 void	ft_token_check(t_shell *shell);
 //char *ft_concat(char *str, char *var, char *str_end);
+
+/* trim "" '' */
+int	ft_trim(t_shell *shell);
+char *trim_quotes(char *str);
+int	pair_exists(char *str, char c);
+
 #endif

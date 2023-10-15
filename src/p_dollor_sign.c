@@ -30,42 +30,6 @@ int	check_end(char *str, int pos)
 	exit (1);
 }
 
-/* char	*after_dolor_sign(t_shell *shell, char *str, int i)
-{
-	int		j;
-	int		save;
-	char	*var;
-
-	i++;
-	save = i;
-	j = 0;
-	while (str[i])
-	{
-		if (!(str[i] > 47 && str[i] < 58) || !(str[i] > 64 && str[i] < 91)
-			|| !(str[i] > 96 && str[i] < 123) || !(str[i] == 95))
-				break ;
-		i++;
-	}
-	var = malloc(sizeof(char) * (i - save + 1));
-	i = save;
-	while (save > j)
-	{
-		var[j] = str[i];
-		i++;
-		j++;
-		save--;
-	}
-	var[j] = '\0';
-	printf("!!!!!!!!!! value at the begging is %s\n", var);
-	if (varible_search(shell->env_lst, &var) == 0)
-	{
-		//printf("shit explodes\n");
-		return (var);
-	}
-	else
-		return NULL;
-} */
-
 char	*after_dolor_sign(t_shell *shell, char *str, int i)
 {
 	int j = i;
@@ -93,117 +57,68 @@ char	*str_after_var(char *str, int pos)
 
 	//pos++;
 	while (str[pos] && (ft_isalnum(str[pos]) != 0 || str[pos] == '_'))
-	{
 		pos++;
-	}
 	str_end = ft_substr(str, pos, ft_strlen(str) - pos + 1);
 	return (str_end);
 }
 
-// to detect "$" character in a token
-/* void	ft_token_check(t_shell *shell)
-{
-	int		i;
-	int		j;
-	char	*var = NULL;
-	char	*str_end = NULL;
-
-	i = 0;
-	while (shell->tokens[i])
-	{
-		j = 0;
-		while (shell->tokens[i][j])
-		{
-			if (shell->tokens[i][j] == 34 && shell->tokens[i][j + 1] != 34 && check_end(shell->tokens[i], j) != 1)
-			{
-				while (shell->tokens[i][j])
-				{
-					j++;
-					if (ft_strchr(shell->tokens[i], '$') != NULL)
-					{
-						str_end = str_after_var(shell->tokens[i], j);
-						//printf("shit explodes\n");
-						var = after_dolor_sign(shell, shell->tokens[i], j);
-						if (var)
-						{
-							shell->tokens[i] = ft_concat(shell->tokens[i], var, str_end, &j);
-							break ;
-						}
-						else
-							printf("not found\n");
-					}
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-} */
-/* char *ft_concat(char *str, char *var, char *str_end)
-{
-	char *new_token = ft_strjoin(str, var);
-	new_token = ft_strjoin(new_token, str_end);
-	free(str);
-	free(var);
-	free(str_end);
-	return (new_token);
-} */
-/* 
 char	*ft_concat(char *str, char *var, char *str_end, int *pos)
 {
-	printf("after %s %s str end is: %s\n", str, var, str_end);
-	char	*before_str = ft_strndup((const char *)str, (size_t)pos);
-	//int		before_var_len = strlen(before_str);
-	char	*new_str = ft_strjoin(before_str, var);
+	//printf("after %s  var %s    str end is: %s\n", str, var, str_end);
+	char	*before_str;
+	char	*new_str;
+	char *new_token;
+
+	before_str = ft_strndup((const char *)str, (size_t)*pos);
+	new_str = ft_strjoin(before_str, var);
 	*pos = ft_strlen(new_str);
 	free(before_str);
 	free(var);
-	char *new_token = ft_strjoin(new_str, str_end);
+	new_token = ft_strjoin(new_str, str_end);
 	free(new_str);
-	free (str);
-	return (new_token);
-} */
-
-char	*ft_concat(char *str, char *var, char *str_end, int *pos)
-{
-	char *before_str = ft_strndup((const char *)str, (size_t)(*pos));
-	char *new_str = ft_strjoin(before_str, var);
-	free(before_str);
-	char *new_token = ft_strjoin(new_str, str_end);
 	free(str);
-	free(var);
-	free(str_end);
-	*pos = ft_strlen(new_token);
 	return (new_token);
 }
 
+int is_inside_quotes(char *str, int pos)
+{
+	int inside_quotes;
+	int	i;
+
+	inside_quotes = 0;
+	i = 0;
+	while  (i < pos)
+	{
+		if (str[i] == '"')
+			inside_quotes = 1;
+		i++;
+	}
+	return (inside_quotes);
+}
 
 // Modify your ft_token_check function as follows:
-void ft_token_check(t_shell *shell)
+void	ft_token_check(t_shell *shell)
 {
 	int i = 0;
-
+	int inside_quotes = 0;
 	while (shell->tokens[i])
 	{
 		int j = 0;
 		while (shell->tokens[i][j])
 		{
-			printf("12\n");
-			if (shell->tokens[i][j] == '$' && shell->tokens[i][j + 1] != '\0')
+			printf("j is %c\n", shell->tokens[i][j]);
+			if (shell->tokens[i][j] == '"')
+				inside_quotes = 1; // Toggle the flag for double quotes
+			else if (shell->tokens[i][j] == '$' && is_inside_quotes(shell->tokens[i], j) == 1)
 			{
 				char *str_end = str_after_var(shell->tokens[i], j + 1);
-				printf("str_end is %s\n", str_end);
 				char *var = after_dolor_sign(shell, shell->tokens[i], j + 1);
 				if (var)
-				{
-					printf("before %s\n", shell->tokens[i]);
 					shell->tokens[i] = ft_concat(shell->tokens[i], var, str_end, &j);
-					printf("after %s\n", shell->tokens[i]);
-					break ;
-				}
 				else
 				{
 					printf("!!\n");
+					// write '\0'
 					j += ft_strlen(str_end) - 1;
 				}
 			}

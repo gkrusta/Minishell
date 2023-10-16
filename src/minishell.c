@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 12:56:38 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:23:04 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			if (strcmp(shell->tokens[0], "export") == 0)
 				export(shell, &shell->tokens[1]);
+			if (strcmp(shell->tokens[0], "unset") == 0)
+				unset(shell, &shell->tokens[1]);
 			free_tokens(shell);
 		}
 	}

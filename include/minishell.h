@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 13:54:30 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/16 15:58:14 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,13 @@ int		end_token(char c, int type, int *used);
 void	free_tokens(t_shell *shell);
 // p_dbg_print.c
 void	dbg_print_array_tokens(char **tokens, int mode);
-
+// b_export.c
+void	export(t_shell *shell, char **args);
+// b_export_utils.c
+void	free_arg(t_list *new_arg);
+void	export_empty(t_shell *shell);
+// b_export_utils_b.c
+int		check_key(char *key, int print);
 
 /* p_env */
 char	*ft_strndup(const char *str, size_t len);

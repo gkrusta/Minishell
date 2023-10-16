@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 10:52:29 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/16 15:56:01 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**ft_strddup(const char **envp)
 	i = 0;
 	if (envp == NULL)
 		return (NULL);
-	while(envp[i] != NULL)
+	while (envp[i] != NULL)
 		i++;
 	env = malloc(sizeof(char *) * (i + 1));
 	if (!env)
@@ -71,6 +71,7 @@ void	create_env_lst(t_shell *shell, char **envp)
 			value = ft_strdup(limiter + 1);
 			//env_print.init = 1;
 			env = ft_lstnew(key, value);
+			env->init = 1;
 			ft_lstadd_back(&(shell->env_lst), env);
 			free(key);
 			free(value);
@@ -86,7 +87,7 @@ void	print_env_variables(t_list *env)
 	env_print = env;
 	while (env_print != NULL) // env_print.init > 0
 	{
-		printf("%s=%s\n", env_print->key, env_print->value);
+		printf("%s=%s\n", (char *)env_print->key, (char *)env_print->value);
 		env_print = env_print->next;
 	}
 }

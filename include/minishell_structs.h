@@ -26,4 +26,12 @@ typedef struct		s_shell
 	struct s_envp	*next;
 }					t_envp; */
 
+// estructura que hay en libft
+/*typedef struct		s_list
+{
+	void			*key;
+	void			*value;
+	struct s_list	*next;
+}					t_list;
+*/
 #endif

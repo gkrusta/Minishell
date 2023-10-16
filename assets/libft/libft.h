@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:21:13 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 15:38:27 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/16 15:56:58 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct		s_list
 {
 	void			*key;
 	void			*value;
+	int				init;
 	struct s_list	*next;
 }					t_list;
 

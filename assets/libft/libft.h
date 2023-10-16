@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:21:13 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/12 20:23:07 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:53:23 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct		s_list
 {
 	void			*key;
 	void			*value;
+	int				init;
 	struct s_list	*next;
 }					t_list;
 

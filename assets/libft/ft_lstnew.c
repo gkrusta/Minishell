@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 19:01:07 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/11 16:21:04 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/16 12:41:26 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_list	*ft_lstnew(void *key, void *value)
 		return (NULL);
 	new_node->key = strdup(key);
 	new_node->value = strdup(value);
+	new_node->init = 0;
 	new_node->next = NULL;
 	return (new_node);
 }

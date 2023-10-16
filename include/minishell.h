@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/14 15:01:46 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/16 13:58:33 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ void	dbg_print_array_tokens(char **tokens, int mode);
 // b_export.c
 void	export(t_shell *shell, char **args);
 // b_export_utils.c
-void	free_arg(char *arg_key, char *arg_value);
+void	free_arg(t_list *new_arg);
 void	export_empty(t_shell *shell);
+// b_export_utils_b.c
+int		check_key(char *key, int print);
 
 /* p_env */
 char	*ft_strndup(const char *str, size_t len);

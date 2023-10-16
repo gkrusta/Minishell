@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/14 11:00:07 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:48:12 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	create_env_lst(t_shell *shell, char **envp)
 			key = ft_strndup((const char *)envp[i], limiter - envp[i]);
 			value = ft_strdup(limiter + 1);
 			env = ft_lstnew(key, value);
+			env->init = 1;
 			ft_lstadd_back(&(shell->env_lst), env);
 			free(key);
 			free(value);

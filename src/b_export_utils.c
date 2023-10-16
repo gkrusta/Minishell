@@ -1,11 +1,13 @@
 #include "minishell.h"
 
-void	free_arg(char *arg_key, char *arg_value)
+void	free_arg(t_list *new_arg)
 {
-	if (arg_key)
-		free(arg_key);
-	if (arg_value)
-		free(arg_value);
+	if (new_arg->key)
+		free(new_arg->key);
+	if (new_arg->value)
+		free(new_arg->value);
+	if (new_arg)
+		free(new_arg);
 }
 
 void	sort_array(char **str_array, int lst_size)
@@ -29,7 +31,7 @@ void	sort_array(char **str_array, int lst_size)
 	}
 }
 
-char	*write_line(char *str1, char *str2, int len)
+char	*write_line(char *str1, char *str2, int len, int init)
 {
 	int		i;
 	int		j;
@@ -42,8 +44,11 @@ char	*write_line(char *str1, char *str2, int len)
 		res[i] = str1[i];
 		i++;
 	}
-	res[i] = '=';
-	res[i + 1] = '"';
+	if (init)
+	{
+		res[i] = '=';
+		res[i + 1] = '"';
+	}
 	i += 2;
 	j = 0;
 	while (str2[j])
@@ -52,7 +57,8 @@ char	*write_line(char *str1, char *str2, int len)
 		j++;
 		i++;
 	}
-	res[i] = '"';
+	if (init)
+		res[i] = '"';
 	return (res);
 }
 
@@ -61,6 +67,7 @@ char	**fill_str_array(t_list *env_lst, int *lst_size)
 	char	**str_array;
 	int		i;
 	int		len;
+	int		init;
 
 	i = 0;
 	*lst_size = ft_lstsize(env_lst);
@@ -68,7 +75,8 @@ char	**fill_str_array(t_list *env_lst, int *lst_size)
 	while (i < *lst_size)
 	{
 		len = (ft_strlen(env_lst->key) + ft_strlen(env_lst->value) + 4);
-		str_array[i] = write_line(env_lst->key, env_lst->value, len);
+		init = env_lst->init;
+		str_array[i] = write_line(env_lst->key, env_lst->value, len, init);
 		env_lst = env_lst->next;
 		i++;
 	}
@@ -88,6 +96,7 @@ void	export_empty(t_shell *shell)
 	while (str_array[i])
 	{
 		printf("declare -x %s\n", str_array[i]);
+		free(str_array[i]);
 		i++;
 	}
 	free (str_array);

@@ -6,16 +6,16 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/14 21:05:45 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:56:38 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*void	ft_leaks(void)
+void	ft_leaks(void)
 {
 	system("leaks -q minishell");
-}*/
+}
 
 void	parse_env(t_shell *shell, char **envp)
 {
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
-	//atexit(ft_leaks);
+	atexit(ft_leaks);
 	printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
 	while (1)
@@ -55,6 +55,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	free_params(shell);
-	//free (input);
+	free (input);
 	return (0);
 }

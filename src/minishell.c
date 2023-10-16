@@ -6,16 +6,11 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 15:23:04 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:20:21 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_leaks(void)
-{
-	system("leaks -q minishell");
-}
 
 void	parse_env(t_shell *shell, char **envp)
 {
@@ -23,7 +18,12 @@ void	parse_env(t_shell *shell, char **envp)
 	create_env_lst(shell, envp);
 }
 
-int	main(int argc, char **argv, char **envp)
+void	ft_leaks(void)
+{
+	system("leaks -q minishell");
+}
+
+int main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_shell	*shell;
@@ -46,6 +46,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			shell->tokens = p_split(input);
+			ft_trim(shell);
 			dbg_print_array_tokens(shell->tokens, mode);
 			printf("added to history: %s\n", input);
 			free(input);

@@ -3,7 +3,7 @@
 int	varible_search(t_list *env_lst, char **var, int flag)
 {
 	if (env_lst == NULL)
-		return 1;  // Env list is empty
+		return (1);  // Env list is empty
 	while (env_lst->next != NULL && flag == 0)
 	{
 		if (strcmp(*var, env_lst->key) == 0)
@@ -15,19 +15,6 @@ int	varible_search(t_list *env_lst, char **var, int flag)
 		env_lst = env_lst->next;
 	}
 	return (0);
-}
-
-int	check_end(char *str, int pos)
-{
-	pos++;
-	while (str[pos])
-	{
-		if (str[pos] == 34)
-			return (0);
-		pos++;
-	}
-	printf("error\n");
-	exit (1);
 }
 
 char	*after_dolor_sign(t_shell *shell, char *str, int i)
@@ -55,7 +42,6 @@ char	*after_dolor_sign(t_shell *shell, char *str, int i)
 	var = ft_substr(str, start, i - start);
 	varible_search(shell->env_lst, &var, flag);
 	return (var);
-	//printf("var after dup is %s\n", var);
 }
 
 char	*str_after_var(char *str, int pos)
@@ -85,21 +71,20 @@ char	*ft_concat(char *str, char *var, char *str_end, int *pos)
 	return (new_token);
 }
 
-// Modify your ft_token_check function as follows:
 void	ft_token_check(t_shell *shell, char *str, int i)
 {
-	int	j;
+	int		j;
+	char	*str_end;
+	char	*var;
 
 	str = shell->tokens[i];
 	j = 0;
 	while (shell->tokens[i][j])
 	{
-		//printf("j is %c\n", shell->tokens[i][j]);
 		if (shell->tokens[i][j] == '$')
 		{
-			char *str_end = str_after_var(shell->tokens[i], j + 1);
-			//printf("str end %s\n", str_end);
-			char *var = after_dolor_sign(shell, shell->tokens[i], j + 1);
+			str_end = str_after_var(shell->tokens[i], j + 1);
+			var = after_dolor_sign(shell, shell->tokens[i], j + 1);
 			if (var)
 				shell->tokens[i] = ft_concat(shell->tokens[i], var, str_end, &j);
 			else

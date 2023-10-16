@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 13:17:51 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/16 15:37:28 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
-	//atexit(ft_leaks);
+	atexit(ft_leaks);
 	printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
 	while (1)
@@ -37,8 +37,6 @@ int	main(int argc, char **argv, char **envp)
 			break ; // exit shell
 		if (strcmp(input, "env") == 0)
 			print_env_variables(shell->env_lst);
-/* 		if (strcmp(input, "export") == 0)
-			export(shell, pablo); */
 		if (ft_strlen(input) > 0)
 		{
 			add_history(input);

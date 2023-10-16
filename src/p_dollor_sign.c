@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-int	varible_search(t_list *env_lst, char **var)
+int	varible_search(t_list *env_lst, char **var, int flag)
 {
 	if (env_lst == NULL)
 		return 1;  // Env list is empty
-	while (env_lst->next != NULL)
+	while (env_lst->next != NULL && flag == 0)
 	{
 		if (strcmp(*var, env_lst->key) == 0)
 		{
@@ -14,7 +14,7 @@ int	varible_search(t_list *env_lst, char **var)
 		}
 		env_lst = env_lst->next;
 	}
-	return (1);
+	return (0);
 }
 
 int	check_end(char *str, int pos)
@@ -32,30 +32,36 @@ int	check_end(char *str, int pos)
 
 char	*after_dolor_sign(t_shell *shell, char *str, int i)
 {
-	int j = i;
+	int		start;
+	char	*var;
+	int		flag;
 
-	while (str[j] && (ft_isalnum(str[j]) || str[j] == '_')) {
-		j++;
-	}
-	char *var = ft_substr(str, i, j - i);
-	//printf("!!!!!!!!!! value at the begging is %s\n", var);
-	if (varible_search(shell->env_lst, &var) == 0)
+
+	start = i;
+	flag = 0;
+	if (str[i] == ' ' || str[i] == '\0')
 	{
-		//printf("var after dup is %s\n", var);
+		var = ft_strdup("$");
 		return (var);
 	}
-	else
+	if (str[i] >= '0' && str[i] <= '9')
 	{
-		free(var);
-		return NULL;
+		i++;
+		start++;
+		flag = 1;
 	}
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+		i++;
+	var = ft_substr(str, start, i - start);
+	varible_search(shell->env_lst, &var, flag);
+	return (var);
+	//printf("var after dup is %s\n", var);
 }
 
 char	*str_after_var(char *str, int pos)
 {
 	char	*str_end;
 
-	//pos++;
 	while (str[pos] && (ft_isalnum(str[pos]) != 0 || str[pos] == '_'))
 		pos++;
 	str_end = ft_substr(str, pos, ft_strlen(str) - pos + 1);
@@ -64,10 +70,9 @@ char	*str_after_var(char *str, int pos)
 
 char	*ft_concat(char *str, char *var, char *str_end, int *pos)
 {
-	//printf("after %s  var %s    str end is: %s\n", str, var, str_end);
 	char	*before_str;
 	char	*new_str;
-	char *new_token;
+	char	*new_token;
 
 	before_str = ft_strndup((const char *)str, (size_t)*pos);
 	new_str = ft_strjoin(before_str, var);
@@ -80,50 +85,26 @@ char	*ft_concat(char *str, char *var, char *str_end, int *pos)
 	return (new_token);
 }
 
-int is_inside_quotes(char *str, int pos)
-{
-	int inside_quotes;
-	int	i;
-
-	inside_quotes = 0;
-	i = 0;
-	while  (i < pos)
-	{
-		if (str[i] == '"')
-			inside_quotes = 1;
-		i++;
-	}
-	return (inside_quotes);
-}
-
 // Modify your ft_token_check function as follows:
-void	ft_token_check(t_shell *shell)
+void	ft_token_check(t_shell *shell, char *str, int i)
 {
-	int i = 0;
-	int inside_quotes = 0;
-	while (shell->tokens[i])
+	int	j;
+
+	str = shell->tokens[i];
+	j = 0;
+	while (shell->tokens[i][j])
 	{
-		int j = 0;
-		while (shell->tokens[i][j])
+		//printf("j is %c\n", shell->tokens[i][j]);
+		if (shell->tokens[i][j] == '$')
 		{
-			printf("j is %c\n", shell->tokens[i][j]);
-			if (shell->tokens[i][j] == '"')
-				inside_quotes = 1; // Toggle the flag for double quotes
-			else if (shell->tokens[i][j] == '$' && is_inside_quotes(shell->tokens[i], j) == 1)
-			{
-				char *str_end = str_after_var(shell->tokens[i], j + 1);
-				char *var = after_dolor_sign(shell, shell->tokens[i], j + 1);
-				if (var)
-					shell->tokens[i] = ft_concat(shell->tokens[i], var, str_end, &j);
-				else
-				{
-					printf("!!\n");
-					// write '\0'
-					j += ft_strlen(str_end) - 1;
-				}
-			}
-			j++;
+			char *str_end = str_after_var(shell->tokens[i], j + 1);
+			//printf("str end %s\n", str_end);
+			char *var = after_dolor_sign(shell, shell->tokens[i], j + 1);
+			if (var)
+				shell->tokens[i] = ft_concat(shell->tokens[i], var, str_end, &j);
+			else
+				printf("Error: var");
 		}
-		i++;
+		j++;
 	}
 }

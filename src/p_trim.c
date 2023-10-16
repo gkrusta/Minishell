@@ -38,11 +38,9 @@ char *trim_quotes(char *str)
 		len = pair_exists(str, 39);
 		if (len > 0)
 			result = ft_substr(str, 1, len);
-		printf("len s %d    result is %s\n", len, result);
 	}
 	else
 		result = ft_strdup("");
-	printf(" result is %s\n", result);
 	free (str);
 	return (result);
 }
@@ -55,9 +53,14 @@ int	ft_trim(t_shell *shell)
 	i = 0;
 	while (shell->tokens[i])
 	{
-		if (shell->tokens[i][0] == 34)
-			ft_token_check(shell->tokens[i]);
-		else if (shell->tokens[i][0] == 39)
+		if (shell->tokens[i][0] == '$')
+			ft_token_check(shell, shell->tokens[i], i);
+		else if (shell->tokens[i][0] == 34 && pair_exists(shell->tokens[i], 34))
+		{
+			ft_token_check(shell, shell->tokens[i], i);
+			shell->tokens[i] = trim_quotes(shell->tokens[i]);
+		}
+		else if (shell->tokens[i][0] == 39 && pair_exists(shell->tokens[i], 39))
 			shell->tokens[i] = trim_quotes(shell->tokens[i]);
 		i++;
 	}

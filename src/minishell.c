@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/15 19:03:56 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/16 13:17:51 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			shell->tokens = p_split(input);
-			//ft_trim(shell);
-			//ft_token_check(shell);
+			ft_trim(shell);
 			dbg_print_array_tokens(shell->tokens, mode);
 			free_tokens(shell);
 			printf("added to history: %s\n", input);

@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/15 17:41:48 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/16 13:54:30 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ void	print_env_variables(t_list *env);
 void	free_params(t_shell *shell);
 
 /* $ */
-int 	varible_search(t_list *env_lst, char **var);
+int 	varible_search(t_list *env_lst, char **var, int flag);
 int		check_end(char *str, int pos);
 char	*after_dolor_sign(t_shell *shell, char *str, int i);
 char	*ft_concat(char *str, char *var, char *str_end, int *pos);
 char	*str_after_var(char *str, int pos);
-void	ft_token_check(t_shell *shell);
-//char *ft_concat(char *str, char *var, char *str_end);
+void	ft_token_check(t_shell *shell, char *str, int i);
+int		is_inside_quotes(char *str, int pos);
 
 /* trim "" '' */
-int	ft_trim(t_shell *shell);
-char *trim_quotes(char *str);
-int	pair_exists(char *str, char c);
+int		ft_trim(t_shell *shell);
+char	*trim_quotes(char *str);
+int		pair_exists(char *str, char c);
 
 #endif

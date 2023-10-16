@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 12:48:12 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:59:36 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,24 @@ char	*ft_strndup(const char *str, size_t len)
 char	**ft_strddup(const char **envp)
 {
 	int		i;
-	char	**env_copy;
+	char	**env;
 
 	i = 0;
 	if (envp == NULL)
 		return (NULL);
 	while (envp[i] != NULL)
 		i++;
-	env_copy = malloc(sizeof(char *) * (i + 1));
-	if (!env_copy)
+	env = malloc(sizeof(char *) * (i + 1));
+	if (!env)
 		return (0);
 	i = 0;
 	while (envp[i])
 	{
-		env_copy[i] = ft_strdup(envp[i]);
+		env[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	env_copy[i] = NULL;
-	return (env_copy);
+	env[i] = NULL;
+	return (env);
 }
 
 void	create_env_lst(t_shell *shell, char **envp)
@@ -84,7 +84,7 @@ void	print_env_variables(t_list *env)
 	t_list	*env_print;
 
 	env_print = env;
-	while (env_print != NULL)
+	while (env_print != NULL && env_print->init > 0)
 	{
 		printf("%s=%s\n", (char *)env_print->key, (char *)env_print->value);
 		env_print = env_print->next;

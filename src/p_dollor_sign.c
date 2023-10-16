@@ -23,7 +23,6 @@ char	*after_dolor_sign(t_shell *shell, char *str, int i)
 	char	*var;
 	int		flag;
 
-
 	start = i;
 	flag = 0;
 	if (str[i] == ' ' || str[i] == '\0')
@@ -67,6 +66,7 @@ char	*ft_concat(char *str, char *var, char *str_end, int *pos)
 	free(var);
 	new_token = ft_strjoin(new_str, str_end);
 	free(new_str);
+	free(str_end);
 	free(str);
 	return (new_token);
 }

@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 15:37:28 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/16 15:50:00 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	parse_env(t_shell *shell, char **envp)
 {
 	shell->env = ft_strddup((const char **)envp);
 	create_env_lst(shell, envp);
+}
+
+void	ft_leaks(void)
+{
+	system("leaks -q minishell");
 }
 
 int	main(int argc, char **argv, char **envp)

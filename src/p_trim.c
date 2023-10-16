@@ -41,7 +41,7 @@ char *trim_quotes(char *str)
 	}
 	else
 		result = ft_strdup("");
-	free (str);
+	free(str);
 	return (result);
 }
 

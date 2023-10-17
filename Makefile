@@ -6,7 +6,7 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/17 09:39:55 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/10/17 12:39:00 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,10 @@ HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include
 
 SRC_FILES = minishell.c mini_args.c \
 			p_split.c p_split_utils.c p_dbg_print.c \
-			p_env.c b_export.c b_export_utils.c b_export_utils_b.c \
+			b_export.c b_export_utils.c b_export_utils_b.c \
 			p_dollar_sign.c p_trim.c \
-			b_unset.c
+			b_env.c b_unset.c \
+			e_exec_inputs.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

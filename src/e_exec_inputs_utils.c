@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+void	free_str_list(char **str_list)
+{
+	int		i;
+
+	i = 0;
+	while (str_list[i])
+	{
+		free(str_list[i]);
+		i++;
+	}
+	free(str_list);
+}
+
 char	*find_path(char *command, char **envp)
 {
 	char	**path_list;
@@ -27,4 +40,18 @@ char	*find_path(char *command, char **envp)
 	}
 	free_str_list(path_list);
 	return (0);
+}
+
+int	is_in_path(t_shell *shell, char *str)
+{
+	char	*aux;
+
+	aux = find_path(str, shell->env_lst);
+	if (aux)
+	{
+		free(aux);
+		return (1);
+	}
+	else
+		return (0);
 }

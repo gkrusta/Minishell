@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 16:20:21 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:56:15 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_leaks(void)
 	system("leaks -q minishell");
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_shell	*shell;
@@ -38,24 +38,10 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		input = readline("minishell> ");
-		if (!input || !ft_strcmp(input, "exit")) // si usario hace un click a ctrl + d significa que readline ha devuelto NULL
-			break ; // exit shell
-		if (strcmp(input, "env") == 0)
-			print_env_variables(shell->env_lst);
+		if (!input || !ft_strcmp(input, "exit"))
+			break ;
 		if (ft_strlen(input) > 0)
-		{
-			add_history(input);
-			shell->tokens = p_split(input);
-			ft_trim(shell);
-			dbg_print_array_tokens(shell->tokens, mode);
-			printf("added to history: %s\n", input);
-			free(input);
-			if (strcmp(shell->tokens[0], "export") == 0)
-				export(shell, &shell->tokens[1]);
-			if (strcmp(shell->tokens[0], "unset") == 0)
-				unset(shell, &shell->tokens[1]);
-			free_tokens(shell);
-		}
+			execute_input(shell, input, mode, envp);
 	}
 	free_params(shell);
 	free (input);

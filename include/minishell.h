@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 17:37:25 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/17 18:00:09 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ void	export(t_shell *shell, char **args);
 void	free_arg(t_list *new_arg);
 void	export_empty(t_shell *shell);
 // b_export_utils_b.c
-int		check_key(char *key, int print);
+int		check_key(char *key, int print, t_shell *shell);
 // b_echo.c
 void	echo(t_shell *shell, char **args);
-void	print_echo(char **tokens, int flag);
+void	print_echo(char **tokens);
+// b_cd.c
+void	cd(t_shell *shell, char **args);
+void	check_path(t_shell *shell);
 
 /* p_env */
 char	*ft_strndup(const char *str, size_t len);

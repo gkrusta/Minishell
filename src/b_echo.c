@@ -6,39 +6,47 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:14:43 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 17:55:53 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/17 13:33:59 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_echo(char **tokens, int flag)
+void	check_exit_status(t_shell *shell)
+{
+	printf("%d\n", shell->exit_status);
+}
+
+void	print_echo(char **tokens)
 {
 	int	i;
 
 	i = 1;
-	if (flag == 1)
-		i = 2;
 	while (tokens[i])
 	{
-		printf("%s ", tokens[i]);
+		if (!(i == 1))
+			printf(" ");
+		printf("%s", tokens[i]);
 		i++;
 	}
-	if (flag == 0)
+	if (!(ft_strcmp(tokens[0], "-n") == 0))
 		printf("\n");
 }
 
 void	echo(t_shell *shell, char **args)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = 0;
+	if (!(ft_strcmp(args[i], "$?") == 0))
+		ft_trim(shell);
 	if (args[i])
 	{
-		if (ft_strcmp(args[1], "-n") == 0)
-			flag = 1;
-		print_echo(&shell->tokens[i], flag);
+		if (ft_strcmp(args[0], "-n") == 0)
+			i++;
+		if (ft_strcmp(args[i], "$?") == 0)
+			check_exit_status(shell);
+		if (!(ft_strcmp(args[0], "$?") == 0))
+			print_echo(&shell->tokens[i]);
 	}
 }

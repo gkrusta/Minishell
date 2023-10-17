@@ -81,13 +81,13 @@ void	export(t_shell *shell, char **args)
 		new_arg = ft_calloc(1, sizeof(t_list));
 		env_list = shell->env_lst;
 		extract_values(args[i], new_arg);
-		while (env_list && found == 0 && check_key(new_arg->key, 1))
+		while (env_list && found == 0 && check_key(new_arg->key, 1, shell))
 		{
 			if (key_found(new_arg->key, (char *)env_list->key, &found))
 				copy_value(env_list, new_arg);
 			env_list = env_list->next;
 		}
-		if (!found && check_key(new_arg->key, 0))
+		if (!found && check_key(new_arg->key, 0, shell))
 			create_key(shell->env_lst, new_arg);
 		free_arg(new_arg);
 		i++;

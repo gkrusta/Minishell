@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 17:59:37 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/17 17:58:07 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
+	shell->exit_status = 0;
 	atexit(ft_leaks);
 	printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
@@ -49,11 +50,13 @@ int main(int argc, char **argv, char **envp)
 			ft_trim(shell);
 			dbg_print_array_tokens(shell->tokens, mode);
 			printf("added to history: %s\n", input);
-			free(input);
 			if (strcmp(shell->tokens[0], "export") == 0)
 				export(shell, &shell->tokens[1]);
 			if (strcmp(shell->tokens[0], "echo") == 0)
 				echo(shell, &shell->tokens[1]);
+			if (strcmp(shell->tokens[0], "cd") == 0)
+				cd(shell, &shell->tokens[1]);
+			free(input);
 			free_tokens(shell);
 		}
 	}

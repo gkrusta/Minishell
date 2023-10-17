@@ -25,6 +25,10 @@ void	mini_args(int argc, char *argv[], int *mode)
 			print_header();
 		if (ft_strcmp(argv[i], "-d") == 0)
 			*mode = 1;
+		if (ft_strcmp(argv[i], "-n") == 0)
+			*mode = 2;
+		if (ft_strcmp(argv[i], "-dn") == 0)
+			*mode = 3;
 		i++;
 	}
 }

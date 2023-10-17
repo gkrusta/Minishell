@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/17 14:03:14 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:40:58 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int		ft_isspace(char c);
 int		assign_type(char c);
 int		end_token(char c, int type, int *used);
 void	free_tokens(t_shell *shell);
+// p_env
+char	*ft_strndup(const char *str, size_t len);
+char	**ft_strddup(const char **envp);
+void	create_env_lst(t_shell *shell, char **envp);
+void	print_env_variables(t_list *env);
+void	free_params(t_shell *shell);
 // p_dbg_print.c
 void	dbg_print_array_tokens(char **tokens, int mode);
 // b_export.c
@@ -48,20 +54,16 @@ void	export_empty(t_shell *shell);
 int		check_key(char *key, int print);
 // b_unset.c
 void	unset(t_shell *shell, char **args);
-// p_env
-char	*ft_strndup(const char *str, size_t len);
-char	**ft_strddup(const char **envp);
-void	create_env_lst(t_shell *shell, char **envp);
-void	print_env_variables(t_list *env);
-void	free_params(t_shell *shell);
-// e_exec_inputs.c
-void	execute_input(t_shell *shell, char *input, int mode, char **envp);
-// e_exec_inputs_utils.c
-char	*find_path(char *command);
+// e_make_nodes.c
+void	make_nodes(t_shell *shell, char *input, int mode);
+// e_make_nodes_utils.c
+int		is_built_in(char *token);
+// e_path_utils.c
+char	*find_path(char *command, char **envp);
 int		is_in_path(t_shell *shell, char *str);
-// e_nodes_func.c
-void	ft_lstclear_nodes(t_cmd **lst);
-t_cmd	*ft_lstnew_node(void);
+// e_nodes_utils.c
+void	lst_clear_nodes(t_cmd **lst);
+t_cmd	*lst_new_node(void);
 /* $ */
 int 	varible_search(t_list *env_lst, char **var, int flag);
 int		check_end(char *str, int pos);

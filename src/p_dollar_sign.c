@@ -77,6 +77,7 @@ void	ft_token_check(t_shell *shell, char *str, int i)
 	char	*str_end;
 	char	*var;
 
+	(void)str;
 	str = shell->tokens[i];
 	j = 0;
 	while (shell->tokens[i][j])

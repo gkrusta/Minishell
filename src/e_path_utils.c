@@ -46,7 +46,7 @@ int	is_in_path(t_shell *shell, char *str)
 {
 	char	*aux;
 
-	aux = find_path(str, shell->env_lst);
+	aux = find_path(str, shell->env);
 	if (aux)
 	{
 		free(aux);

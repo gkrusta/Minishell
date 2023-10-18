@@ -30,17 +30,17 @@ void	dbg_print_command_nodes(t_cmd **com_nodes, int mode)
 		i = 0;
 		ft_printf("\n");
 		ft_printf("\033[1;38;5;226m** debug info * command nodes **\033[0m");
-		while (com_nodes)
+		while (c_node)
 		{
-			printf("\n     NODE %i:\n", i);
-			printf("\n         cmd: %s\n", c_node->cmd);
-			printf("\n        path: %s:\n", c_node->cmd_path);
-			printf("\n        args: ");
+			printf("\n       NODE %i\n", i);
+			printf("        cmd: %s\n", c_node->cmd);
+			printf("       path: %s\n", c_node->cmd_path);
+			printf("       args: ");
 			while (c_node->args[i])
 				printf("%s  ", c_node->args[i++]);
 			printf("\n");
-			printf("\n      infile: %i:\n", c_node->infile);
-			printf("\n     outfile: %i:\n", c_node->outfile);
+			printf("     infile: %i\n", c_node->infile);
+			printf("    outfile: %i\n", c_node->outfile);
 			c_node = c_node->next;
 		}
 		ft_printf("\033[1;38;5;226m********************************\033[0m\n");

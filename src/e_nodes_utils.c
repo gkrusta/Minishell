@@ -1,5 +1,30 @@
 #include "minishell.h"
 
+void	ft_add_front_node(t_cmd **lst, t_cmd *new_node)
+{
+	if (lst && new_node)
+	{
+		new_node->next = *lst;
+		*lst = new_node;
+	}
+}
+
+void	ft_add_back_node(t_cmd **lst, t_cmd *new_node)
+{
+	t_cmd	*tmp;
+
+	if (*lst == NULL)
+		*lst = new_node;
+	else
+	{
+		tmp = *lst;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_node;
+		new_node->next = NULL;
+	}
+}
+
 void	lst_clear_nodes(t_cmd **lst)
 {
 	t_cmd	*node;

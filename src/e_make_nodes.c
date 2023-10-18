@@ -4,11 +4,11 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 {
 	int	i;
 
-	if (!node->cmd)
+	if (!node->cmd[0])
 	{
 		node->cmd = token;
-		if (!is_built_in)
-			node->cmd_path = find_path(token, shell->env_lst);
+		if (!is_built_in(token))
+			node->cmd_path = find_path(token, shell->env);
 	}
 	else
 	{
@@ -19,12 +19,12 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 	}
 }
 
-int	is_argument(t_shell *shell, char *token)
+int	is_argument(char *token)
 {
 	int	type;
 
 	type = assign_type(token[0]);
-	if (type == 0 || type == 3 || type == 4)
+	if (type == 0 || type == 4)
 		return (1);
 	else
 		return (0);
@@ -35,19 +35,25 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 	int		i;
 	t_cmd	**exec_nodes;
 	t_cmd	*new_node;
+	int		fd_in;
 
+	i = 0;
+	fd_in = 0;
+	exec_nodes = ft_calloc(1, sizeof(t_cmd *));
 	while (shell->tokens[i])
 	{
-		new_node = lst_new_node;
-		ft_lstadd_back(exec_nodes, new_node);
-		while (shell->tokens[i] && is_argument(shell, shell->tokens[i]))
+		new_node = lst_new_node();
+		ft_add_back_node(exec_nodes, new_node);
+		while (shell->tokens[i] && is_argument(shell->tokens[i]))
 		{
 			add_argument(shell, shell->tokens[i], new_node);
+			if (!shell->tokens[i + 1])
+				check_redir(new_node, shell->tokens[i], &fd_in);
 			i++;
 		}
 		if (shell->tokens[i])
 		{
-			//check_redir(shell->tokens[i]);
+			check_redir(new_node, shell->tokens[i], &fd_in);
 			i++;
 		}
 	}

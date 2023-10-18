@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/17 18:40:58 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:35:26 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	print_env_variables(t_list *env);
 void	free_params(t_shell *shell);
 // p_dbg_print.c
 void	dbg_print_array_tokens(char **tokens, int mode);
+void	dbg_print_command_nodes(t_cmd **com_nodes, int mode);
 // b_export.c
 void	export(t_shell *shell, char **args);
 void	extract_values(char *arg, t_list *new_arg);
@@ -58,10 +59,13 @@ void	unset(t_shell *shell, char **args);
 void	make_nodes(t_shell *shell, char *input, int mode);
 // e_make_nodes_utils.c
 int		is_built_in(char *token);
+void	check_redir(t_cmd *node, char *token, int *fd);
 // e_path_utils.c
 char	*find_path(char *command, char **envp);
 int		is_in_path(t_shell *shell, char *str);
 // e_nodes_utils.c
+void	ft_add_front_node(t_cmd **lst, t_cmd *new_node);
+void	ft_add_back_node(t_cmd **lst, t_cmd *new_node);
 void	lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
 /* $ */

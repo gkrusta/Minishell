@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/18 17:34:32 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/18 17:43:19 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int main(int argc, char **argv, char **envp)
 			if (strcmp(shell->tokens[0], "cd") == 0)
 				cd(shell, &shell->tokens[1]);
 			free(input);
-			if (strcmp(shell->tokens[0], "unset") == 0)
-				unset(shell, &shell->tokens[1]);
 			free_tokens(shell);
 		}
 	}

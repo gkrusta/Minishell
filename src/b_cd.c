@@ -36,6 +36,7 @@ void	last_cd(t_shell *shell)
 	if (changes[0] != NULL && changes[1] != NULL)
 		export(shell, changes);
 	free_args(changes);
+	printf("%s\n", old_dir);
 	free(old_dir);
 }
 
@@ -92,11 +93,13 @@ void	only_cd(t_shell *shell)
 		shell->exit_status = 1;
 	}
 	old_dir = ft_strdup(curr_dir);
+	//printf("%s   %s\n", curr_dir, new_dir);
 	changes = ft_calloc(3, sizeof(char *));
 	changes[0] = ft_strjoin("OLDPWD=", old_dir);
 	changes[1] = ft_strjoin("PWD=", new_dir);
 	if (changes[0] != NULL && changes[1] != NULL)
 		export(shell, changes);
+	//printf("%s   %s\n", changes[0], changes[1]);
 	free_args(changes);
 	free(old_dir);
 }
@@ -111,7 +114,8 @@ void	cd(t_shell *shell, char **args)
 		only_cd(shell);
 	if (ft_strcmp(args[i], "-") == 0)
 		last_cd(shell);
-	else
+}
+/* 	else
 	{
 		if (ft_strcmp(args[i], "..") == 0)
 		{
@@ -126,10 +130,8 @@ void	cd(t_shell *shell, char **args)
 		}
 		else if (ft_strcmp(args[i], "/") == 0)
 			chdir("/");
-/* 		else
-			check_path(shell); */
+	else
+			check_path(shell);
 
 			//fprintf(stderr, "cd: %s: No such directory\n", argv[1]);
-		i++;
-	}
-}
+*/

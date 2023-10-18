@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/18 17:35:24 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/18 17:51:47 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	free_args(char **args);
 char	*get_value(t_shell *shell, char *key);
 //void	check_path(t_shell *shell);
 
-/* p_env */
+/* b_env */
 char	*ft_strndup(const char *str, size_t len);
 char	**ft_strddup(const char **envp);
 void	create_env_lst(t_shell *shell, char **envp);

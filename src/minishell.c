@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/18 17:43:19 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/18 19:50:49 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ int main(int argc, char **argv, char **envp)
 			if (strcmp(shell->tokens[0], "echo") == 0)
 				echo(shell, &shell->tokens[1]);
 			if (strcmp(shell->tokens[0], "cd") == 0)
+			{				
 				cd(shell, &shell->tokens[1]);
+			printf("HERE\n");
+			}
 			free(input);
 			free_tokens(shell);
 		}

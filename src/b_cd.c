@@ -30,6 +30,7 @@ void	last_cd(t_shell *shell)
 		shell->exit_status = 1;
 	}
 	old_dir = ft_strdup(curr_dir);
+	//free(curr_dir);
 	changes = ft_calloc(3, sizeof(char *));
 	changes[0] = ft_strjoin("OLDPWD=", old_dir);
 	changes[1] = ft_strjoin("PWD=", new_dir);
@@ -43,16 +44,18 @@ void	last_cd(t_shell *shell)
 char	*get_value(t_shell *shell, char *key)
 {
 	char	*value;
+	t_list	*env_list;
 
-	while (shell->env_lst != NULL)
+	env_list = shell->env_lst;
+	while (env_list != NULL)
 	{
-		if (ft_strcmp(key, shell->env_lst->key) == 0)
+		if (ft_strcmp(key, env_list->key) == 0)
 		{
 			//printf("key is %s   value is %s\n", key, shell->env_lst->value);
-			value = shell->env_lst->value;
+			value = env_list->value;
 			return (value);
 		}
-		shell->env_lst = shell->env_lst->next;
+		env_list = env_list->next;
 	}
 	printf("minishell: cd: %s: not set\n", key);
 	shell->exit_status = 1;
@@ -74,13 +77,12 @@ void	free_args(char **args)
 
 void	only_cd(t_shell *shell)
 {
-	char	*curr_dir;
 	char	*new_dir;
 	char	*old_dir;
 	char	**changes;
 
-	curr_dir = getcwd(shell->path, 128);
-	if (curr_dir == NULL)
+	old_dir = getcwd(shell->path, 128);
+	if (old_dir == NULL)
 	{
 		printf("minishell: cd: %s: not set\n", shell->env_lst->key);
 		shell->exit_status = 1;
@@ -92,16 +94,73 @@ void	only_cd(t_shell *shell)
 		printf ("minishell: cd: %s: No such file or directory\n", new_dir);
 		shell->exit_status = 1;
 	}
-	old_dir = ft_strdup(curr_dir);
-	//printf("%s   %s\n", curr_dir, new_dir);
+	printf("%s   %s\n", old_dir, new_dir);
+	changes = ft_calloc(3, sizeof(char *));
+	changes[0] = ft_strjoin("OLDPWD=", old_dir);
+	changes[1] = ft_strjoin("PWD=", new_dir);
+	changes[2] = NULL;
+	if (changes[0] != NULL && changes[1] != NULL)
+		export(shell, changes);
+	printf("%s   %s\n", changes[0], changes[1]);
+	free_args(changes);
+	//free(old_dir);*/
+}
+
+void	root_cd(t_shell *shell)
+{
+	char	*new_dir;
+	char	*old_dir;
+	char	**changes;
+
+	old_dir = getcwd(shell->path, 128);
+	if (old_dir == NULL)
+	{
+		printf("minishell: cd: %s: not set\n", shell->env_lst->key);
+		shell->exit_status = 1;
+		//exit(1);
+	}
+	new_dir = ft_strdup("/");
+	if (chdir("/") == -1)
+	{
+		printf("minishell: cd: %s: not set\n", new_dir);
+		shell->exit_status = 1;
+	}
 	changes = ft_calloc(3, sizeof(char *));
 	changes[0] = ft_strjoin("OLDPWD=", old_dir);
 	changes[1] = ft_strjoin("PWD=", new_dir);
 	if (changes[0] != NULL && changes[1] != NULL)
 		export(shell, changes);
-	//printf("%s   %s\n", changes[0], changes[1]);
 	free_args(changes);
-	free(old_dir);
+	free(new_dir);
+}
+
+void	parent_dir(t_shell *shell)
+{
+	char	*new_dir;
+	char	*old_dir;
+	char	**changes;
+
+	old_dir = getcwd(shell->path, 128);
+	if (old_dir == NULL)
+	{
+		printf("minishell: cd: %s: not set\n", shell->env_lst->key);
+		shell->exit_status = 1;
+		//exit(1);
+	}
+	new_dir = ft_strdup("/");
+	if (chdir("/") == -1)
+	{
+		printf("minishell: cd: %s: not set\n", new_dir);
+		shell->exit_status = 1;
+	}
+	changes = ft_calloc(3, sizeof(char *));
+	changes[0] = ft_strjoin("OLDPWD=", old_dir);
+	changes[1] = ft_strjoin("PWD=", new_dir);
+	changes[2] = NULL;
+	if (changes[0] != NULL && changes[1] != NULL)
+		export(shell, changes);
+	free_args(changes);
+	free(new_dir);
 }
 
 void	cd(t_shell *shell, char **args)
@@ -112,26 +171,12 @@ void	cd(t_shell *shell, char **args)
 	//ft_trim(shell);
 	if (args[i] == NULL)
 		only_cd(shell);
-	if (ft_strcmp(args[i], "-") == 0)
+	else if (ft_strcmp(args[i], "-") == 0)
 		last_cd(shell);
+	else if (ft_strcmp(args[i], "/") == 0)
+		root_cd(shell);
+	else if (ft_strcmp(args[i], "..") == 0)
+		parent_dir(shell);
+	printf("HERE!@#$\n");
+	//fprintf(stderr, "cd: %s: No such directory\n", argv[1]);
 }
-/* 	else
-	{
-		if (ft_strcmp(args[i], "..") == 0)
-		{
-			char* current_dir = getcwd(NULL, 0);
-			char* last_slash = ft_strrchr(current_dir, '/');
-			if (last_slash != NULL)
-				*last_slash = '\0';  // Remove the last directory in the path
-			chdir(current_dir);
-			//Actualizar (OLDPWD);
-			//Actualizar (PWD)
-			free(current_dir);
-		}
-		else if (ft_strcmp(args[i], "/") == 0)
-			chdir("/");
-	else
-			check_path(shell);
-
-			//fprintf(stderr, "cd: %s: No such directory\n", argv[1]);
-*/

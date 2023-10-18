@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/17 18:00:09 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/18 15:33:31 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ void	echo(t_shell *shell, char **args);
 void	print_echo(char **tokens);
 // b_cd.c
 void	cd(t_shell *shell, char **args);
-void	check_path(t_shell *shell);
+void	only_cd(t_shell *shell);
+void	last_cd(t_shell *shell);
+void	free_args(char **args);
+char	*get_value(t_shell *shell, char *key);
+//void	check_path(t_shell *shell);
 
 /* p_env */
 char	*ft_strndup(const char *str, size_t len);
@@ -67,5 +71,6 @@ int		is_inside_quotes(char *str, int pos);
 int		ft_trim(t_shell *shell);
 char	*trim_quotes(char *str);
 int		pair_exists(char *str, char c);
+
 
 #endif

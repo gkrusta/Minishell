@@ -1,39 +1,119 @@
 #include "minishell.h"
 
-void	check_path(t_shell *shell)
+/* void	check_path(t_shell *shell)
 {
 	ft_trim(shell);
 	if (access(shell->tokens[1], F_OK) == 0)
 	chdir
 	if (chdir(shell->tokens[1]) != 0)
 		perror("cd");
-}
-
-/* void	various_cd(t_shell *shell, char **args)
-{
-
-}
-
-void	one_cd(t_shell *shell, char **args)
-{
-	
 } */
+
+void	last_cd(t_shell *shell)
+{
+	char	*curr_dir;
+	char	*new_dir;
+	char	*old_dir;
+	char	**changes;
+
+	curr_dir = getcwd(shell->path, 128);
+	if (curr_dir == NULL)
+	{
+		printf("minishell: cd: %s: not set\n", shell->env_lst->key);
+		shell->exit_status = 1;
+		//exit(1);
+	}
+	new_dir = get_value(shell, "OLDPWD");
+	if (chdir(new_dir) == -1)
+	{
+		printf("minishell: cd: %s: not set\n", new_dir);
+		shell->exit_status = 1;
+	}
+	old_dir = ft_strdup(curr_dir);
+	changes = ft_calloc(3, sizeof(char *));
+	changes[0] = ft_strjoin("OLDPWD=", old_dir);
+	changes[1] = ft_strjoin("PWD=", new_dir);
+	if (changes[0] != NULL && changes[1] != NULL)
+		export(shell, changes);
+	free_args(changes);
+	free(old_dir);
+}
+
+char	*get_value(t_shell *shell, char *key)
+{
+	char	*value;
+
+	while (shell->env_lst != NULL)
+	{
+		if (ft_strcmp(key, shell->env_lst->key) == 0)
+		{
+			//printf("key is %s   value is %s\n", key, shell->env_lst->value);
+			value = shell->env_lst->value;
+			return (value);
+		}
+		shell->env_lst = shell->env_lst->next;
+	}
+	printf("minishell: cd: %s: not set\n", key);
+	shell->exit_status = 1;
+	return (NULL);
+}
+
+void	free_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
+}
+
+void	only_cd(t_shell *shell)
+{
+	char	*curr_dir;
+	char	*new_dir;
+	char	*old_dir;
+	char	**changes;
+
+	curr_dir = getcwd(shell->path, 128);
+	if (curr_dir == NULL)
+	{
+		printf("minishell: cd: %s: not set\n", shell->env_lst->key);
+		shell->exit_status = 1;
+		//exit(1);
+	}
+	new_dir = get_value(shell, "HOME");
+	if (chdir(new_dir) == -1)
+	{
+		printf ("minishell: cd: %s: No such file or directory\n", new_dir);
+		shell->exit_status = 1;
+	}
+	old_dir = ft_strdup(curr_dir);
+	changes = ft_calloc(3, sizeof(char *));
+	changes[0] = ft_strjoin("OLDPWD=", old_dir);
+	changes[1] = ft_strjoin("PWD=", new_dir);
+	if (changes[0] != NULL && changes[1] != NULL)
+		export(shell, changes);
+	free_args(changes);
+	free(old_dir);
+}
 
 void	cd(t_shell *shell, char **args)
 {
-	//char	*curr_path;
-	int		i;
-	char	64 getcwd
+	int	i;
 
-	//curr_path = getcwd(shell->path, 128);
 	i = 0;
-/* 	if (curr_path == NULL)
-		printf( "An error occurred in the getcwd() function call.\n" ); */
-/* 	if (!args[i])
-		chdir() */
-	while (args[i])
+	//ft_trim(shell);
+	if (args[i] == NULL)
+		only_cd(shell);
+	if (ft_strcmp(args[i], "-") == 0)
+		last_cd(shell);
+	else
 	{
-		if (strcmp(args[0], "..") == 0)
+		if (ft_strcmp(args[i], "..") == 0)
 		{
 			char* current_dir = getcwd(NULL, 0);
 			char* last_slash = ft_strrchr(current_dir, '/');
@@ -44,19 +124,12 @@ void	cd(t_shell *shell, char **args)
 			//Actualizar (PWD)
 			free(current_dir);
 		}
-		else if (strcmp(args[0], "/") == 0)
+		else if (ft_strcmp(args[i], "/") == 0)
 			chdir("/");
-		else
-			check_path(shell);
+/* 		else
+			check_path(shell); */
 
 			//fprintf(stderr, "cd: %s: No such directory\n", argv[1]);
 		i++;
 	}
 }
-
-/* void	cd(t_shell *shell)
-{
-	printf ("\n\nThe actual directory is: %s\n",  getcwd (shell->path, 128));
-	chdir( "/home/linuxhint/Documents/");
-	printf ("\n\n The selected directory is: %s\n", getcwd (dir, 50));
-} */

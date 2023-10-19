@@ -29,14 +29,17 @@ void	lst_clear_nodes(t_cmd **lst)
 {
 	t_cmd	*node;
 	t_cmd	*aux;
+	int		i;
 
 	node = *lst;
 	while (node != NULL)
 	{
 		aux = node;
 		node = node->next;
-		free(aux->cmd);
 		free(aux->cmd_path);
+		i = 0;
+		while (aux->args[i++])
+			free(aux->args[i]);
 		free(aux->args);
 		free(aux);
 	}
@@ -48,7 +51,7 @@ t_cmd	*lst_new_node(void)
 	t_cmd	*node;
 
 	node = malloc(sizeof(t_cmd));
-	node->cmd = ft_calloc(1, sizeof(char));
+	node->cmd = NULL;
 	node->cmd_path = ft_calloc(1, sizeof(char));
 	node->args = ft_calloc(10, sizeof(char *));
 	node->infile = 0;

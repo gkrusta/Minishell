@@ -4,11 +4,21 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 {
 	int	i;
 
-	if (!node->cmd[0])
+	if (!node->cmd)
 	{
-		node->cmd = token;
-		if (!is_built_in(token))
-			node->cmd_path = find_path(token, shell->env);
+		if (is_in_path(shell, token) || is_built_in(token))
+		{
+			node->cmd = token;
+			if (!is_built_in(token))
+				node->cmd_path = find_path(token, shell->env);
+		}
+		else
+		{
+			i = 0;
+			while (node->args[i])
+				i++;
+			node->args[i] = token;
+		}
 	}
 	else
 	{
@@ -39,48 +49,31 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 
 	i = 0;
 	fd_in = 0;
+	new_node = NULL;
 	exec_nodes = ft_calloc(1, sizeof(t_cmd *));
 	while (shell->tokens[i])
 	{
-		new_node = lst_new_node();
-		ft_add_back_node(exec_nodes, new_node);
+		if (!new_node || (new_node && new_node->cmd[0]))
+		{
+			new_node = lst_new_node();
+			ft_add_back_node(exec_nodes, new_node);
+		}
 		while (shell->tokens[i] && is_argument(shell->tokens[i]))
 		{
 			add_argument(shell, shell->tokens[i], new_node);
 			if (!shell->tokens[i + 1])
-				check_redir(new_node, shell->tokens[i], &fd_in);
+				check_redir(new_node, shell->tokens, &i, &fd_in);
 			i++;
 		}
 		if (shell->tokens[i])
 		{
-			check_redir(new_node, shell->tokens[i], &fd_in);
+			check_redir(new_node, shell->tokens, &i, &fd_in);
 			i++;
 		}
 	}
 	//TODO execute_nodes
 	dbg_print_command_nodes(exec_nodes, mode);
+	lst_clear_nodes(exec_nodes);
 	free(input);
 	free_tokens(shell);
 }
-
-/*
-
-	if (strcmp(shell->tokens[0], "env") == 0)
-	{
-		if (!shell->tokens[1])
-			print_env_variables(shell->env_lst);
-		else
-		{
-			printf("Error. env no recibe parámetros\n");
-			shell->exit_status = 127;
-		}
-	}
-	if (strcmp(shell->tokens[0], "export") == 0)
-		export(shell, &shell->tokens[1]);
-	if (strcmp(shell->tokens[0], "unset") == 0)
-		unset(shell, &shell->tokens[1]);
-
-
-
-
-*/

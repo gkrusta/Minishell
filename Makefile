@@ -6,7 +6,7 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/17 18:32:27 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/10/19 14:12:16 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC_FILES = minishell.c mini_args.c \
 			p_dollar_sign.c p_trim.c \
 			b_export.c b_export_utils.c b_export_utils_b.c \
 			b_env.c b_unset.c \
-			e_make_nodes.c e_make_nodes_utils.c e_path_utils.c e_nodes_utils.c
+			e_make_nodes.c e_make_nodes_utils.c e_path_utils.c e_nodes_utils.c \
+			r_redir.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

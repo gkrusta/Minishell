@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/18 12:35:26 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:45:01 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	copy_value(t_list *env_list, t_list *new_arg);
 void	free_arg(t_list *new_arg);
 void	export_empty(t_shell *shell);
 // b_export_utils_b.c
-int		check_key(char *key, int print);
+int		check_key(char *key, int print, t_shell *shell);
 // b_unset.c
 void	unset(t_shell *shell, char **args);
 // e_make_nodes.c
 void	make_nodes(t_shell *shell, char *input, int mode);
 // e_make_nodes_utils.c
 int		is_built_in(char *token);
-void	check_redir(t_cmd *node, char *token, int *fd);
+void	check_redir(t_cmd *node, char **tokens, int *i, int *fd);
 // e_path_utils.c
 char	*find_path(char *command, char **envp);
 int		is_in_path(t_shell *shell, char *str);
@@ -68,6 +68,9 @@ void	ft_add_front_node(t_cmd **lst, t_cmd *new_node);
 void	ft_add_back_node(t_cmd **lst, t_cmd *new_node);
 void	lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
+// r_pipe.c
+void	token_pipe(t_cmd *node, int *fd, int *fd_in);
+void	token_input(char **tokens, int *i, t_cmd *node);
 /* $ */
 int 	varible_search(t_list *env_lst, char **var, int flag);
 int		check_end(char *str, int pos);

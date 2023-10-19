@@ -19,26 +19,18 @@ int	is_built_in(char *token)
 	return (0);
 }
 
-void	check_redir(t_cmd *node, char *token, int *fd_in)
+void	check_redir(t_cmd *node, char **tokens, int *i, int *fd_in)
 {
 	int		fd[2];
-	char	*aux;
 
-	if (!node->cmd[0])
-	{
-		aux = ft_calloc(30, 1);
-		aux = ft_strjoin("\"Error de redirección ", token);
-		node->cmd = aux;
-	}
 	pipe(fd);
 	if (*fd_in != 0)
 	{
 		node->infile = *fd_in;
 		*fd_in = 0;
 	}
-	if (ft_strcmp(token, "|") == 0)
-	{
-		node->outfile = fd[0];
-		*fd_in = fd[1];
-	}
+	if (ft_strcmp(tokens[*i], "|") == 0)
+		token_pipe(node, fd, fd_in);
+	else if (ft_strcmp(tokens[*i], "<") == 0)
+		token_input(tokens, i, node);
 }

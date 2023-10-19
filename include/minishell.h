@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/18 17:51:47 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/19 14:55:40 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,12 @@ void	cd(t_shell *shell, char **args);
 void	only_cd(t_shell *shell);
 void	last_cd(t_shell *shell);
 void	free_args(char **args);
+void	abs_path(t_shell *shell, char *path);
+
+// b_cd_utils.c
+void	free_args(char **args);
 char	*get_value(t_shell *shell, char *key);
-//void	check_path(t_shell *shell);
+void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir);
 
 /* b_env */
 char	*ft_strndup(const char *str, size_t len);

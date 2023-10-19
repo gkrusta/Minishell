@@ -51,7 +51,7 @@ t_cmd	*lst_new_node(void)
 	t_cmd	*node;
 
 	node = malloc(sizeof(t_cmd));
-	node->cmd = NULL;
+	node->cmd = ft_calloc(1, sizeof(char));
 	node->cmd_path = ft_calloc(1, sizeof(char));
 	node->args = ft_calloc(10, sizeof(char *));
 	node->infile = 0;

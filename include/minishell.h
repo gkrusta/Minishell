@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/19 14:45:01 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:35:07 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	make_nodes(t_shell *shell, char *input, int mode);
 // e_make_nodes_utils.c
 int		is_built_in(char *token);
 void	check_redir(t_cmd *node, char **tokens, int *i, int *fd);
+void	str_change_value(char *old_str, char *new_str);
 // e_path_utils.c
 char	*find_path(char *command, char **envp);
 int		is_in_path(t_shell *shell, char *str);
@@ -68,6 +69,8 @@ void	ft_add_front_node(t_cmd **lst, t_cmd *new_node);
 void	ft_add_back_node(t_cmd **lst, t_cmd *new_node);
 void	lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
+// e_execute_nodes.c
+void	execute_nodes(t_cmd **nodes);
 // r_pipe.c
 void	token_pipe(t_cmd *node, int *fd, int *fd_in);
 void	token_input(char **tokens, int *i, t_cmd *node);

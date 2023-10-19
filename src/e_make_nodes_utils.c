@@ -34,3 +34,9 @@ void	check_redir(t_cmd *node, char **tokens, int *i, int *fd_in)
 	else if (ft_strcmp(tokens[*i], "<") == 0)
 		token_input(tokens, i, node);
 }
+
+void	str_change_value(char *old_str, char *new_str)
+{
+	free(old_str);
+	old_str = new_str;
+}

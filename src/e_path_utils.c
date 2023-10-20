@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	free_str_list(char **str_list)
+void	free_path(char **str_list, char *empty_str)
 {
 	int		i;
 
@@ -10,10 +10,12 @@ void	free_str_list(char **str_list)
 		free(str_list[i]);
 		i++;
 	}
+	if (empty_str)
+		free(empty_str);
 	free(str_list);
 }
 
-char	*find_path(char *command, char **envp)
+char	*find_path(char *command, char **envp, char *empty_str)
 {
 	char	**path_list;
 	char	*path_root;
@@ -32,21 +34,23 @@ char	*find_path(char *command, char **envp)
 		free(path_root);
 		if (access(final_path, F_OK) == 0)
 		{
-			free_str_list(path_list);
+			free_path(path_list, empty_str);
 			return (final_path);
 		}
 		free(final_path);
 		i++;
 	}
-	free_str_list(path_list);
+	free_path(path_list, empty_str);
 	return (0);
 }
 
 int	is_in_path(t_shell *shell, char *str)
 {
 	char	*aux;
+	char	*empty_str;
 
-	aux = find_path(str, shell->env);
+	empty_str = NULL;
+	aux = find_path(str, shell->env, empty_str);
 	if (aux)
 	{
 		free(aux);

@@ -35,8 +35,9 @@ void	check_redir(t_cmd *node, char **tokens, int *i, int *fd_in)
 		token_input(tokens, i, node);
 }
 
-void	str_change_value(char *old_str, char *new_str)
+char	*str_change_value(char *old_str, char *new_str)
 {
 	free(old_str);
 	old_str = new_str;
+	return (new_str);
 }

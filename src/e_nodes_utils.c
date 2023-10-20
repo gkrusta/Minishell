@@ -38,12 +38,10 @@ void	lst_clear_nodes(t_cmd **lst)
 		node = node->next;
 		free(aux->cmd_path);
 		i = 0;
-		while (aux->args[i++])
-			free(aux->args[i]);
 		free(aux->args);
 		free(aux);
 	}
-	*lst = node;
+	free(lst);
 }
 
 t_cmd	*lst_new_node(void)

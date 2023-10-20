@@ -4,20 +4,20 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 {
 	int	i;
 
-	if (!node->cmd)
+	if (!node->cmd[0])
 	{
 		if (is_in_path(shell, token) || is_built_in(token))
 		{
-			str_change_value(node->cmd, token);
+			node->cmd = str_change_value(node->cmd, token);
 			if (!is_built_in(token))
-				node->cmd_path = find_path(token, shell->env);
+				node->cmd_path = find_path(token, shell->env, node->cmd_path);
 		}
 		else
 		{
 			i = 0;
 			while (node->args[i])
 				i++;
-			str_change_value(node->args[i], token);
+			node->args[i] = str_change_value(node->args[i], token);
 		}
 	}
 	else
@@ -25,7 +25,7 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 		i = 0;
 		while (node->args[i])
 			i++;
-		str_change_value(node->args[i], token);
+		node->args[i] = str_change_value(node->args[i], token);
 	}
 }
 
@@ -71,7 +71,7 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 			i++;
 		}
 	}
-	//execute_nodes(exec_nodes);
+	execute_nodes(exec_nodes, shell);
 	dbg_print_command_nodes(exec_nodes, mode);
 	lst_clear_nodes(exec_nodes);
 	free(input);

@@ -1,51 +1,46 @@
 #include "minishell.h"
 
-void	exec_comm(char *argv, char **envp)
+void	exec_comm(t_cmd *node, t_shell *shell)
 {
-	char	**command;
-	char	*path;
+	int	i;
 
-	command = ft_split(argv, ' ');
-	path = find_path(command[0], envp);
-	if (!path)
+	i = 8;
+	while (i > 0)
 	{
-		free_str_list(command);
-		error("Path error");
+		node->args[i] = node->args[i - 1];
+		i--;
 	}
-	if (execve(path, command, envp) == -1)
-		error("Error during execution");
+	node->args[0] = node->cmd;
+	execve(node->cmd_path, node->args, shell->env);
 }
 
-void	fork_child(t_cmd *node)
+void	fork_child(t_cmd *node, t_shell *shell)
 {
 	pid_t	pid;
 
 	pid = fork();
-	dup2(node->infile, STDIN_FILENO);
 	if (pid == 0)
 	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		exec_comm(argv, envp);
+		close(node->infile);
+		dup2(node->outfile, STDOUT_FILENO);
+		printf("proceso HIJO outfile: %i\n", node->outfile);
+		exec_comm(node, shell);
 	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		waitpid(pid, NULL, 0);
-	}
+	close(node->outfile);
+	dup2(node->infile, STDIN_FILENO);
+	printf("proceso PADRE infile: %i\n", node->infile);
+	waitpid(pid, NULL, 0);
 }
 
-void	execute_nodes(t_cmd **nodes)
+void	execute_nodes(t_cmd **nodes, t_shell *shell)
 {
 	t_cmd	*node;
 
 	node = *nodes;
 	while (node)
 	{
-		fork_child(node);
-		dup2(fileout, STDOUT_FILENO);
-		exec_comm(argv[argc - 2], envp);
+		printf("Tiene next\n");
+		fork_child(node, shell);
 		node = node->next;
 	}
 }

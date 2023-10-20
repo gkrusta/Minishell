@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/19 11:27:08 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/20 15:09:55 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			shell->tokens = p_split(input);
-			ft_trim(shell);
+			//ft_trim(shell);
 			dbg_print_array_tokens(shell->tokens, mode);
 			printf("added to history: %s\n", input);
 			if (strcmp(shell->tokens[0], "export") == 0)
@@ -56,6 +56,8 @@ int main(int argc, char **argv, char **envp)
 				echo(shell, &shell->tokens[1]);
 			if (strcmp(shell->tokens[0], "cd") == 0)
 				cd(shell, &shell->tokens[1]);
+			if (strcmp(shell->tokens[0], "pwd") == 0)
+				pwd(shell);
 			free(input);
 			free_tokens(shell);
 		}

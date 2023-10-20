@@ -13,14 +13,17 @@ void	abs_path(t_shell *shell, char *path)
 		shell->exit_status = 1;
 		//exit(1);
 	}
-	tmp = ft_strjoin(old_dir, "/");
+	if (ft_strcmp(old_dir, "/") == 0)
+		tmp = ft_strdup("/");
+	else
+		tmp = ft_strjoin(old_dir, "/");
 	new_dir = ft_strjoin(tmp, path);
 	free(tmp);
 	ft_export_pwds(shell, old_dir, new_dir);
 	free(new_dir);
 }
 
-void	last_cd(t_shell *shell)
+void	home_cd(t_shell *shell, char *path)
 {
 	char	*new_dir;
 	char	*old_dir;
@@ -32,42 +35,15 @@ void	last_cd(t_shell *shell)
 		shell->exit_status = 1;
 		//exit(1);
 	}
-	new_dir = get_value(shell, "OLDPWD");
+	if (ft_strcmp(path, "/") == 0)
+		new_dir = ft_strdup("/");
+	else
+		new_dir = get_value(shell, path);
 	ft_export_pwds(shell, old_dir, new_dir);
-}
-
-void	only_cd(t_shell *shell)
-{
-	char	*new_dir;
-	char	*old_dir;
-
-	old_dir = getcwd(shell->path, 128);
-	if (old_dir == NULL)
-	{
-		printf("minishell: cd: %s: not set\n", shell->env_lst->key);
-		shell->exit_status = 1;
-		//exit(1);
-	}
-	new_dir = get_value(shell, "HOME");
-	ft_export_pwds(shell, old_dir, new_dir);
-	//free(old_dir);*/
-}
-
-void	root_cd(t_shell *shell)
-{
-	char	*new_dir;
-	char	*old_dir;
-
-	old_dir = getcwd(shell->path, 128);
-	if (old_dir == NULL)
-	{
-		printf("minishell: cd: %s: not set\n", shell->env_lst->key);
-		shell->exit_status = 1;
-		//exit(1);
-	}
-	new_dir = ft_strdup("/");
-	ft_export_pwds(shell, old_dir, new_dir);
-	free(new_dir);
+	if (ft_strcmp(path, "OLDPWD") == 0)
+		printf("%s\n", get_value(shell, "PWD"));
+	else if (ft_strcmp(path, "/") == 0)
+		free (new_dir);
 }
 
 void	parent_dir(t_shell *shell)
@@ -104,7 +80,9 @@ void	cd(t_shell *shell, char **args)
 	i = 0;
 	//ft_trim(shell);
 	if (args[i] == NULL)
-		only_cd(shell);
+		home_cd(shell, "HOME");
+	else if (ft_strcmp(args[i], "/") == 0) 
+		home_cd(shell, "/");
 	else
 	{
 		dir = ft_split(args[i], '/');
@@ -113,9 +91,9 @@ void	cd(t_shell *shell, char **args)
 		while (dir[i])
 		{
 			if (ft_strcmp(dir[i], "-") == 0)
-				last_cd(shell);
-			else if (ft_strcmp(dir[i], "/") == 0) // seg fault
-				root_cd(shell);
+				home_cd(shell, "OLDPWD");
+			else if (ft_strcmp(dir[i], "~") == 0)
+				home_cd(shell, "HOME");
 			else if (ft_strcmp(dir[i], "..") == 0)
 				parent_dir(shell);
 			else

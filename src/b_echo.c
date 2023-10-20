@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:14:43 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/17 13:33:59 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/20 15:13:47 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,18 @@ void	print_echo(char **tokens)
 		printf("\n");
 }
 
-void	echo(t_shell *shell, char **args)
+int	echo(t_shell *shell, char **args)
 {
 	int	i;
 
 	i = 0;
-	if (!(ft_strcmp(args[i], "$?") == 0))
-		ft_trim(shell);
+	if (ft_strcmp(args[i], "$?") == 0)
+	{
+		printf("%d\n", shell->exit_status);
+		shell->exit_status = 0;
+		return (0);
+	}
+	ft_trim(shell);
 	if (args[i])
 	{
 		if (ft_strcmp(args[0], "-n") == 0)
@@ -49,4 +54,5 @@ void	echo(t_shell *shell, char **args)
 		if (!(ft_strcmp(args[0], "$?") == 0))
 			print_echo(&shell->tokens[i]);
 	}
+	return (0);
 }

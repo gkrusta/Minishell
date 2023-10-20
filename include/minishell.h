@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/19 14:55:40 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/20 15:22:08 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <readline/history.h>
 
 #include "../assets/libft/libft.h"
@@ -45,7 +46,7 @@ void	export_empty(t_shell *shell);
 // b_export_utils_b.c
 int		check_key(char *key, int print, t_shell *shell);
 // b_echo.c
-void	echo(t_shell *shell, char **args);
+int 	echo(t_shell *shell, char **args);
 void	print_echo(char **tokens);
 // b_cd.c
 void	cd(t_shell *shell, char **args);
@@ -53,11 +54,13 @@ void	only_cd(t_shell *shell);
 void	last_cd(t_shell *shell);
 void	free_args(char **args);
 void	abs_path(t_shell *shell, char *path);
-
+void	home_cd(t_shell *shell, char *path);
 // b_cd_utils.c
 void	free_args(char **args);
 char	*get_value(t_shell *shell, char *key);
 void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir);
+//b_pwd.c
+void	pwd(t_shell *shell);
 
 /* b_env */
 char	*ft_strndup(const char *str, size_t len);

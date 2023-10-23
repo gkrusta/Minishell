@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/20 15:22:08 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/23 20:29:58 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,16 @@ void	free_arg(t_list *new_arg);
 void	export_empty(t_shell *shell);
 // b_export_utils_b.c
 int		check_key(char *key, int print, t_shell *shell);
+// b_unset.c
+void	unset(t_shell *shell, char **args);
+void	delete_value(t_shell *shell, int node_pos);
+void	free_node(t_list *node);
+
 // b_echo.c
 int 	echo(t_shell *shell, char **args);
-void	print_echo(char **tokens);
+void	print_echo(char **tokens, int i);
+int 	put_space(char **tokens, int i);
+
 // b_cd.c
 void	cd(t_shell *shell, char **args);
 void	only_cd(t_shell *shell);

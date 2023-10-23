@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/23 13:59:44 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/23 22:28:20 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 			make_nodes(shell, input, mode);
 		}
 	}
+	printf("sale limpiamente\n");
 	free_params(shell);
 	free (input);
 	return (0);

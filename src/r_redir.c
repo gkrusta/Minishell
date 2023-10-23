@@ -2,8 +2,8 @@
 
 void	token_pipe(t_cmd *node, int *fd, int *fd_in)
 {
-	node->outfile = fd[0];
-	*fd_in = fd[1];
+	node->outfile = fd[1];
+	*fd_in = fd[0];
 }
 
 void	token_input(char **tokens, int *i, t_cmd *node)

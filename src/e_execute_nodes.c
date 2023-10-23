@@ -22,28 +22,14 @@ void	fork_child(t_cmd *node, t_shell *shell)
 	if (pid == 0)
 	{
 		if (node->infile != 0)
-		{
-			dup2(node->infile, STDIN_FILENO);
 			close(node->infile);
-		}
-		if (node->outfile != 1)
-		{
-			dup2(node->outfile, STDOUT_FILENO);
-			close(node->outfile);
-		}
+		dup2(node->outfile, STDOUT_FILENO);
 		exec_comm(node, shell);
 	}
-	else
-	{
-		waitpid(pid, NULL, 0);
-		if (node->infile != 0)
-			close(node->infile);
-		if (node->outfile != 1)
-		{
-			dup2(node->outfile, STDOUT_FILENO);
-			close(node->outfile);
-		}
-	}
+	waitpid(pid, NULL, 0);
+	if (node->outfile != 1)
+		close(node->outfile);
+	dup2(node->outfile - 1, STDIN_FILENO);
 }
 
 void	execute_nodes(t_cmd **nodes, t_shell *shell)

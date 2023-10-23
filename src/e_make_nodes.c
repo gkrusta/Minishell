@@ -71,8 +71,8 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 			i++;
 		}
 	}
-	execute_nodes(exec_nodes, shell);
 	dbg_print_command_nodes(exec_nodes, mode);
+	execute_nodes(exec_nodes, shell);
 	lst_clear_nodes(exec_nodes);
 	free(input);
 	free_tokens(shell);

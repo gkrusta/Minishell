@@ -21,15 +21,29 @@ void	fork_child(t_cmd *node, t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		close(node->infile);
-		dup2(node->outfile, STDOUT_FILENO);
-		printf("proceso HIJO outfile: %i\n", node->outfile);
+		if (node->infile != 0)
+		{
+			dup2(node->infile, STDIN_FILENO);
+			close(node->infile);
+		}
+		if (node->outfile != 1)
+		{
+			dup2(node->outfile, STDOUT_FILENO);
+			close(node->outfile);
+		}
 		exec_comm(node, shell);
 	}
-	close(node->outfile);
-	dup2(node->infile, STDIN_FILENO);
-	printf("proceso PADRE infile: %i\n", node->infile);
-	waitpid(pid, NULL, 0);
+	else
+	{
+		waitpid(pid, NULL, 0);
+		if (node->infile != 0)
+			close(node->infile);
+		if (node->outfile != 1)
+		{
+			dup2(node->outfile, STDOUT_FILENO);
+			close(node->outfile);
+		}
+	}
 }
 
 void	execute_nodes(t_cmd **nodes, t_shell *shell)
@@ -39,7 +53,6 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	node = *nodes;
 	while (node)
 	{
-		printf("Tiene next\n");
 		fork_child(node, shell);
 		node = node->next;
 	}

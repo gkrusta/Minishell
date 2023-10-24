@@ -91,6 +91,8 @@ char	**p_split(char *input)
 		if (buff)
 			aux = add_token(tokens, buff);
 		tokens = aux;
+		while (input[i] && ft_isspace(input[i]))
+			i++;
 	}
 	return (tokens);
 }

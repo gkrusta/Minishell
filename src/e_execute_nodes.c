@@ -22,13 +22,13 @@ void	fork_child(t_cmd *node, t_shell *shell)
 	if (pid == 0)
 	{
 		if (node->infile != 0)
-			close(node->infile);
+			close(node->infile + 1);
 		dup2(node->outfile, STDOUT_FILENO);
 		exec_comm(node, shell);
 	}
 	waitpid(pid, NULL, 0);
 	if (node->outfile != 1)
-		close(node->outfile);
+		close(node->outfile - 1);
 	dup2(node->outfile - 1, STDIN_FILENO);
 }
 

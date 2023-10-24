@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_env.c                                            :+:      :+:    :+:   */
+/*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/16 15:59:36 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/24 16:11:29 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,30 @@ void	create_env_lst(t_shell *shell, char **envp)
 	}
 }
 
-void	print_env_variables(t_list *env)
+int	key_path_found(t_list *env)
+{
+	t_list	*env_key_search;
+	
+	env_key_search = env;
+	while (env_key_search)
+	{
+		if (ft_strcmp(env_key_search->key, "PATH") == 0)
+			return (0);
+		env_key_search = env_key_search->next;
+	}
+	return (1);
+}
+
+void	print_env_variables(t_shell *shell, t_list *env)
 {
 	t_list	*env_print;
 
 	env_print = env;
+	if (env_print == NULL || key_path_found(env) == 1)
+	{
+		printf("Minishell: env: No such file or directory\n");
+		shell->exit_status = 127;
+	}
 	while (env_print != NULL && env_print->init > 0)
 	{
 		printf("%s=%s\n", (char *)env_print->key, (char *)env_print->value);

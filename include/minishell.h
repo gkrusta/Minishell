@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/23 20:29:58 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/24 16:03:54 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 // mini_args.c
 void	mini_args(int argc, char *argv[], int *mode);
 // p_split.c
-char	**p_split(char *input);
+char	**p_split(char *input, t_shell *shell);
 int		ft_isspace(char c);
 // p_split_utils.c
 int		assign_type(char c);
 int		end_token(char c, int type, int *used);
 void	free_tokens(t_shell *shell);
 // p_dbg_print.c
-void	dbg_print_array_tokens(char **tokens, int mode);
+void	dbg_print_array_tokens(char **tokens, int mode, t_shell *shell);
 // b_export.c
 void	export(t_shell *shell, char **args);
 void	extract_values(char *arg, t_list *new_arg);
@@ -52,7 +52,7 @@ void	free_node(t_list *node);
 
 // b_echo.c
 int 	echo(t_shell *shell, char **args);
-void	print_echo(char **tokens, int i);
+void	print_echo(t_shell *shell, char **tokens, int i);
 int 	put_space(char **tokens, int i);
 
 // b_cd.c
@@ -73,8 +73,9 @@ void	pwd(t_shell *shell);
 char	*ft_strndup(const char *str, size_t len);
 char	**ft_strddup(const char **envp);
 void	create_env_lst(t_shell *shell, char **envp);
-void	print_env_variables(t_list *env);
+void	print_env_variables(t_shell *shell, t_list *env);
 void	free_params(t_shell *shell);
+int	    key_path_found(t_list *env);
 
 /* $ */
 int 	varible_search(t_list *env_lst, char **var, int flag);

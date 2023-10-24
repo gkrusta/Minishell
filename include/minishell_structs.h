@@ -18,6 +18,7 @@ typedef struct		s_shell
 	char			**tokens;
 	int				exit_status;
 	char			path[128];
+	char			*space_next;
 }					t_shell;
 
 // para guardar el path

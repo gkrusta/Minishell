@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:14:43 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/24 14:24:40 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:07:58 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	echo(t_shell *shell, char **args)
 		printf("/0");
 		return (0);
 	}
-	ft_trim(shell);
 	if (ft_strcmp(args[0], "$?") == 0)
 	{
 		printf("%d\n", shell->exit_status);
 		shell->exit_status = 0;
 		return (0);
 	}
+	ft_trim(shell);
 	while (args[i])
 	{
 		if (ft_strcmp(args[0], "-n") == 0)
@@ -49,5 +49,6 @@ int	echo(t_shell *shell, char **args)
 	}
 	if (!(ft_strcmp(shell->tokens[0], "-n") == 0))
 		printf("\n");
+	shell->exit_status = 1;
 	return (0);
 }

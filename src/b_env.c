@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/24 16:11:29 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:08:50 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,14 @@ void	print_env_variables(t_shell *shell, t_list *env)
 		printf("Minishell: env: No such file or directory\n");
 		shell->exit_status = 127;
 	}
-	while (env_print != NULL && env_print->init > 0)
+	else
 	{
-		printf("%s=%s\n", (char *)env_print->key, (char *)env_print->value);
-		env_print = env_print->next;
+		while (env_print != NULL && env_print->init > 0)
+		{
+			printf("%s=%s\n", (char *)env_print->key, (char *)env_print->value);
+			env_print = env_print->next;
+		}
+		shell->exit_status = 0;
 	}
 }
 

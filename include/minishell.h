@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/24 16:03:54 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/25 13:17:57 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	copy_value(t_list *env_list, t_list *new_arg);
 void	free_arg(t_list *new_arg);
 void	export_empty(t_shell *shell);
 // b_export_utils_b.c
-int		check_key(char *key, int print, t_shell *shell);
+int		check_key(char *key, int print, t_shell *shell, char *str);
 // b_unset.c
 void	unset(t_shell *shell, char **args);
 void	delete_value(t_shell *shell, int node_pos);

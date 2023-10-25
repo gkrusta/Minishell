@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/24 16:02:41 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:36:23 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int main(int argc, char **argv, char **envp)
 		input = readline("minishell> ");
 		if (!input || !ft_strcmp(input, "exit")) // si usario hace un click a ctrl + d significa que readline ha devuelto NULL
 			break ; // exit shell
-		if (ft_strcmp(input, "env") == 0)
-			print_env_variables(shell, shell->env_lst);
 		if (ft_strlen(input) > 0)
 		{
 			add_history(input);
@@ -64,6 +62,8 @@ int main(int argc, char **argv, char **envp)
 			//ft_trim(shell);
 			dbg_print_array_tokens(shell->tokens, mode, shell);
 			printf("added to history: %s\n", input);
+			if (ft_strcmp(input, "env") == 0)
+				print_env_variables(shell, shell->env_lst);
 			if (strcmp(shell->tokens[0], "export") == 0)
 				export(shell, &shell->tokens[1]);
 			if (strcmp(shell->tokens[0], "echo") == 0)

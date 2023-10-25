@@ -51,7 +51,7 @@ void	unset(t_shell *shell, char **args)
 		new_arg = ft_calloc(1, sizeof(t_list));
 		env_list = shell->env_lst;
 		extract_values(args[i], new_arg);
-		while (env_list && found == 0 && check_key(new_arg->key, 1, shell))
+		while (env_list && found == 0 && check_key(new_arg->key, 1, shell, "unset"))
 		{
 			if (key_found(new_arg->key, (char *)env_list->key, &found))
 				delete_value(shell, node_pos);

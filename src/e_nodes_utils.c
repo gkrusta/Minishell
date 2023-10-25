@@ -29,7 +29,6 @@ void	lst_clear_nodes(t_cmd **lst)
 {
 	t_cmd	*node;
 	t_cmd	*aux;
-	int		i;
 
 	node = *lst;
 	while (node != NULL)
@@ -37,7 +36,6 @@ void	lst_clear_nodes(t_cmd **lst)
 		aux = node;
 		node = node->next;
 		free(aux->cmd_path);
-		i = 0;
 		free(aux->args);
 		free(aux);
 	}

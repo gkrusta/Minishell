@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/20 12:21:49 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:15:50 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/history.h>
+#include <sys/wait.h>
 
 #include "../assets/libft/libft.h"
 #include "minishell_defines.h"

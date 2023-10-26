@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/25 13:01:12 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:21:56 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	main(int argc, char **argv, char **envp)
 	parse_env(shell, envp);
 	while (1)
 	{
-		if (!isatty(STDIN_FILENO))
-			printf("STDIN cerrado\n");
 		input = readline("minishell> ");
 		if (!input || !ft_strcmp(input, "exit"))
 			break ;
@@ -53,6 +51,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free_params(shell);
 	free (input);
-	printf("salida limpia\n");
 	return (0);
 }

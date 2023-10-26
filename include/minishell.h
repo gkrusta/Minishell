@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/25 22:15:50 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/26 23:07:03 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@
 #include <stdlib.h>
 #include <readline/history.h>
 #include <sys/wait.h>
+#include <signal.h>
+#include <fcntl.h>
 
 #include "../assets/libft/libft.h"
 #include "minishell_defines.h"
 #include "minishell_structs.h"
 
-// minishell.c
+extern int shell_state;
 
+// minishell.c
 // mini_args.c
 void	mini_args(int argc, char *argv[], int *mode);
 // p_split.c
@@ -72,9 +75,16 @@ void	lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
 // e_execute_nodes.c
 void	execute_nodes(t_cmd **nodes, t_shell *shell);
-// r_pipe.c
+// e_signals.c
+void	signal_handler(int signal);
+void	setup_signal_handling(void);
+// r_redir.c
 void	token_pipe(t_cmd *node, int *fd, int *fd_in);
 void	token_input(char **tokens, int *i, t_cmd *node);
+void	token_output(char **tokens, int *i, t_cmd *node);
+void	token_output_cat(char **tokens, int *i, t_cmd *node);
+// r_redir_heredoc.c
+void	token_heredoc(char **tokens, int *i, t_cmd *node);
 /* $ */
 int 	varible_search(t_list *env_lst, char **var, int flag);
 int		check_end(char *str, int pos);

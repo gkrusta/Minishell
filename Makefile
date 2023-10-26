@@ -6,14 +6,14 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/26 09:46:27 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/10/26 20:55:40 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc -g #-fsanitize=address
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra #-Werror 
 REMOVE = rm -rf
 LREADLINE = -lreadline
 
@@ -33,7 +33,7 @@ SRC_FILES = minishell.c mini_args.c \
 			b_env.c b_unset.c \
 			e_make_nodes.c e_make_nodes_utils.c e_path_utils.c e_nodes_utils.c \
 			e_execute_nodes.c \
-			r_redir.c
+			r_redir.c r_redir_heredoc.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

@@ -33,6 +33,12 @@ void	check_redir(t_cmd *node, char **tokens, int *i, int *fd_in)
 		token_pipe(node, fd, fd_in);
 	else if (ft_strcmp(tokens[*i], "<") == 0)
 		token_input(tokens, i, node);
+	else if (ft_strcmp(tokens[*i], ">") == 0)
+		token_output(tokens, i, node);
+	else if (ft_strcmp(tokens[*i], ">>") == 0)
+		token_output_cat(tokens, i, node);
+	else if (ft_strcmp(tokens[*i], "<<") == 0)
+		token_heredoc(tokens, i, node);
 }
 
 char	*str_change_value(char *old_str, char *new_str)

@@ -6,11 +6,13 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/26 15:21:56 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/26 23:06:52 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		shell_state;
 
 void	parse_env(t_shell *shell, char **envp)
 {
@@ -29,6 +31,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	*shell;
 	int		mode;
 
+	setup_signal_handling();
 	input = NULL;
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
@@ -38,7 +41,9 @@ int	main(int argc, char **argv, char **envp)
 	parse_env(shell, envp);
 	while (1)
 	{
+		shell_state = 1;
 		input = readline("minishell> ");
+		shell_state = 0;
 		if (!input || !ft_strcmp(input, "exit"))
 			break ;
 		if (ft_strlen(input) > 0)
@@ -53,3 +58,4 @@ int	main(int argc, char **argv, char **envp)
 	free (input);
 	return (0);
 }
+

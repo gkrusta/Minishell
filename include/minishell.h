@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/25 13:17:57 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/26 13:39:22 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,14 @@ char	*get_value(t_shell *shell, char *key);
 void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir);
 //b_pwd.c
 void	pwd(t_shell *shell);
-
 /* b_env */
-char	*ft_strndup(const char *str, size_t len);
-char	**ft_strddup(const char **envp);
 void	create_env_lst(t_shell *shell, char **envp);
 void	print_env_variables(t_shell *shell, t_list *env);
 void	free_params(t_shell *shell);
-int	    key_path_found(t_list *env);
-
+int		key_path_found(t_list *env);
+/* b_env_utils */
+char	*ft_strndup(const char *str, size_t len);
+char	**ft_strddup(const char **envp);
 /* $ */
 int 	varible_search(t_list *env_lst, char **var, int flag);
 int		check_end(char *str, int pos);

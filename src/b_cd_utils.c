@@ -23,13 +23,12 @@ char	*get_value(t_shell *shell, char *key)
 	{
 		if (ft_strcmp(key, env_list->key) == 0)
 		{
-			//printf("key is %s   value is %s\n", key, shell->env_lst->value);
 			value = env_list->value;
 			return (value);
 		}
 		env_list = env_list->next;
 	}
-	printf("minishell: cd: %s: not set\n", key);
+	printf("minishell: cd: %s not set\n", key);
 	shell->exit_status = 1;
 	return (NULL);
 }
@@ -37,10 +36,12 @@ char	*get_value(t_shell *shell, char *key)
 void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir)
 {
 	char	**changes;
+	char	*dir;
 
+	dir = ft_strrchr(new_dir, '/');
 	if (chdir(new_dir) == -1)
 	{
-		printf("cd: no such file or directory: %s\n", new_dir);
+		printf("minishell: cd: %s: No such file or directory\n", &dir[1]);
 		shell->exit_status = 1;
 	}
 	changes = ft_calloc(3, sizeof(char *));

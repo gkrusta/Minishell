@@ -6,7 +6,7 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/23 11:10:22 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/10/26 13:36:49 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include
 
 SRC_FILES = minishell.c mini_args.c \
 			p_split.c p_split_utils.c p_dbg_print.c \
-			b_env.c b_export.c b_export_utils.c b_export_utils_b.c \
+			b_env.c b_env_utils.c b_export.c b_export_utils.c b_export_utils_b.c \
 			b_unset.c p_dollar_sign.c p_trim.c \
 			b_echo.c b_cd.c b_cd_utils.c b_pwd.c
 

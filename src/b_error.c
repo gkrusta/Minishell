@@ -1,3 +1,5 @@
+//no estoy usando eso por ahora
+
 /* void	ft_error_msg(char *str, shell)
 {
 	perror(str);

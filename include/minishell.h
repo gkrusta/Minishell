@@ -6,12 +6,13 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/27 13:13:48 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/27 20:53:14 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define _XOPEN_SOURCE 700 // para compilar signals en linux
 
 #include <readline/readline.h>
 #include <stdio.h>
@@ -25,6 +26,7 @@
 #include "../assets/libft/libft.h"
 #include "minishell_defines.h"
 #include "minishell_structs.h"
+
 
 extern int shell_state;
 

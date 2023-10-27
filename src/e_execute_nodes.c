@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	exec_built(t_cmd *node, t_shell *shell)
+void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy)
 {
 	dup2(node->outfile, STDOUT_FILENO);
 	if (ft_strcmp(node->cmd, "env") == 0)
@@ -15,8 +15,10 @@ void	exec_built(t_cmd *node, t_shell *shell)
 		unset(shell, node->args);
 	if (strcmp(node->cmd, "pwd") == 0)
 		pwd(shell);
-	dup2((node->outfile - 1), STDIN_FILENO);
 	close(node->outfile);
+	dup2(stdoutcpy, STDOUT_FILENO);
+	dup2((node->outfile - 1), STDIN_FILENO);
+	close((node->outfile - 1));
 }
 
 void	exec_comm(t_cmd *node, t_shell *shell)
@@ -66,7 +68,7 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	while (node)
 	{
 		if (is_built_in(node->cmd))
-			exec_built(node, shell);
+			exec_built(node, shell, stdoutcpy);
 		else
 			fork_child(node, shell);
 		node = node->next;

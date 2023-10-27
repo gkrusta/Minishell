@@ -6,14 +6,14 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/27 13:12:22 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/10/27 19:28:48 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc -g #-fsanitize=address
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra #-Werror 
 REMOVE = rm -rf
 LREADLINE = -lreadline
 

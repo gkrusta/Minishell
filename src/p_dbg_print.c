@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	dbg_print_array_tokens(char **tokens, int mode)
+void	dbg_print_array_tokens(char **tokens, int mode, t_shell *shell)
 {
 	int	i;
 
@@ -15,6 +15,7 @@ void	dbg_print_array_tokens(char **tokens, int mode)
 			i++;
 		}
 		ft_printf("\033[1;38;5;226m*********************************\033[0m\n");
+		printf("Space next: %s\n", shell->space_next);
 		printf("\n");
 	}
 }

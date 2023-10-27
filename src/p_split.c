@@ -74,14 +74,16 @@ char	*read_token(char *input, int *i)
 	return (buff);
 }
 
-char	**p_split(char *input)
+char	**p_split(char *input, t_shell *shell)
 {
 	int		i;
 	char	**tokens;
 	char	**aux;
 	char	*buff;
+	int		n;
 
 	i = 0;
+	n = 0;
 	tokens = (char **)ft_calloc(sizeof(char *), 1);
 	while (input[i] && ft_isspace(input[i]))
 		i++;
@@ -89,10 +91,16 @@ char	**p_split(char *input)
 	{
 		buff = read_token(input, &i);
 		if (buff)
+		{
 			aux = add_token(tokens, buff);
+			n++;
+		}
 		tokens = aux;
 		while (input[i] && ft_isspace(input[i]))
+		{
+			shell->space_next[n - 1] = '1';
 			i++;
+		}
 	}
 	return (tokens);
 }

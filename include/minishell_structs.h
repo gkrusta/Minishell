@@ -18,6 +18,8 @@ typedef struct		s_shell
 	t_list			*env_lst;  // copia de varibles entornos
 	char			**tokens;
 	int				exit_status;
+	char			path[128];
+	char			*space_next;
 }					t_shell;
 
 // para guardar el path

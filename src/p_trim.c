@@ -46,6 +46,7 @@ char *trim_quotes(char *str)
 }
 
 // Function to trim extra double quotes (") and single quotes (') from a string
+// and replaces $ if needed with env varible
 int	ft_trim(t_shell *shell)
 {
 	int	i;
@@ -53,15 +54,15 @@ int	ft_trim(t_shell *shell)
 	i = 0;
 	while (shell->tokens[i])
 	{
-		if (shell->tokens[i][0] == '$')
-			ft_token_check(shell, shell->tokens[i], i);
-		else if (shell->tokens[i][0] == 34 && pair_exists(shell->tokens[i], 34))
+		if (shell->tokens[i][0] == 34 && pair_exists(shell->tokens[i], 34))
 		{
 			ft_token_check(shell, shell->tokens[i], i);
 			shell->tokens[i] = trim_quotes(shell->tokens[i]);
 		}
 		else if (shell->tokens[i][0] == 39 && pair_exists(shell->tokens[i], 39))
 			shell->tokens[i] = trim_quotes(shell->tokens[i]);
+		else
+			ft_token_check(shell, shell->tokens[i], i);
 		i++;
 	}
 	return (0);

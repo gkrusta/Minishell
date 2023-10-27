@@ -89,7 +89,7 @@ void	ft_token_check(t_shell *shell, char *str, int i)
 			if (var)
 				shell->tokens[i] = ft_concat(shell->tokens[i], var, str_end, &j);
 			else
-				printf("Error: var");
+				break ;
 		}
 		j++;
 	}

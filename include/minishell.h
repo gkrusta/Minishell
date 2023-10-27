@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/26 23:07:03 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:21:01 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <readline/history.h>
 #include <sys/wait.h>
 #include <signal.h>
@@ -31,7 +32,7 @@ extern int shell_state;
 // mini_args.c
 void	mini_args(int argc, char *argv[], int *mode);
 // p_split.c
-char	**p_split(char *input);
+char	**p_split(char *input, t_shell *shell);
 int		ft_isspace(char c);
 // p_split_utils.c
 int		assign_type(char c);
@@ -56,9 +57,38 @@ void	copy_value(t_list *env_list, t_list *new_arg);
 void	free_arg(t_list *new_arg);
 void	export_empty(t_shell *shell);
 // b_export_utils_b.c
-int		check_key(char *key, int print, t_shell *shell);
+int		check_key(char *key, int print, t_shell *shell, char *str);
 // b_unset.c
 void	unset(t_shell *shell, char **args);
+void	delete_value(t_shell *shell, int node_pos);
+void	free_node(t_list *node);
+
+// b_echo.c
+int 	echo(t_shell *shell, char **args);
+void	print_echo(t_shell *shell, char **tokens, int i);
+int 	put_space(char **tokens, int i);
+
+// b_cd.c
+void	cd(t_shell *shell, char **args);
+void	only_cd(t_shell *shell);
+void	last_cd(t_shell *shell);
+void	free_args(char **args);
+void	abs_path(t_shell *shell, char *path);
+void	home_cd(t_shell *shell, char *path);
+// b_cd_utils.c
+void	free_args(char **args);
+char	*get_value(t_shell *shell, char *key);
+void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir);
+//b_pwd.c
+void	pwd(t_shell *shell);
+/* b_env */
+void	create_env_lst(t_shell *shell, char **envp);
+void	print_env_variables(t_shell *shell, t_list *env);
+void	free_params(t_shell *shell);
+int		key_path_found(t_list *env);
+/* b_env_utils */
+char	*ft_strndup(const char *str, size_t len);
+char	**ft_strddup(const char **envp);
 // e_make_nodes.c
 void	make_nodes(t_shell *shell, char *input, int mode);
 // e_make_nodes_utils.c
@@ -98,5 +128,6 @@ int		is_inside_quotes(char *str, int pos);
 int		ft_trim(t_shell *shell);
 char	*trim_quotes(char *str);
 int		pair_exists(char *str, char c);
+
 
 #endif

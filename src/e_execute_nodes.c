@@ -1,5 +1,24 @@
 #include "minishell.h"
 
+void	exec_built(t_cmd *node, t_shell *shell)
+{
+	dup2(node->outfile, STDOUT_FILENO);
+	if (ft_strcmp(node->cmd, "env") == 0)
+		print_env_variables(shell, shell->env_lst);
+	if (strcmp(node->cmd, "export") == 0)
+		export(shell, node->args);
+	if (strcmp(node->cmd, "echo") == 0)
+		echo(shell, node->args);
+	if (strcmp(node->cmd, "cd") == 0)
+		cd(shell, node->args);
+	if (strcmp(node->cmd, "unset") == 0)
+		unset(shell, node->args);
+	if (strcmp(node->cmd, "pwd") == 0)
+		pwd(shell);
+	dup2((node->outfile - 1), STDIN_FILENO);
+	close(node->outfile);
+}
+
 void	exec_comm(t_cmd *node, t_shell *shell)
 {
 	int	i;
@@ -21,16 +40,13 @@ void	fork_child(t_cmd *node, t_shell *shell)
 {
 	pid_t	pid;
 
-	if (!is_built_in(node->cmd))
+	pid = fork();
+	if (pid == 0)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			dup2(node->outfile, STDOUT_FILENO);
-			exec_comm(node, shell);
-		}
-		waitpid(pid, NULL, 0);
+		dup2(node->outfile, STDOUT_FILENO);
+		exec_comm(node, shell);
 	}
+	waitpid(pid, NULL, 0);
 	dup2((node->outfile - 1), STDIN_FILENO);
 	close(node->outfile);
 	close((node->outfile - 1));
@@ -49,7 +65,10 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	close(node->infile);
 	while (node)
 	{
-		fork_child(node, shell);
+		if (is_built_in(node->cmd))
+			exec_built(node, shell);
+		else
+			fork_child(node, shell);
 		node = node->next;
 	}
 	dup2(stdincpy, STDIN_FILENO);

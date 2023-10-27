@@ -6,7 +6,7 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/27 11:16:53 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/10/27 13:12:22 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,18 +26,14 @@ LIBFT_LIB_PATH = assets/libft/libft.a
 
 HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include
 
-SRC_FILES = minishell.c mini_args.c \
-			p_split.c p_split_utils.c p_dbg_print.c \
-			p_dollar_sign.c p_trim.c \
-			b_export.c b_export_utils.c b_export_utils_b.c \
-			b_env.c b_unset.c \
-			e_make_nodes.c e_make_nodes_utils.c e_path_utils.c e_nodes_utils.c \
-			e_execute_nodes.c e_signals.c\
-			r_redir.c r_redir_heredoc.c \
-			b_env.c b_env_utils.c b_export.c b_export_utils.c b_export_utils_b.c \
-			b_unset.c p_dollar_sign.c p_trim.c \
-			b_echo.c b_cd.c b_cd_utils.c b_pwd.c
-
+SRC_FILES = b_cd_utils.c b_cd.c b_echo.c b_env_utils.c b_env.c \
+			b_export_utils_b.c b_export_utils.c b_export.c b_pwd.c b_unset.c \
+			e_execute_nodes.c e_make_nodes_utils.c e_make_nodes.c \
+			e_nodes_utils.c e_path_utils.c e_signals.c \
+			mini_args.c minishell.c \
+			p_dbg_print.c p_dollar_sign.c p_split_utils.c p_split.c p_trim.c \
+			r_redir_heredoc.c r_redir.c
+			   
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 

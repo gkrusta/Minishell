@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/27 11:21:01 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/27 13:13:48 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,8 @@ int		ft_isspace(char c);
 int		assign_type(char c);
 int		end_token(char c, int type, int *used);
 void	free_tokens(t_shell *shell);
-// p_env
-char	*ft_strndup(const char *str, size_t len);
-char	**ft_strddup(const char **envp);
-void	create_env_lst(t_shell *shell, char **envp);
-void	print_env_variables(t_list *env);
-void	free_params(t_shell *shell);
 // p_dbg_print.c
-void	dbg_print_array_tokens(char **tokens, int mode);
+void	dbg_print_array_tokens(char **tokens, int mode, t_shell *shell);
 void	dbg_print_command_nodes(t_cmd **com_nodes, int mode);
 // b_export.c
 void	export(t_shell *shell, char **args);

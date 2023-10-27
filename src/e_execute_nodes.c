@@ -69,6 +69,15 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	{
 		if (is_built_in(node->cmd))
 			exec_built(node, shell, stdoutcpy);
+		else if (node->cmd_path[0] == '\0')
+		{
+			dup2(stdoutcpy, STDOUT_FILENO);
+			if (node->cmd[0] == '\0')
+				printf("%s: command not found\n", node->args[0]);
+			else
+				printf("%s: command not found\n", node->cmd);
+			break ;
+		}
 		else
 			fork_child(node, shell);
 		node = node->next;

@@ -11,6 +11,7 @@ int	read_line(char **line)
 	read_line = (char *)malloc(10000);
 	if (!read_line)
 		return (-1);
+	ft_printf("> ");
 	try_read = 0;
 	try_read = read(0, &c, 1);
 	while (try_read && c != '\n' && c != '\0')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/26 13:45:56 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/28 12:46:49 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	print_env_variables(t_shell *shell, t_list *env)
 	env_print = env;
 	if (env_print == NULL || key_path_found(env) == 1)
 	{
-		printf("minishell: env: No such file or directory\n");
+		ft_printf("minishell: env: No such file or directory\n");
 		shell->exit_status = 127;
 	}
 	else
 	{
 		while (env_print != NULL && env_print->init > 0)
 		{
-			printf("%s=%s\n", (char *)env_print->key, (char *)env_print->value);
+			ft_printf("%s=%s\n", (char *)env_print->key, (char *)env_print->value);
 			env_print = env_print->next;
 		}
 		shell->exit_status = 0;

@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/27 14:20:29 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:54:39 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	shell = malloc(sizeof(t_shell));
 	shell->exit_status = 0;
 	atexit(ft_leaks);
-	printf("\n\nUSER is: @%s\n", getenv("USER"));
+	ft_printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
 	shell->space_next = ft_calloc(50, sizeof(char));
 	while (1)

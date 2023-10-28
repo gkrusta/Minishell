@@ -73,9 +73,9 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 		{
 			dup2(stdoutcpy, STDOUT_FILENO);
 			if (node->cmd[0] == '\0')
-				printf("%s: command not found\n", node->args[0]);
+				ft_printf("%s: command not found\n", node->args[0]);
 			else
-				printf("%s: command not found\n", node->cmd);
+				ft_printf("%s: command not found\n", node->cmd);
 			break ;
 		}
 		else

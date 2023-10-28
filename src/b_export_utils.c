@@ -95,7 +95,7 @@ void	export_empty(t_shell *shell)
 	i = 0;
 	while (str_array[i])
 	{
-		printf("declare -x %s\n", str_array[i]);
+		ft_printf("declare -x %s\n", str_array[i]);
 		free(str_array[i]);
 		i++;
 	}

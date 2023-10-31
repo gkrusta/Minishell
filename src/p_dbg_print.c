@@ -39,7 +39,7 @@ void	dbg_print_command_nodes(t_cmd **com_nodes, int mode)
 			ft_printf("       path: %s\n       args: ", c_node->cmd_path);
 			j = 0;
 			while (c_node->args[j])
-				printf("%s  ", c_node->args[j++]);
+				ft_printf("%s  ", c_node->args[j++]);
 			ft_printf("\n     infile: %i\n", c_node->infile);
 			ft_printf("    outfile: %i\n", c_node->outfile);
 			c_node = c_node->next;

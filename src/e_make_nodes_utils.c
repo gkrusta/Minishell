@@ -44,6 +44,10 @@ void	check_redir(t_cmd *node, char **tokens, int *i, int *fd_in)
 char	*str_change_value(char *old_str, char *new_str)
 {
 	free(old_str);
+	if (new_str[0] == '.' && new_str[1] == '/')
+	{
+		
+	}
 	old_str = new_str;
 	return (new_str);
 }

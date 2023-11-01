@@ -87,7 +87,10 @@ void	ft_token_check(t_shell *shell, char *str, int i)
 			str_end = str_after_var(shell->tokens[i], j + 1);
 			var = after_dolor_sign(shell, shell->tokens[i], j + 1);
 			if (var)
+			{
 				shell->tokens[i] = ft_concat(shell->tokens[i], var, str_end, &j);
+				//printf("%s\n", shell->tokens[i]);
+			}
 			else
 				break ;
 		}

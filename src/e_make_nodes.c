@@ -17,7 +17,9 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 			i = 0;
 			while (node->args[i])
 				i++;
+			//printf("bef %s\n", node->args[i]);
 			node->args[i] = str_change_value(node->args[i], token);
+			//printf("aft %s\n", node->args[i]);
 		}
 	}
 	else

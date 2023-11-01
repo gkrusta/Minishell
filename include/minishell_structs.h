@@ -20,6 +20,7 @@ typedef struct		s_shell
 	int				exit_status;
 	char			path[128];
 	char			*space_next;
+	int				lvl;
 }					t_shell;
 
 // para guardar el path

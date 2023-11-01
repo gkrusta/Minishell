@@ -31,6 +31,13 @@ void	exec_comm(t_cmd *node, t_shell *shell)
 		node->args[i] = node->args[i - 1];
 		i--;
 	}
+	if (node->args[0][0] == '.' && node->args[0][1] == '/')
+	{
+		char *test[] = { "./minishell",
+						NULL
+						};
+		execve(node->args[0], test, shell->env);
+	}
 	node->args[0] = node->cmd;
 	i = 0;
 	while (node->args[i])
@@ -41,18 +48,21 @@ void	exec_comm(t_cmd *node, t_shell *shell)
 void	fork_child(t_cmd *node, t_shell *shell)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
 	{
+		update_level(shell, 1);
 		dup2(node->outfile, STDOUT_FILENO);
 		exec_comm(node, shell);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
 	dup2((node->outfile - 1), STDIN_FILENO);
 	close(node->outfile);
 	close((node->outfile - 1));
 }
+
 
 void	execute_nodes(t_cmd **nodes, t_shell *shell)
 {
@@ -71,6 +81,12 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 			exec_built(node, shell, stdoutcpy);
 		else if (node->cmd_path[0] == '\0')
 		{
+			if (node->args[0][0] == '.' && node->args[0][1] == '/')
+			{
+				dup2(stdincpy, STDIN_FILENO);
+				fork_child(node, shell);
+				break ;
+			}
 			dup2(stdoutcpy, STDOUT_FILENO);
 			if (node->cmd[0] == '\0')
 				printf("%s: command not found\n", node->args[0]);

@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:14:43 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/26 12:47:38 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/31 17:29:48 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_echo(t_shell *shell, char **tokens, int i)
 {
-	if (shell->space_next[i + 1] == '1')
+	if (shell->space_next[i] == '1')
 		printf("%s ", tokens[i]);
 	else
 		printf("%s", tokens[i]);
@@ -24,10 +24,11 @@ int	echo(t_shell *shell, char **args)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
+	//printf("args %s\n", args[0]);
 	if (args[0] == NULL)
 	{
-		printf("/0");
+		printf("\n");
 		return (0);
 	}
 	if (ft_strcmp(args[0], "$?") == 0)
@@ -37,6 +38,7 @@ int	echo(t_shell *shell, char **args)
 		return (0);
 	}
 	ft_trim(shell);
+	args = shell->tokens;
 	while (args[i])
 	{
 		if (ft_strcmp(args[0], "-n") == 0)
@@ -49,6 +51,6 @@ int	echo(t_shell *shell, char **args)
 	}
 	if (!(ft_strcmp(shell->tokens[0], "-n") == 0))
 		printf("\n");
-	shell->exit_status = 1;
+	shell->exit_status = 0;
 	return (0);
 }

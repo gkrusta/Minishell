@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 10:54:40 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/02 11:01:43 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@
 extern int shell_state;
 
 // minishell.c
-char	*check_level(char *lvl);
-void	update_level(t_shell *shell, int flag);
 
 // mini_args.c
 void	mini_args(int argc, char *argv[], int *mode);
@@ -88,6 +86,8 @@ void	free_params(t_shell *shell);
 int		key_search(t_list *env, char *str);
 t_list	*node_search(t_list *env, char *str);
 /* b_env_utils */
+char	*check_level(char *lvl);
+void	update_level(t_shell *shell, int flag);
 char	*ft_strndup(const char *str, size_t len);
 char	**ft_strddup(const char **envp);
 /* b_env_update.c */

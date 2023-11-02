@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 10:57:00 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/02 11:01:02 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,59 +24,6 @@ void	zero(t_shell *shell)
 		shell->space_next[i] = '0';
 		i++;
 	}
-}
-
-char	*check_level(char *lvl)
-{
-	int		level;
-	char	*result;
-	int		i;
-
-	i = 0;
-	while (lvl[i])
-	{
-		if (ft_isdigit(lvl[i]) == 0)
-		{
-			lvl = ft_strdup("1");
-			return (lvl); 
-		}
-		i++;
-	}
-	level = ft_atoi(lvl);
-	level += 1;
-	result = ft_itoa(level);
-	return (result);
-}
-
-void	update_level(t_shell *shell, int flag)
-{
-	char	**lvl;
-	t_list	*aux;
-
-	if (flag == 1 && key_search(shell->env_lst, "SHLVL") == 1)
-	{
-		lvl = ft_calloc(2, sizeof(char *));
-		lvl[0] = ft_strdup("SHLVL=1");
-		export(shell, lvl);
-	}
-	else if (flag == 1 && key_search(shell->env_lst, "SHLVL") == 0)
-	{
-		lvl = ft_calloc(3, sizeof(char *));
-		aux = node_search(shell->env_lst, "SHLVL");
-		lvl[0] = check_level(aux->value);
-		lvl[1] = ft_strjoin("SHLVL=", lvl[0]);
-		printf("new level    %s\n", lvl[0]);
-		if (lvl[0] != NULL && lvl[1] != NULL)
-			export(shell, &lvl[1]);
-		free_args(lvl);
-	}
-	update_env(shell);
-}
-
-void	parse_env(t_shell *shell, char **envp)
-{
-	shell->env = ft_strddup((const char **)envp);
-	create_env_lst(shell, envp);
 }
 
 /* void	ft_leaks(void)

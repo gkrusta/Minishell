@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:58:35 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/01 15:16:29 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/02 11:03:24 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ char	**ft_stddup_env(t_shell *shell)
 
 void	update_env(t_shell *shell)
 {
-	int		count;
-
 	if (count_env_var(shell) > 0)
 	{
 		free_args(shell->env);

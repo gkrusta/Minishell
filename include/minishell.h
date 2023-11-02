@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 11:01:43 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/02 11:02:51 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_list	*node_search(t_list *env, char *str);
 /* b_env_utils */
 char	*check_level(char *lvl);
 void	update_level(t_shell *shell, int flag);
+void	parse_env(t_shell *shell, char **envp);
 char	*ft_strndup(const char *str, size_t len);
 char	**ft_strddup(const char **envp);
 /* b_env_update.c */

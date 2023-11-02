@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/01 20:22:14 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/02 10:57:00 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	zero(t_shell *shell)
 		i++;
 	}
 }
-
 
 char	*check_level(char *lvl)
 {
@@ -72,19 +71,11 @@ void	update_level(t_shell *shell, int flag)
 		free_args(lvl);
 	}
 	update_env(shell);
-	//printf("here %s\n", shell->env)
 }
 
 void	parse_env(t_shell *shell, char **envp)
 {
-/* 	static int	entry_count;
-
-	entry_count = 0;
-	entry_count += 1;
-	if (entry_count == 1) */
 	shell->env = ft_strddup((const char **)envp);
-/* 	else if (entry_count > 1)
-		update_level(shell, 1); */
 	create_env_lst(shell, envp);
 }
 
@@ -115,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 		shell_state = 1;
 		input = readline("minishell> ");
 		shell_state = 0;
-		if (!ft_strcmp(input, "exit"))
+		if (!input || !ft_strcmp(input, "exit"))
 			break ;
 		if (ft_strlen(input) > 0)
 		{

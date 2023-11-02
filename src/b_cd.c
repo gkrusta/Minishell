@@ -9,7 +9,7 @@ void	abs_path(t_shell *shell, char *path)
 	old_dir = getcwd(shell->path, 128);
 	if (old_dir == NULL)
 	{
-		printf("minishell: cd: %s not set\n", shell->env_lst->key);
+		ft_printf("minishell: cd: %s not set\n", shell->env_lst->key);
 		shell->exit_status = 1;
 		//exit(1);
 	}
@@ -34,7 +34,7 @@ void	home_cd(t_shell *shell, char *path)
 	old_dir = getcwd(shell->path, 128);
 	if (old_dir == NULL)
 	{
-		printf("minishell: cd: %s not set\n", shell->env_lst->key);
+		ft_printf("minishell: cd: %s not set\n", shell->env_lst->key);
 		shell->exit_status = 1;
 		//exit(1);
 	}
@@ -48,7 +48,7 @@ void	home_cd(t_shell *shell, char *path)
 		{
 			ft_export_pwds(shell, old_dir, new_dir);
 			if (ft_strcmp(path, "OLDPWD") == 0)
-				printf("%s\n", get_value(shell, "PWD"));
+				ft_printf("%s\n", get_value(shell, "PWD"));
 			else if (ft_strcmp(path, "/") == 0)
 				free (new_dir);
 		}
@@ -64,7 +64,7 @@ void	parent_dir(t_shell *shell)
 	old_dir = getcwd(shell->path, 128);
 	if (old_dir == NULL)
 	{
-		printf("minishell: cd: %s not set\n", shell->env_lst->key);
+		ft_printf("minishell: cd: %s not set\n", shell->env_lst->key);
 		shell->exit_status = 1;
 		//exit(1);
 	}

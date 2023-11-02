@@ -6,7 +6,7 @@ int	varible_search(t_list *env_lst, char **var, int flag)
 		return (1);  // Env list is empty
 	while (env_lst->next != NULL && flag == 0)
 	{
-		if (strcmp(*var, env_lst->key) == 0)
+		if (ft_strcmp(*var, env_lst->key) == 0)
 		{
 			free(*var); // Free the old
 			*var = strdup(env_lst->value); // Set a new value

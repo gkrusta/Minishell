@@ -2,8 +2,7 @@
 
 void	print_header(void)
 {
-	system("clear");
-	ft_printf("\n");
+	ft_printf("\n\n");
 	ft_printf("****************************************************\n");
 	ft_printf("*     42 PROJECT                                   *\n");
 	ft_printf("*    - MINISHELL -   version: 0.0.1                *\n");

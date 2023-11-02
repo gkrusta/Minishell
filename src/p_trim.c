@@ -15,7 +15,7 @@ int	pair_exists(char *str, char c)
 		i++;
 		len++;
 	}
-	printf("Error");// pair not found
+	ft_printf("Error");// pair not found
 	exit(1);
 }
 

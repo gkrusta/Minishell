@@ -28,7 +28,7 @@ char	*get_value(t_shell *shell, char *key)
 		}
 		env_list = env_list->next;
 	}
-	printf("minishell: cd: %s not set\n", key);
+	ft_printf("minishell: cd: %s not set\n", key);
 	shell->exit_status = 1;
 	return (NULL);
 }
@@ -41,7 +41,7 @@ void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir)
 	dir = ft_strrchr(new_dir, '/');
 	if (chdir(new_dir) == -1)
 	{
-		printf("minishell: cd: %s: No such file or directory\n", &dir[1]);
+		ft_printf("minishell: cd: %s: No such file or directory\n", &dir[1]);
 		shell->exit_status = 1;
 	}
 	changes = ft_calloc(3, sizeof(char *));

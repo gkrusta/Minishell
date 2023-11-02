@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_pwd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:55:17 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/20 15:21:15 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/10/28 12:49:22 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	pwd(t_shell *shell)
 {
 	if (getcwd(shell->path, 128) != NULL)
-		printf("%s\n", shell->path);
+		ft_printf("%s\n", shell->path);
 	else
 	{
 		perror(shell->path);

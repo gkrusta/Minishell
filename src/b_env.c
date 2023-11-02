@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:55:15 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/28 12:46:49 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:54:17 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,28 @@ void	create_env_lst(t_shell *shell, char **envp)
 	}
 }
 
-int	key_path_found(t_list *env)
+t_list	*node_search(t_list *env, char *str)
 {
 	t_list	*env_key_search;
 	
 	env_key_search = env;
 	while (env_key_search)
 	{
-		if (ft_strcmp(env_key_search->key, "PATH") == 0)
+		if (ft_strcmp(env_key_search->key, str) == 0)
+			return (env_key_search);
+		env_key_search = env_key_search->next;
+	}
+	return NULL;
+}
+
+int	key_search(t_list *env, char *str)
+{
+	t_list	*env_key_search;
+	
+	env_key_search = env;
+	while (env_key_search)
+	{
+		if (ft_strcmp(env_key_search->key, str) == 0)
 			return (0);
 		env_key_search = env_key_search->next;
 	}
@@ -57,7 +71,7 @@ void	print_env_variables(t_shell *shell, t_list *env)
 	t_list	*env_print;
 
 	env_print = env;
-	if (env_print == NULL || key_path_found(env) == 1)
+	if (env_print == NULL || key_search(env, "PATH") == 1)
 	{
 		ft_printf("minishell: env: No such file or directory\n");
 		shell->exit_status = 127;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/28 20:01:56 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:02:51 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 extern int shell_state;
 
 // minishell.c
+
 // mini_args.c
 void	mini_args(int argc, char *argv[], int *mode);
 // p_split.c
@@ -82,10 +83,19 @@ void	pwd(t_shell *shell);
 void	create_env_lst(t_shell *shell, char **envp);
 void	print_env_variables(t_shell *shell, t_list *env);
 void	free_params(t_shell *shell);
-int		key_path_found(t_list *env);
+int		key_search(t_list *env, char *str);
+t_list	*node_search(t_list *env, char *str);
 /* b_env_utils */
+char	*check_level(char *lvl);
+void	update_level(t_shell *shell, int flag);
+void	parse_env(t_shell *shell, char **envp);
 char	*ft_strndup(const char *str, size_t len);
 char	**ft_strddup(const char **envp);
+/* b_env_update.c */
+void	update_env(t_shell *shell);
+char	**ft_stddup_env(t_shell *shell);
+char	*concat_env(t_list *env_lst_cpy, char **env, int pos);
+int		count_env_var(t_shell *shell);
 // e_make_nodes.c
 void	make_nodes(t_shell *shell, char *input, int mode);
 // e_make_nodes_utils.c

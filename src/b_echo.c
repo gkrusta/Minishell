@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:14:43 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/28 12:45:08 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:58:48 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	print_echo(t_shell *shell, char **tokens, int i)
 	if (shell->space_next[i + 1] == '1')
 		ft_printf("%s ", tokens[i]);
 	else
-		ft_printf("%s", tokens[i]);
+		printf("%s", tokens[i]);
 }
 
 int	echo(t_shell *shell, char **args)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
+	//printf("args %s\n", args[0]);
 	if (args[0] == NULL)
 	{
 		ft_printf("/0");
@@ -37,6 +38,7 @@ int	echo(t_shell *shell, char **args)
 		return (0);
 	}
 	ft_trim(shell);
+	args = shell->tokens;
 	while (args[i])
 	{
 		if (ft_strcmp(args[0], "-n") == 0)

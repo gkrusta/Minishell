@@ -30,6 +30,6 @@ int	check_key(char *key, int print, t_shell *shell, char *cmd)
 		shell->exit_status = 1;
 	}
 	else
-		shell->exit_status = 0;
+		shell->exit_status = 1;
 	return (0);
 }

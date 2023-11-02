@@ -33,6 +33,8 @@ void	lst_clear_nodes(t_cmd **lst)
 	node = *lst;
 	while (node != NULL)
 	{
+		if (node->cmd[0] == '\0')
+			free(node->cmd);
 		aux = node;
 		node = node->next;
 		free(aux->cmd_path);

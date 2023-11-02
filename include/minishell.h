@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 11:02:51 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/02 18:02:12 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
 // e_execute_nodes.c
 void	execute_nodes(t_cmd **nodes, t_shell *shell);
+// e_execute_nodes_utils.c
+int		check_absolut(t_cmd *node);
 // e_signals.c
 void	signal_handler(int signal);
 void	setup_signal_handling(void);

@@ -21,6 +21,19 @@ void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy)
 	close((node->outfile - 1));
 }
 
+int	new_mini(t_cmd *node)
+{
+	if (node->args[0] != NULL)
+	{
+		if (ft_strlen(node->args[0]) >= 2)
+		{
+			if (node->args[0][0] == '.' && node->args[0][1] == '/')
+				return (1);
+		}
+	}
+	return (0);
+}
+
 void	exec_comm(t_cmd *node, t_shell *shell)
 {
 	int	i;
@@ -31,17 +44,9 @@ void	exec_comm(t_cmd *node, t_shell *shell)
 		node->args[i] = node->args[i - 1];
 		i--;
 	}
-	if (node->args[0][0] == '.' && node->args[0][1] == '/')
-	{
-		char *test[] = { "./minishell",
-						NULL
-						};
-		execve(node->args[0], test, shell->env);
-	}
+	if (new_mini(node))
+		execve(node->args[0], &node->args[1], shell->env);
 	node->args[0] = node->cmd;
-	i = 0;
-	while (node->args[i])
-		i++;
 	execve(node->cmd_path, node->args, shell->env);
 }
 
@@ -53,7 +58,8 @@ void	fork_child(t_cmd *node, t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		update_level(shell, 1);
+		if (new_mini(node))
+			update_level(shell, 1);
 		dup2(node->outfile, STDOUT_FILENO);
 		exec_comm(node, shell);
 	}
@@ -63,12 +69,12 @@ void	fork_child(t_cmd *node, t_shell *shell)
 	close((node->outfile - 1));
 }
 
-
 void	execute_nodes(t_cmd **nodes, t_shell *shell)
 {
 	t_cmd	*node;
 	int		stdincpy;
 	int		stdoutcpy;
+	int		i;
 
 	stdincpy = dup(STDIN_FILENO);
 	stdoutcpy = dup(STDOUT_FILENO);
@@ -77,11 +83,13 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	close(node->infile);
 	while (node)
 	{
+		i = check_absolut(node);
+		dbg_print_command_nodes(&node, 2);
 		if (is_built_in(node->cmd))
 			exec_built(node, shell, stdoutcpy);
-		else if (node->cmd_path[0] == '\0')
+		else if (node->cmd_path[0] == '\0' || node->cmd[0] == '/')
 		{
-			if (node->args[0][0] == '.' && node->args[0][1] == '/')
+			if (new_mini(node))
 			{
 				dup2(stdincpy, STDIN_FILENO);
 				fork_child(node, shell);
@@ -90,12 +98,14 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 			dup2(stdoutcpy, STDOUT_FILENO);
 			if (node->cmd[0] == '\0')
 				ft_printf("%s: command not found\n", node->args[0]);
-			else
+			if (node->cmd[0] == '/')
 				ft_printf("%s: command not found\n", node->cmd);
 			break ;
 		}
 		else
 			fork_child(node, shell);
+		if (i == 1)
+			free(node->cmd);
 		node = node->next;
 	}
 	dup2(stdincpy, STDIN_FILENO);

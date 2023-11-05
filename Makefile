@@ -6,7 +6,7 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/11/02 16:47:25 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/11/04 23:22:10 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_FILES = b_cd_utils.c b_cd.c b_echo.c b_env_utils.c b_env.c b_env_update.c \
 			e_make_nodes.c e_nodes_utils.c e_path_utils.c e_signals.c \
 			mini_args.c minishell.c \
 			p_dbg_print.c p_dollar_sign.c p_split_utils.c p_split.c p_trim.c \
+			p_trim_utils.c \
 			r_redir_heredoc.c r_redir.c
 			   
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))

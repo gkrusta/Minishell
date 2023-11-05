@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env_update.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:58:35 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 11:03:24 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/03 13:31:40 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_env_var(t_shell *shell)
 
 	i = 0;
 	env_lst_cpy = shell->env_lst;
-	while(env_lst_cpy)
+	while (env_lst_cpy)
 	{
 		i++;
 		env_lst_cpy = env_lst_cpy->next;
@@ -74,5 +74,4 @@ void	update_env(t_shell *shell)
 	}
 	else
 		printf("Error: no env variables\n");
-	//free_env(shell);
 }

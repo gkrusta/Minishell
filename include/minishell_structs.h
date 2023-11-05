@@ -21,6 +21,9 @@ typedef struct		s_shell
 	char			path[128];
 	char			*space_next;
 	int				lvl;
+	int				fd_in;
+	int				stdincpy;
+	int				stdoutcpy;
 }					t_shell;
 
 // para guardar el path

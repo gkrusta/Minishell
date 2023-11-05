@@ -6,51 +6,34 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:14:43 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 12:04:53 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/05 18:30:32 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_echo(t_shell *shell, char **tokens, int i)
-{
-	if (shell->space_next[i - 1] == '1')
-		ft_printf("%s ", tokens[i]);
-	else
-		printf("%s", tokens[i]);
-}
-
 int	echo(t_shell *shell, char **args)
 {
 	int	i;
+	int	arg;
 
 	i = 1;
-	//printf("args %s\n", args[0]);
+	arg = 1;
 	if (args[0] == NULL)
-	{
-		ft_printf("/0");
 		return (0);
-	}
-	if (ft_strcmp(args[0], "$?") == 0)
-	{
-		ft_printf("%d\n", shell->exit_status);
-		shell->exit_status = 0;
-		return (0);
-	}
-	ft_trim(shell);
 	args = shell->tokens;
+	if (ft_strcmp(shell->tokens[1], "-n") == 0)
+		i++;
 	while (args[i])
 	{
-		if (ft_strcmp(args[i], "-n") == 0)
-			i++;
-		else if (ft_strcmp(args[i], "$") == 0)
-			ft_printf("$");
-		else if (!(ft_strcmp(args[i], "$") == 0))
-			print_echo(shell, args, i);
+		if (arg > 1)
+			ft_printf(" ");
+		ft_printf("%s", shell->tokens[i]);
 		i++;
+		arg++;
 	}
-	if (!(ft_strcmp(shell->tokens[0], "-n") == 0))
+	if (!(ft_strcmp(shell->tokens[1], "-n") == 0))
 		printf("\n");
-	shell->exit_status = 1;
+	shell->exit_status = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 14:18:30 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:48:30 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,25 @@ void	zero(t_shell *shell)
 	}
 }
 
-void	ft_leaks(void)
+/* void	ft_leaks(void)
 {
 	system("leaks -q minishell");
-}
+} */
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
-	t_shell	*shell;
-	int		mode;
+	char				*input;
+	t_shell				*shell;
+	int					mode;
+	struct sigaction	sa;
 
-	setup_signal_handling();
+	setup_signal_handling(&sa);
 	input = NULL;
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
 	shell->exit_status = 0;
-	atexit(ft_leaks);
+	/* atexit(ft_leaks); */
 	printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
 	shell->space_next = ft_calloc(50, sizeof(char));
@@ -58,8 +59,9 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strlen(input) > 0)
 		{
 			add_history(input);
-			shell->tokens = p_split(input, shell);
+			p_split(input, shell);
 			dbg_print_array_tokens(shell->tokens, mode, shell);
+			ft_trim_tokens(shell);
 			make_nodes(shell, input, mode);
 		}
 		else

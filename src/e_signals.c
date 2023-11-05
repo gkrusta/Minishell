@@ -5,7 +5,7 @@ void	signal_handler(int signal)
 	if (signal == SIGINT)
 	{
 		if (shell_state)
-			ft_printf("\nPresionado Ctrl+C en interactivo\n");
+			ft_printf("\nminishell> ");
 		else
 			ft_printf("\nPresionado Ctrl+C durante una tarea\n");
 	}
@@ -24,21 +24,14 @@ void	signal_handler(int signal)
 			ft_printf("\nPresionado Ctrl+\\ (SIGQUIT) durante una tarea\n");
 	}
 }
-void	reset_signal_handling(void)
+
+void	setup_signal_handling(struct sigaction *sa, char *input)
 {
-	
+	sa->sa_handler = signal_handler;
+	sigaction(SIGINT, sa, NULL);
+	sigaction(SIGQUIT, sa, NULL);
 }
 
-void	setup_signal_handling(void)
-{
-	struct sigaction	sa;
-	struct termios		term;
-
-	sa.sa_handler = signal_handler;
-	sa.sa_flags = 0;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~ECHO;
-}
+	//term.c_lflag &= ~ECHO;
+	//	sa.sa_flags = 0;
+	//	sigemptyset(&sa.sa_mask);

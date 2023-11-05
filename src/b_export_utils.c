@@ -10,25 +10,10 @@ void	free_arg(t_list *new_arg)
 		free(new_arg);
 }
 
-void	sort_array(char **str_array, int lst_size)
+void	add_signs(char *res, int i)
 {
-	int		i;
-	char	*aux;
-
-	i = 0;
-	aux = NULL;
-	while (i < lst_size && str_array[i + 1])
-	{
-		if (ft_strcmp(str_array[i], str_array[i + 1]) > 0)
-		{
-			aux = str_array[i];
-			str_array[i] = str_array[i + 1];
-			str_array[i + 1] = aux;
-			i = 0;
-		}
-		else
-			i++;
-	}
+	res[i] = '=';
+	res[i + 1] = '"';
 }
 
 char	*write_line(char *str1, char *str2, int len, int init)
@@ -45,10 +30,7 @@ char	*write_line(char *str1, char *str2, int len, int init)
 		i++;
 	}
 	if (init)
-	{
-		res[i] = '=';
-		res[i + 1] = '"';
-	}
+		add_signs(res, i);
 	i += 2;
 	j = 0;
 	while (str2[j])

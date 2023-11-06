@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/06 18:10:28 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:28:48 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 	int					mode;
 	struct sigaction	sa;
 
-	//setup_signal_handling(&sa);
+	setup_signal_handling(&sa);
 	input = NULL;
 	if (argc > 1)
 		mini_args(argc, argv, &mode);

@@ -84,7 +84,6 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	while (node)
 	{
 		i = check_absolut(node);
-		dbg_print_command_nodes(&node, 2);
 		if (is_built_in(node->cmd))
 			exec_built(node, shell, stdoutcpy);
 		else if (node->cmd_path[0] == '\0' || node->cmd[0] == '/')

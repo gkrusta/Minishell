@@ -8,14 +8,14 @@ int	assign_type(char c)
 		return (2);
 	else if (c == '|')
 		return (3);
-	else if (c == '"')
-		return (4);
-	else if (c == 39)
-		return (5);
 	else if (ft_isspace(c))
+		return (4);
+	else if (c == '"')
+		return (5);
+	else if (c == 39)
 		return (6);
 	else
-		return (0);
+		return (7);
 }
 
 int	end_token(char c, int type, int *used)
@@ -23,9 +23,9 @@ int	end_token(char c, int type, int *used)
 	int	new_type;
 
 	new_type = assign_type(c);
-	if (type == new_type || type == 4 || type == 5)
+	if (type == new_type || type >= 5)
 	{
-		if ((type == 4 || type == 5) && *used == 2)
+		if (type >= 5 && *used % 2 == 0 && new_type < 5)
 			return (1);
 		if (type == 1 && c == '<')
 			*used = *used + 1;

@@ -39,7 +39,7 @@ int	chk_end_token(char *input, int *i, int *start)
 		*start = 1;
 		used = 0;
 		type = assign_type(input[*i]);
-		while (input[*i] && type == 6)
+		while (input[*i] && type == 4)
 		{
 			*i = *i + 1;
 			type = assign_type(input[*i]);

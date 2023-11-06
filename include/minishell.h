@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 18:02:12 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/06 23:03:02 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	token_output_cat(char **tokens, int *i, t_cmd *node);
 // r_redir_heredoc.c
 void	token_heredoc(char **tokens, int *i, t_cmd *node);
 /* $ */
-int 	varible_search(t_list *env_lst, char **var, int flag);
+int		varible_search(t_list *env_lst, char **var, int flag);
 int		check_end(char *str, int pos);
 char	*after_dolor_sign(t_shell *shell, char *str, int i);
 char	*ft_concat(char *str, char *var, char *str_end, int *pos);

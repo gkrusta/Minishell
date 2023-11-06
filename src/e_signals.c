@@ -5,7 +5,7 @@ void	signal_handler(int signal)
 	if (signal == SIGINT)
 	{
 		if (shell_state)
-			ft_printf("\nPresionado Ctrl+C en interactivo\n");
+			ft_printf("\nminishell> ");
 		else
 			ft_printf("\nPresionado Ctrl+C durante una tarea\n");
 	}

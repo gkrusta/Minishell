@@ -4,6 +4,7 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 {
 	int	i;
 
+	i = 0;
 	if (!node->cmd[0])
 	{
 		if (is_in_path(shell, token) || is_built_in(token))
@@ -14,7 +15,6 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 		}
 		else
 		{
-			i = 0;
 			while (node->args[i])
 				i++;
 			node->args[i] = str_change_value(node->args[i], token);
@@ -22,7 +22,6 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 	}
 	else
 	{
-		i = 0;
 		while (node->args[i])
 			i++;
 		node->args[i] = str_change_value(node->args[i], token);
@@ -34,7 +33,7 @@ int	is_argument(char *token)
 	int	type;
 
 	type = assign_type(token[0]);
-	if (type == 0 || type == 4)
+	if (type >= 4)
 		return (1);
 	else
 		return (0);

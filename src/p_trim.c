@@ -1,15 +1,15 @@
 #include "minishell.h"
 
-void	solve_quotes(int *q, char *c)
+void	solve_quotes(int *quotes, char *c)
 {
-	if (*q == 0)
+	if (*quotes == 0)
 	{
-		*q = 2 - (*c % 2);
+		*quotes = 2 - (*c % 2);
 		c[0] = '\0';
 	}
-	else if ((*q == 1 && *c == 39) || (*q == 2 && *c == 34))
+	else if ((*quotes == 1 && *c == 39) || (*quotes == 2 && *c == 34))
 	{
-		*q = 0;
+		*quotes = 0;
 		c[0] = '\0';
 	}
 }

@@ -32,12 +32,7 @@ void	exec_comm(t_cmd *node, t_shell *shell)
 		i--;
 	}
 	if (node->args[0][0] == '.' && node->args[0][1] == '/')
-	{
-		char *test[] = { "./minishell",
-						NULL
-						};
-		execve(node->args[0], test, shell->env);
-	}
+		execve(node->args[0], &node->args[1], shell->env);
 	node->args[0] = node->cmd;
 	i = 0;
 	while (node->args[i])
@@ -89,9 +84,10 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 			}
 			dup2(stdoutcpy, STDOUT_FILENO);
 			if (node->cmd[0] == '\0')
+			{
 				ft_printf("%s: command not found\n", node->args[0]);
-			else
-				ft_printf("%s: command not found\n", node->cmd);
+				free(node->cmd);
+			}
 			break ;
 		}
 		else

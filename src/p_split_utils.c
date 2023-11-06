@@ -33,9 +33,9 @@ int	end_token(char c, int type, int *used)
 			*used = *used + 1;
 		if (type == 3 && c == '|')
 			*used = *used + 1;
-		if (type == 4 && c == '"')
+		if (type == 5 && c == '"')
 			*used = *used + 1;
-		if (type == 5 && c == 39)
+		if (type == 6 && c == 39)
 			*used = *used + 1;
 		if (type >= 1 && type <= 3 && *used > 2)
 			return (1);

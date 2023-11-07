@@ -3,13 +3,13 @@
 int	varible_search(t_list *env_lst, char **var, int flag)
 {
 	if (env_lst == NULL)
-		return (1);  // Env list is empty
+		return (1);
 	while (env_lst->next != NULL && flag == 0)
 	{
 		if (ft_strcmp(*var, env_lst->key) == 0)
 		{
-			free(*var); // Free the old
-			*var = strdup(env_lst->value); // Set a new value
+			free(*var);
+			*var = strdup(env_lst->value);
 			return (0);
 		}
 		env_lst = env_lst->next;
@@ -53,13 +53,15 @@ char	*str_after_var(char *str, int pos)
 	return (str_end);
 }
 
-char	*ft_concat(char *str, char *var, char *str_end, int *pos)
+char	*ft_cat(char *str, char *var, char *str_end, int *pos)
 {
 	char	*before_str;
 	char	*new_str;
 	char	*new_token;
+	int		aux;
 
-	before_str = ft_strndup((const char *)str, (size_t)*pos);
+	aux = *pos;
+	before_str = ft_strndup((const char *)str, (size_t)aux);
 	new_str = ft_strjoin(before_str, var);
 	*pos = ft_strlen(new_str);
 	free(before_str);
@@ -90,8 +92,7 @@ void	ft_token_check(t_shell *shell, char *str, int i)
 			var = after_dolor_sign(shell, shell->tokens[i], j + 1);
 			if (var)
 			{
-				shell->tokens[i] = ft_concat(shell->tokens[i], var, str_end, &j);
-				//printf("%s\n", shell->tokens[i]);
+				shell->tokens[i] = ft_cat(shell->tokens[i], var, str_end, &j);
 			}
 			else
 				break ;

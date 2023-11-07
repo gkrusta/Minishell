@@ -39,7 +39,7 @@ int	chk_end_token(char *input, int *i, int *start)
 		*start = 1;
 		used = 0;
 		type = assign_type(input[*i]);
-		while (input[*i] && type == 6)
+		while (input[*i] && type == 4)
 		{
 			*i = *i + 1;
 			type = assign_type(input[*i]);
@@ -74,17 +74,16 @@ char	*read_token(char *input, int *i)
 	return (buff);
 }
 
-char	**p_split(char *input, t_shell *shell)
+void	p_split(char *input, t_shell *shell)
 {
 	int		i;
-	char	**tokens;
 	char	**aux;
 	char	*buff;
 	int		n;
 
 	i = 0;
 	n = 0;
-	tokens = (char **)ft_calloc(sizeof(char *), 1);
+	shell->tokens = (char **)ft_calloc(sizeof(char *), 1);
 	while (input[i] && ft_isspace(input[i]))
 		i++;
 	while (input[i])
@@ -92,15 +91,14 @@ char	**p_split(char *input, t_shell *shell)
 		buff = read_token(input, &i);
 		if (buff)
 		{
-			aux = add_token(tokens, buff);
+			aux = add_token(shell->tokens, buff);
 			n++;
 		}
-		tokens = aux;
+		shell->tokens = aux;
 		while (input[i] && ft_isspace(input[i]))
 		{
 			shell->space_next[n - 1] = '1';
 			i++;
 		}
 	}
-	return (tokens);
 }

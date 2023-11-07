@@ -9,7 +9,7 @@ void	ft_add_front_node(t_cmd **lst, t_cmd *new_node)
 	}
 }
 
-void	ft_add_back_node(t_cmd **lst, t_cmd *new_node)
+t_cmd	*ft_add_back_node(t_cmd **lst, t_cmd *new_node)
 {
 	t_cmd	*tmp;
 
@@ -23,6 +23,7 @@ void	ft_add_back_node(t_cmd **lst, t_cmd *new_node)
 		tmp->next = new_node;
 		new_node->next = NULL;
 	}
+	return (new_node);
 }
 
 void	lst_clear_nodes(t_cmd **lst)
@@ -33,6 +34,8 @@ void	lst_clear_nodes(t_cmd **lst)
 	node = *lst;
 	while (node != NULL)
 	{
+		if (node->cmd[0] == '\0')
+			free(node->cmd);
 		aux = node;
 		node = node->next;
 		free(aux->cmd_path);

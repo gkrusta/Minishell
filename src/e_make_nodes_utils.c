@@ -19,35 +19,39 @@ int	is_built_in(char *token)
 	return (0);
 }
 
-void	check_redir(t_cmd *node, char **tokens, int *i, int *fd_in)
+void	check_redir(t_cmd *node, int *i, t_shell *shell, int plus)
 {
 	int		fd[2];
 
 	pipe(fd);
-	if (*fd_in != 0)
+	if (shell->fd_in != 0)
 	{
-		node->infile = *fd_in;
-		*fd_in = 0;
+		node->infile = shell->fd_in;
+		shell->fd_in = 0;
 	}
-	if (ft_strcmp(tokens[*i], "|") == 0)
-		token_pipe(node, fd, fd_in);
-	else if (ft_strcmp(tokens[*i], "<") == 0)
-		token_input(tokens, i, node);
-	else if (ft_strcmp(tokens[*i], ">") == 0)
-		token_output(tokens, i, node);
-	else if (ft_strcmp(tokens[*i], ">>") == 0)
-		token_output_cat(tokens, i, node);
-	else if (ft_strcmp(tokens[*i], "<<") == 0)
-		token_heredoc(tokens, i, node);
+	if (ft_strcmp(shell->tokens[*i], "|") == 0)
+		token_pipe(node, fd, shell);
+	else if (ft_strcmp(shell->tokens[*i], "<") == 0)
+		token_input(shell->tokens, i, node);
+	else if (ft_strcmp(shell->tokens[*i], ">") == 0)
+		token_output(shell->tokens, i, node);
+	else if (ft_strcmp(shell->tokens[*i], ">>") == 0)
+		token_output_cat(shell->tokens, i, node);
+	else if (ft_strcmp(shell->tokens[*i], "<<") == 0)
+		token_heredoc(shell->tokens, i, node);
+	*i = *i + plus;
 }
 
 char	*str_change_value(char *old_str, char *new_str)
 {
 	free(old_str);
-	if (new_str[0] == '.' && new_str[1] == '/')
-	{
-		
-	}
 	old_str = new_str;
 	return (new_str);
 }
+
+void	init_values(t_shell *shell, int *i)
+{
+	*i = 0;
+	shell->fd_in = 0;
+}
+

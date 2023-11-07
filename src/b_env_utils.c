@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:35:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 11:01:46 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/03 13:32:48 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*check_level(char *lvl)
 		if (ft_isdigit(lvl[i]) == 0)
 		{
 			lvl = ft_strdup("1");
-			return (lvl); 
+			return (lvl);
 		}
 		i++;
 	}

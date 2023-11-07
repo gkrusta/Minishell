@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-void	token_pipe(t_cmd *node, int *fd, int *fd_in)
+void	token_pipe(t_cmd *node, int *fd, t_shell *shell)
 {
 	node->outfile = fd[1];
-	*fd_in = fd[0];
+	shell->fd_in = fd[0];
 }
 
 void	token_input(char **tokens, int *i, t_cmd *node)

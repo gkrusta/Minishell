@@ -36,7 +36,7 @@ void	token_output_cat(char **tokens, int *i, t_cmd *node)
 
 	if (tokens[*i + 1])
 	{
-		fd = open(tokens[*i +1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+		fd = open(tokens[*i + 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
 		node->outfile = fd;
 		*i = *i + 1;
 	}

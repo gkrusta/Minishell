@@ -20,7 +20,10 @@ void	*find_value(t_shell *shell, char *name)
 			return (aux->value);
 		aux = aux->next;
 	}
-	return (NULL);
+	if (ft_isdigit(*name) == 1)
+		return (&name[1]);
+	else
+		return (NULL);
 }
 
 char	*capture_key(char *c)
@@ -58,12 +61,14 @@ char	*find_var(t_shell *shell, char *c, char *token, int *j)
 	{
 		free(c);
 		value = (char *)find_value(shell, key);
+		if (ft_isdigit(*key) == 1)
+			*j = *j + 1;
 		*j = *j + ft_strlen(key);
-		free(key);
 		if (value)
 			c = ft_strdup(value);
 		else
 			c = ft_calloc(1, sizeof (char));
 	}
+	free(key);
 	return (c);
 }

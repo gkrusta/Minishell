@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/06 19:56:23 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/07 19:10:39 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	zero(t_shell *shell)
 	}
 }
 
-/* void	ft_leaks(void)
+void	ft_leaks(void)
 {
 	system("leaks -q minishell");
-} */
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
 	shell->exit_status = 0;
-	/* atexit(ft_leaks); */
+	atexit(ft_leaks);
 	printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
 	shell->space_next = ft_calloc(50, sizeof(char));
@@ -68,8 +68,9 @@ int	main(int argc, char **argv, char **envp)
 		else
 			free(input);
 	}
+	if (input)
+		free (input);
 	free(shell->space_next);
 	free_params(shell);
-	free (input);
 	return (0);
 }

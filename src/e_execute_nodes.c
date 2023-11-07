@@ -90,5 +90,5 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 			free(node->cmd);
 		node = node->next;
 	}
-	restore_std(shell->stdincpy, shell->stdoutcpy);
+	restore_std(node, shell->stdincpy, shell->stdoutcpy);
 }

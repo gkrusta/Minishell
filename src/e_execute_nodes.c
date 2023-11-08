@@ -27,6 +27,12 @@ void	exec_comm(t_cmd *node, t_shell *shell)
 		execve(node->args[0], &node->args[1], shell->env);
 	node->args[0] = node->cmd;
 	execve(node->cmd_path, node->args, shell->env);
+/* 	{
+		if (node->outfile != STDOUT_FILENO)
+			close(node->outfile);
+		if (node->outfile - 1 != STDIN_FILENO)
+			close(node->outfile - 1);
+	} */
 }
 
 void	fork_child(t_cmd *node, t_shell *shell)
@@ -42,12 +48,16 @@ void	fork_child(t_cmd *node, t_shell *shell)
 		dup2(node->outfile, STDOUT_FILENO);
 		exec_comm(node, shell);
 	}
+	else
+	{
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell->exit_status = WEXITSTATUS(status);
 	dup2((node->outfile - 1), STDIN_FILENO);
 	close(node->outfile);
 	close((node->outfile - 1));
+
+	}
 }
 
 int	run_node(t_cmd *node, t_shell *shell)

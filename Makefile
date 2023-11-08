@@ -6,13 +6,13 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/11/07 18:36:22 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/11/08 12:40:40 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-
-CC = gcc -g #-fsanitize=address
+#valgrind --leak-check=full --track-origins=yes ./minishell
+CC = gcc -g0 #-fsanitize=address
 CFLAGS = -Wall -Wextra #-Werror 
 REMOVE = rm -rf
 LREADLINE = -lreadline

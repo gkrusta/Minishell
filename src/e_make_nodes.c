@@ -57,7 +57,8 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 	exec_nodes = ft_calloc(1, sizeof(t_cmd *));
 	while (shell->tokens[i])
 	{
-		if (!new_node || (new_node && new_node->cmd[0])) 
+		printf ("tokens   %s\n", shell->tokens[i]);
+		if (!new_node || (new_node && shell->tokens[i][0] == '|'))
 			new_node = ft_add_back_node(exec_nodes, lst_new_node());
 		while (shell->tokens[i] && is_argument(shell->tokens[i]))
 		{

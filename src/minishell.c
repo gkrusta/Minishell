@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/06 19:56:23 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/08 13:04:16 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ void	zero(t_shell *shell)
 	system("leaks -q minishell");
 } */
 
+void	ft_init(t_shell *shell)
+{
+	shell->env = NULL;
+	shell->env_lst = NULL;
+	shell->tokens = NULL;
+	shell->exit_status = 0;
+	shell->space_next = NULL;
+	shell->lvl = 1;
+	shell->fd_in = 0;
+	shell->stdincpy = 0;
+	shell->stdoutcpy = 0;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input;
@@ -43,8 +56,8 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
-	shell->exit_status = 0;
-	/* atexit(ft_leaks); */
+	ft_init(shell);
+	//atexit(ft_leaks);
 	printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
 	shell->space_next = ft_calloc(50, sizeof(char));
@@ -68,8 +81,9 @@ int	main(int argc, char **argv, char **envp)
 		else
 			free(input);
 	}
+	if (input)
+		free (input);
 	free(shell->space_next);
 	free_params(shell);
-	free (input);
 	return (0);
 }

@@ -47,10 +47,13 @@ int	check_absolut(t_cmd *node)
 	return (0);
 }
 
-void	restore_std(int stdincpy, int stdoutcpy)
+void	restore_std(t_cmd *node, int stdincpy, int stdoutcpy)
 {
 	dup2(stdincpy, STDIN_FILENO);
 	dup2(stdoutcpy, STDOUT_FILENO);
+	//close(node->outfile);
+	//close(node->outfile - 1);
+	//close (node->infile);
 	close(stdincpy);
 	close(stdoutcpy);
 }

@@ -6,13 +6,13 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/11/06 19:56:13 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/11/08 12:40:40 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-
-CC = gcc -g #-fsanitize=address
+#valgrind --leak-check=full --track-origins=yes ./minishell
+CC = gcc -g0 #-fsanitize=address
 CFLAGS = -Wall -Wextra #-Werror 
 REMOVE = rm -rf
 LREADLINE = -lreadline
@@ -24,7 +24,7 @@ INC_PATH = include
 LIBFT_PATH = assets/libft
 LIBFT_LIB_PATH = assets/libft/libft.a
 
-HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include
+HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include -I /System/Volumes/Data/opt/vagrant/embedded/include/readline
 
 SRC_FILES = b_cd_utils.c b_cd.c b_echo.c b_env_utils.c b_env.c b_env_update.c \
 			b_export_utils_b.c b_export_utils.c b_export.c b_pwd.c b_unset.c \

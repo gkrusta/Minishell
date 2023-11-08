@@ -7,7 +7,7 @@ void	signal_handler(int signal)
 		if (shell_state)
 		{
 			ft_printf("\nminishell> ");
-			//rl_replace_line("\0", 0);
+			rl_replace_line("\0", 0);
 		}
 		else
 			ft_printf("\nPresionado Ctrl+C durante una tarea\n");

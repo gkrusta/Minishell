@@ -26,6 +26,7 @@ void	exec_comm(t_cmd *node, t_shell *shell)
 	if (new_mini(node))
 		execve(node->args[0], &node->args[1], shell->env);
 	node->args[0] = node->cmd;
+	printf("111111 %s     %s      \n", node->cmd_path, node->args[0]);
 	execve(node->cmd_path, node->args, shell->env);
 }
 
@@ -40,6 +41,7 @@ void	fork_child(t_cmd *node, t_shell *shell)
 		if (new_mini(node))
 			update_level(shell, 1);
 		dup2(node->outfile, STDOUT_FILENO);
+		printf("child\n");
 		exec_comm(node, shell);
 	}
 	waitpid(pid, &status, 0);
@@ -90,5 +92,5 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 			free(node->cmd);
 		node = node->next;
 	}
-	restore_std(shell->stdincpy, shell->stdoutcpy);
+	restore_std(node, shell->stdincpy, shell->stdoutcpy);
 }

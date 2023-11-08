@@ -58,7 +58,7 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 	while (shell->tokens[i])
 	{
 		printf ("tokens   %s\n", shell->tokens[i]);
-		if (!new_node || (new_node && shell->tokens[i][0] == '|'))
+		if (!new_node || (new_node && shell->tokens[i - 1][0] == '|'))
 			new_node = ft_add_back_node(exec_nodes, lst_new_node());
 		while (shell->tokens[i] && is_argument(shell->tokens[i]))
 		{

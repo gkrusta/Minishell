@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/07 19:42:04 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/08 15:26:44 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int		echo(t_shell *shell, char **args);
 
 // b_cd.c
 void	cd(t_shell *shell, char **args);
-void	only_cd(t_shell *shell);
-void	last_cd(t_shell *shell);
 void	free_args(char **args);
 void	abs_path(t_shell *shell, char *path);
 void	home_cd(t_shell *shell, char *path);

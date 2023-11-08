@@ -2,6 +2,7 @@
 
 void	token_pipe(t_cmd *node, int *fd, t_shell *shell)
 {
+	printf("pipe\n\n");
 	node->outfile = fd[1];
 	shell->fd_in = fd[0];
 }

@@ -24,11 +24,6 @@ void	check_redir(t_cmd *node, int *i, t_shell *shell, int plus)
 	int		fd[2];
 
 	pipe(fd);
-	if (shell->fd_in != 0)
-	{
-		node->infile = shell->fd_in;
-		shell->fd_in = 0;
-	}
 	if (ft_strcmp(shell->tokens[*i], "|") == 0)
 		token_pipe(node, fd, shell);
 	else if (ft_strcmp(shell->tokens[*i], "<") == 0)

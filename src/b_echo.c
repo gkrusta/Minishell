@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:14:43 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/08 16:43:37 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/09 00:13:04 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	echo(t_shell *shell, char **args)
 	int	i;
 	int	arg;
 
+	close(STDIN_FILENO);
 	i = 1;
 	arg = 1;
 	if (args[0] == NULL)
@@ -24,7 +25,7 @@ int	echo(t_shell *shell, char **args)
 	args = shell->tokens;
 	if (ft_strcmp(shell->tokens[1], "-n") == 0)
 		i++;
-	while (args[i] && assign_type(*args[i]) != 3)
+	while (args[i])
 	{
 		if (arg > 1)
 			ft_printf(" ");

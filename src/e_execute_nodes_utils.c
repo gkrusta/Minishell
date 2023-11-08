@@ -15,9 +15,9 @@ void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy)
 		unset(shell, node->args);
 	if (strcmp(node->cmd, "pwd") == 0)
 		pwd(shell);
-	close(node->outfile);
 	dup2(stdoutcpy, STDOUT_FILENO);
 	dup2((node->outfile - 1), STDIN_FILENO);
+	close(node->outfile);
 	close((node->outfile - 1));
 }
 

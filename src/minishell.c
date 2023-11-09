@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/08 13:04:16 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/09 16:05:53 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	zero(t_shell *shell)
 	}
 }
 
-/* void	ft_leaks(void)
+void	ft_leaks(void)
 {
 	system("leaks -q minishell");
-} */
+}
 
 void	ft_init(t_shell *shell)
 {
@@ -44,6 +44,11 @@ void	ft_init(t_shell *shell)
 	shell->stdoutcpy = 0;
 }
 
+/* void	final_cleanup()
+{
+	
+} */
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input;
@@ -57,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
 	ft_init(shell);
-	//atexit(ft_leaks);
+	atexit(ft_leaks);
 	printf("\n\nUSER is: @%s\n", getenv("USER"));
 	parse_env(shell, envp);
 	shell->space_next = ft_calloc(50, sizeof(char));
@@ -67,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 		shell_state = 1;
 		input = readline("minishell> ");
 		shell_state = 0;
-		if (!input || !ft_strcmp(input, "exit"))
+		if (!input/*  || !ft_strcmp(input, "exit") */)
 			break ;
 		if (ft_strlen(input) > 0)
 		{

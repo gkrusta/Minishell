@@ -71,6 +71,8 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 			check_redir(new_node, &i, shell, 1);
 	}
 	dbg_print_command_nodes(exec_nodes, mode);
+	if (!ft_strcmp(shell->tokens[0], "exit" ) && new_node->next == NULL)
+		exit_minishell(shell, shell->tokens);
 	if (*exec_nodes)
 		execute_nodes(exec_nodes, shell);
 	clean_nodes_data(exec_nodes, input, shell);

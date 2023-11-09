@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/08 15:26:44 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/09 17:10:04 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ void	update_env(t_shell *shell);
 char	**ft_stddup_env(t_shell *shell);
 char	*concat_env(t_list *env_lst_cpy, char **env, int pos);
 int		count_env_var(t_shell *shell);
+/* b_exit.c */
+int 	ft_exit(t_shell *shell, int exit, long i, char *args, char *error_msg);
+int 	various_args(t_shell *shell, char **args, int i);
+void	exit_minishell(t_shell *shell, char **args);
 // e_make_nodes.c
 void	make_nodes(t_shell *shell, char *input, int mode);
 // e_make_nodes_utils.c

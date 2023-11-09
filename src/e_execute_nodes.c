@@ -26,7 +26,6 @@ void	exec_comm(t_cmd *node, t_shell *shell)
 	if (new_mini(node))
 		execve(node->args[0], &node->args[1], shell->env);
 	node->args[0] = node->cmd;
-	printf("111111 %s     %s      \n", node->cmd_path, node->args[0]);
 	execve(node->cmd_path, node->args, shell->env);
 }
 

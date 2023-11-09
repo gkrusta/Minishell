@@ -49,4 +49,3 @@ void	init_values(t_shell *shell, int *i)
 	*i = 0;
 	shell->fd_in = 0;
 }
-

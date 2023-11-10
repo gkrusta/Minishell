@@ -6,17 +6,25 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:39:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/09 17:39:40 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/10 13:21:59 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(t_shell *shell, int end, long i, char *args, char *error_msg)
+int	ft_exit(t_shell *shell, long i, char *args)
 {
 	shell->exit_status = i % 256;
-	printf("exit\nminishell: exit: %s: %s:\n", args, error_msg);
-	if (end)
+	printf("exit\nminishell: exit: %s: ", args);
+	if (i == 1)
+		printf("too many arguments\n");
+	else if (i == 255)
+		printf("numeric argument required\n");
+/* 	else if (args[0] == 126)
+	{
+		free (args[0]);
+	} */
+	if (i != 1)
 	{
 		free(shell->space_next);
 		free_params(shell);
@@ -26,24 +34,22 @@ int	ft_exit(t_shell *shell, int end, long i, char *args, char *error_msg)
 		return (shell->exit_status);
 }
 
-int	various_args(t_shell *shell, char **args, int i)
+int	various_args(t_shell *shell, char **args, long i)
 {
 	int		j;
-	char	*error_msg;
 
-	j = 0;
-	error_msg = NULL;
 	while (args[i])
 	{
+		j = 0;
 		while (args[i][j])
 		{
 			if (i > 1)
 			{
-				ft_exit(shell, 0, 1, args[i], "too many arguments");
+				ft_exit(shell, 1, args[1]);
 				return (shell->exit_status);
 			}
 			if (!ft_isdigit(args[i][j]) && i == 1)
-				ft_exit(shell, 1, 255, args[i], ": numeric argument required");
+				ft_exit(shell, 255, args[1]);
 			j++;
 		}
 		i++;
@@ -55,20 +61,25 @@ void	exit_minishell(t_shell *shell, char **args)
 {
 	long	i;
 
-	i = 0;
+	i = 1;
+	while (args[i])
+	{
+		if (args[i][0] == 124)
+			return ;
+		i++;
+	}
 	if (args[1] == NULL)
 	{
 		shell->exit_status = 0;
 		exit(0);
 	}
-	if (args[1] != NULL)
+	else if (!various_args(shell, args, 1))
 	{
 		i = ft_long_atoi(args[1]);
 		shell->exit_status = i % 256;
 		free(shell->space_next);
 		free_params(shell);
+		printf("exit\n");
 		exit(shell->exit_status);
 	}
-	else
-		various_args(shell, args, i);
 }

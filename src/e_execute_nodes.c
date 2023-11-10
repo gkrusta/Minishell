@@ -40,7 +40,6 @@ void	fork_child(t_cmd *node, t_shell *shell)
 		if (new_mini(node))
 			update_level(shell, 1);
 		dup2(node->outfile, STDOUT_FILENO);
-		printf("child\n");
 		exec_comm(node, shell);
 	}
 	waitpid(pid, &status, 0);

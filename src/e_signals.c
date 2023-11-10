@@ -24,7 +24,7 @@ void	signal_handler(int signal)
 		if (shell_state)
 			ft_printf("\nPresionado Ctrl+\\ en interactivo\n");
 		else
-			ft_printf("\nPresionado Ctrl+\\ (SIGQUIT) durante una tarea\n");
+			ft_printf("\nPresionado Ctrl+\\ (SIGQUIT) durante una 0tarea\n");
 	}
 }
 

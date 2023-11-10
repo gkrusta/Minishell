@@ -57,7 +57,6 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 	exec_nodes = ft_calloc(1, sizeof(t_cmd *));
 	while (shell->tokens[i])
 	{
-		printf ("tokens   %s\n", shell->tokens[i]);
 		if (!new_node || (new_node && shell->tokens[i - 1][0] == '|'))
 			new_node = ft_add_back_node(exec_nodes, lst_new_node());
 		while (shell->tokens[i] && is_argument(shell->tokens[i]))
@@ -71,7 +70,7 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 			check_redir(new_node, &i, shell, 1);
 	}
 	dbg_print_command_nodes(exec_nodes, mode);
-	if (!ft_strcmp(shell->tokens[0], "exit" ) && new_node->next == NULL)
+	if (!ft_strcmp(shell->tokens[0], "exit" ))
 		exit_minishell(shell, shell->tokens);
 	if (*exec_nodes)
 		execute_nodes(exec_nodes, shell);

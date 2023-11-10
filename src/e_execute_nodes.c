@@ -80,7 +80,8 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	shell->stdoutcpy = dup(STDOUT_FILENO);
 	node = *nodes;
 	dup2(node->infile, STDIN_FILENO);
-	close(node->infile);
+	if (node->next != NULL)
+		close(node->infile);
 	while (node)
 	{
 		i = check_absolut(node);
@@ -90,5 +91,6 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 			free(node->cmd);
 		node = node->next;
 	}
+	node = *nodes;
 	restore_std(node, shell->stdincpy, shell->stdoutcpy);
 }

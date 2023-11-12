@@ -61,6 +61,7 @@ char	*find_var(t_shell *shell, char *c, char *token, int *j)
 	{
 		free(c);
 		value = (char *)find_value(shell, key);
+		printf("value is %s", value);
 		if (ft_isdigit(*key) == 1)
 			*j = *j + 1;
 		*j = *j + ft_strlen(key);

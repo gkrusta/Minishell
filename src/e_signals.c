@@ -7,7 +7,7 @@ void	signal_handler(int signal)
 		if (shell_state)
 		{
 			ft_printf("\nminishell> ");
-			//rl_replace_line("\0", 0);
+			//rl_replace_line("", 0);
 		}
 		else
 			ft_printf("\nPresionado Ctrl+C durante una tarea\n");
@@ -28,12 +28,12 @@ void	signal_handler(int signal)
 	}
 }
 
-void	setup_signal_handling(struct sigaction *sa, char *input)
+void	setup_signal_handling(struct sigaction *sa)
 {
 	sa->sa_handler = signal_handler;
 	sa->sa_flags = 0;
-	sigemptyset(&sa->sa_mask);
+	sa->sa_mask = 0;
+	//sigemptyset(&sa->sa_mask);
 	sigaction(SIGINT, sa, NULL);
 	sigaction(SIGQUIT, sa, NULL);
-	//term.c_lflag &= ~ECHO;
 }

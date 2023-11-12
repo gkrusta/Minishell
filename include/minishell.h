@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/12 18:55:26 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/12 21:18:50 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	copy_value(t_list *env_list, t_list *new_arg);
 void	free_arg(t_list *new_arg);
 void	export_empty(t_shell *shell);
 // b_export_utils_b.c
-int		check_key(char *key, int print, t_shell *shell, char *str);
+void	launch_key_error(t_shell *shell, char *cmd, t_list *arg);
+int		check_key(t_list *arg, int print, t_shell *shell, char *cmd);
 void	sort_array(char **str_array, int lst_size);
 // b_unset.c
 void	unset(t_shell *shell, char **args);
@@ -120,7 +121,7 @@ int		check_absolut(t_cmd *node);
 void	restore_std(t_cmd *node, int strincpy, int stdoutcpy);
 void	cmd_error_msg(t_cmd *node, t_shell *shell);
 // e_signals.c
-void	signal_handler(int signal, char *input);
+void	signal_handler(int signal);
 void	setup_signal_handling(struct sigaction *sa);
 // r_redir.c
 void	token_pipe(t_cmd *node, int *fd, t_shell *shell);

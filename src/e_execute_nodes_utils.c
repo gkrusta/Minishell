@@ -51,10 +51,6 @@ void	restore_std(t_cmd *node, int stdincpy, int stdoutcpy)
 {
 	dup2(stdincpy, STDIN_FILENO);
 	dup2(stdoutcpy, STDOUT_FILENO);
-/* 	if (node->next->outfile != 1)
-	{
-		node->next->outfile = 1;
-	} */
 	//close(node->outfile - 1);
 	//close (node->infile);/*  */
 	close(stdincpy);

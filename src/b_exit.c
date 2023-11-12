@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:39:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/10 13:21:59 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/12 21:00:41 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 int	ft_exit(t_shell *shell, long i, char *args)
 {
 	shell->exit_status = i % 256;
+	if (!ft_strcmp(args, "~"))
+	{
+		free(args);
+		args = getenv("HOME");
+	}
 	printf("exit\nminishell: exit: %s: ", args);
 	if (i == 1)
 		printf("too many arguments\n");
 	else if (i == 255)
 		printf("numeric argument required\n");
-/* 	else if (args[0] == 126)
-	{
-		free (args[0]);
-	} */
 	if (i != 1)
 	{
 		free(shell->space_next);

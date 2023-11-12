@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/10 10:29:59 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/12 18:55:26 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 # define _XOPEN_SOURCE 700 // para compilar signals en linux
 
 #include <readline/readline.h>
+#include <readline/history.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <readline/history.h>
 #include <sys/wait.h>
 #include <signal.h>
 #include <fcntl.h>

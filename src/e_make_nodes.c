@@ -30,7 +30,7 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 
 int	is_argument(char *token)
 {
-	int	type;
+	int	type;       
 
 	type = assign_type(token[0]);
 	if (type >= 4)

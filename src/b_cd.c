@@ -84,13 +84,24 @@ void	parent_dir(t_shell *shell)
 	}
 }
 
+void	cd_type(t_shell *shell, char **dir, int i)
+{
+	if (ft_strcmp(dir[i], "-") == 0)
+		home_cd(shell, "OLDPWD");
+	else if (ft_strcmp(dir[i], "~") == 0)
+		home_cd(shell, "HOME");
+	else if (ft_strcmp(dir[i], "..") == 0)
+		parent_dir(shell);
+	else
+		abs_path(shell, dir[i]);
+}
+
 void	cd(t_shell *shell, char **args)
 {
 	int		i;
 	char	**dir;
 
 	i = 0;
-	//ft_trim(shell);
 	if (args[i] == NULL)
 		home_cd(shell, "HOME");
 	else if (ft_strcmp(args[i], "/") == 0) 
@@ -102,17 +113,9 @@ void	cd(t_shell *shell, char **args)
 			i++;
 		while (dir[i])
 		{
-			if (ft_strcmp(dir[i], "-") == 0)
-				home_cd(shell, "OLDPWD");
-			else if (ft_strcmp(dir[i], "~") == 0)
-				home_cd(shell, "HOME");
-			else if (ft_strcmp(dir[i], "..") == 0)
-				parent_dir(shell);
-			else
-				abs_path(shell, dir[i]);
+			cd_type(shell, dir, i);
 			i++;
 		}
 		free_args(dir);
-		//fprintf(stderr, "cd: %s: No such directory\n", argv[1]);
 	}
 }

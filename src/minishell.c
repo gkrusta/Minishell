@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/13 14:55:03 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:55:02 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,23 @@
 
 int	shell_state;
 
-void	zero(t_shell *shell)
+/* void	ft_leaks(void)
 {
-	int	i;
+	system("leaks -q minishell");
+} */
+
+void	final_cleanup(t_shell *shell, char *input)
+{
+	if (input)
+		free (input);
+	free(shell->space_next);
+	free_params(shell);
+}
+
+char	*zero(t_shell *shell)
+{
+	char	*input;
+	int		i;
 
 	i = 0;
 	while (i < 50)
@@ -24,14 +38,15 @@ void	zero(t_shell *shell)
 		shell->space_next[i] = '0';
 		i++;
 	}
+	shell_state = 1;
+	input = readline("minishell> ");
+	if (shell_state == 4)
+		shell->exit_status = 1;
+	shell_state = 0;
+	return (input);
 }
 
-void	ft_leaks(void)
-{
-	system("leaks -q minishell");
-}
-
-void	ft_init(t_shell *shell)
+void	ft_init(t_shell *shell, char **envp)
 {
 	shell->env = NULL;
 	shell->env_lst = NULL;
@@ -42,12 +57,20 @@ void	ft_init(t_shell *shell)
 	shell->fd_in = 0;
 	shell->stdincpy = 0;
 	shell->stdoutcpy = 0;
+	parse_env(shell, envp);
+	shell->space_next = ft_calloc(50, sizeof(char));
+	printf("\n\nUSER is: @%s\n", getenv("USER"));
 }
 
-/* void	final_cleanup()
+void	run_input(char *input, t_shell *shell, int mode)
 {
-	
-} */
+	add_history(input);
+	p_split(input, shell);
+	dbg_print_array_tokens(shell->tokens, mode, shell);
+	ft_trim_tokens(shell);
+	dbg_print_array_tokens(shell->tokens, mode, shell);
+	make_nodes(shell, input, mode);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -57,38 +80,21 @@ int	main(int argc, char **argv, char **envp)
 	struct sigaction	sa;
 
 	setup_signal_handling(&sa);
-	input = NULL;
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
-	ft_init(shell);
-	atexit(ft_leaks);
-	printf("\n\nUSER is: @%s\n", getenv("USER"));
-	parse_env(shell, envp);
-	shell->space_next = ft_calloc(50, sizeof(char));
+	ft_init(shell, envp);
+	//atexit(ft_leaks);
 	while (1)
 	{
-		zero(shell);
-		shell_state = 1;
-		input = readline("minishell> ");
-		shell_state = 0;
-		if (!input/*  || !ft_strcmp(input, "exit") */)
+		input = zero(shell);
+		if (!input)
 			break ;
 		if (ft_strlen(input) > 0)
-		{
-			add_history(input);
-			p_split(input, shell);
-			dbg_print_array_tokens(shell->tokens, mode, shell);
-			ft_trim_tokens(shell);
-			dbg_print_array_tokens(shell->tokens, mode, shell);
-			make_nodes(shell, input, mode);
-		}
+			run_input(input, shell, mode);
 		else
 			free(input);
 	}
-	if (input)
-		free (input);
-	free(shell->space_next);
-	free_params(shell);
+	final_cleanup(shell, input);
 	return (0);
 }

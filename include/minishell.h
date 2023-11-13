@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/12 21:18:50 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/13 18:49:30 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,17 @@ int 	various_args(t_shell *shell, char **args, long i);
 void	exit_minishell(t_shell *shell, char **args);
 // e_make_nodes.c
 void	make_nodes(t_shell *shell, char *input, int mode);
+int		is_argument(char *token);
+void	add_argument(t_shell *shell, char *token, t_cmd *node);
 // e_make_nodes_utils.c
 int		is_built_in(char *token);
 void	check_redir(t_cmd *node, int *i, t_shell *shell, int plus);
 char	*str_change_value(char *old_str, char *new_str);
 void	init_values(t_shell *shell, int *i);
+void	check_use_fd_in(t_cmd *new_node, t_shell *shell);
+// e_make_nodes_utils_b.c
+void	put_token(t_shell *shell, int i, t_cmd *node);
+int		type_three(t_shell *shell, int *i);
 // e_path_utils.c
 char	*find_path(char *command, char **envp, char *empty_str);
 int		is_in_path(t_shell *shell, char *str);
@@ -118,7 +124,7 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell);
 // e_execute_nodes_utils.c
 void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy);
 int		check_absolut(t_cmd *node);
-void	restore_std(t_cmd *node, int strincpy, int stdoutcpy);
+void	restore_std(int strincpy, int stdoutcpy);
 void	cmd_error_msg(t_cmd *node, t_shell *shell);
 // e_signals.c
 void	signal_handler(int signal);

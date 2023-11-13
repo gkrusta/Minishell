@@ -30,7 +30,7 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 
 int	is_argument(char *token)
 {
-	int	type;       
+	int	type;
 
 	type = assign_type(token[0]);
 	if (type >= 4)
@@ -58,22 +58,12 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 	while (shell->tokens[i])
 	{
 		new_node = ft_add_back_node(exec_nodes, lst_new_node());
-		if (shell->fd_in != 0)
-		{
-			new_node->infile = shell->fd_in;
-			shell->fd_in = 0;
-		}
+		check_use_fd_in(new_node, shell);
 		while (shell->tokens[i])
 		{
-			if (is_argument(shell->tokens[i]))
-				add_argument(shell, shell->tokens[i], new_node);
-			else
-				check_redir(new_node, &i, shell, 0);
-			if (assign_type(shell->tokens[i][0]) == 3)
-			{
-				i++;
+			put_token(shell, i, new_node);
+			if (type_three(shell, &i))
 				break ;
-			}
 			i++;
 		}
 	}

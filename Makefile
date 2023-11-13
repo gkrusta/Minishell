@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
+#    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/11/12 20:44:14 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/11/13 14:28:07 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 #valgrind --leak-check=full --track-origins=yes ./minishell
 CC = gcc -g #-fsanitize=address
-CFLAGS = -Wall -Wextra #-Werror 
+CFLAGS = -Wall -Wextra -Werror 
 REMOVE = rm -rf
-LREADLINE = -lreadline
+LREADLINE = -L /Users/pvilchez/.brew/opt/readline/lib -lreadline
 
 OBJ_PATH = obj
 SRC_PATH = src
@@ -24,7 +24,7 @@ INC_PATH = include
 LIBFT_PATH = assets/libft
 LIBFT_LIB_PATH = assets/libft/libft.a
 
-HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include -I /System/Volumes/Data/opt/vagrant/embedded/include/readline
+HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include -I /Users/pvilchez/.brew/opt/readline/include 
 
 SRC_FILES = b_cd_utils.c b_cd.c b_echo.c b_env_utils.c b_env.c b_env_update.c \
 			b_export_utils_b.c b_export_utils.c b_export.c b_pwd.c b_unset.c \
@@ -33,7 +33,7 @@ SRC_FILES = b_cd_utils.c b_cd.c b_echo.c b_env_utils.c b_env.c b_env_update.c \
 			mini_args.c minishell.c \
 			p_dbg_print.c p_dollar_sign.c p_split_utils.c p_split.c p_trim.c \
 			p_trim_utils.c \
-			r_redir_heredoc.c r_redir.c b_exit.c #e_signals.c\
+			r_redir_heredoc.c r_redir.c b_exit.c e_signals.c\
 			   
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

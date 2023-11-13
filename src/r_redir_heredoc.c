@@ -36,9 +36,9 @@ void	token_heredoc(char **tokens, int *i, t_cmd *node)
 	if (tokens[*i + 1])
 	{
 		pipe(fd);
-		while (read_line(&line))
+		shell_state = 0;
+		while (read_line(&line) && shell_state != 3)
 		{
-			shell_state = 1;
 			if (ft_strncmp(line, tokens[*i +1], ft_strlen(tokens[*i +1])) == 0)
 			{
 				shell_state = 0;
@@ -46,8 +46,10 @@ void	token_heredoc(char **tokens, int *i, t_cmd *node)
 			}
 			write(fd[1], line, ft_strlen(line));
 		}
+		shell_state = 1;
 		node->infile = fd[0];
 		close(fd[1]);
 		*i = *i + 1;
+		shell_state = 1;
 	}
 }

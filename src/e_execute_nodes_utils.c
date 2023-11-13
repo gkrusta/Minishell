@@ -49,12 +49,20 @@ int	check_absolut(t_cmd *node)
 
 void	restore_std(t_cmd *node, int stdincpy, int stdoutcpy)
 {
+	int	i;
+	(void)node;
 	dup2(stdincpy, STDIN_FILENO);
 	dup2(stdoutcpy, STDOUT_FILENO);
 	//close(node->outfile - 1);
 	//close (node->infile);/*  */
 	close(stdincpy);
 	close(stdoutcpy);
+	i = 3;
+	while (i < 50)
+	{
+		close(i);
+		i++;
+	}
 }
 
 void	cmd_error_msg(t_cmd *node, t_shell *shell)

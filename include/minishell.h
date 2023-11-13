@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/12 21:18:50 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/13 15:00:56 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,30 @@ void	free_node(t_list *node);
 int		echo(t_shell *shell, char **args);
 
 // b_cd.c
-void	cd(t_shell *shell, char **args);
-void	free_args(char **args);
+void	cd(t_shell *shell, char *args);
+void	parent_dir(t_shell *shell, char *args);
+void	home_cd(t_shell *shell, char *path, char *args);
 void	abs_path(t_shell *shell, char *path);
-void	home_cd(t_shell *shell, char *path);
+void	free_args(char **args);
 // b_cd_utils.c
 void	free_args(char **args);
 char	*get_value(t_shell *shell, char *key);
-void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir);
-//b_pwd.c
+void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir, char *args);
+// b_pwd.c
 void	pwd(t_shell *shell);
-/* b_env */
+// b_env
 void	create_env_lst(t_shell *shell, char **envp);
 void	print_env_variables(t_shell *shell, t_list *env);
 void	free_params(t_shell *shell);
 int		key_search(t_list *env, char *str);
 t_list	*node_search(t_list *env, char *str);
-/* b_env_utils */
+// b_env_utils
 char	*check_level(char *lvl);
 void	update_level(t_shell *shell, int flag);
 void	parse_env(t_shell *shell, char **envp);
 char	*ft_strndup(const char *str, size_t len);
 char	**ft_strddup(const char **envp);
-/* b_env_update.c */
+// b_env_update.c
 void	update_env(t_shell *shell);
 char	**ft_stddup_env(t_shell *shell);
 char	*concat_env(t_list *env_lst_cpy, char **env, int pos);
@@ -130,7 +131,7 @@ void	token_output(char **tokens, int *i, t_cmd *node);
 void	token_output_cat(char **tokens, int *i, t_cmd *node);
 // r_redir_heredoc.c
 void	token_heredoc(char **tokens, int *i, t_cmd *node);
-/* $ */
+// $
 int		varible_search(t_list *env_lst, char **var, int flag);
 int		check_end(char *str, int pos);
 char	*after_dolor_sign(t_shell *shell, char *str, int i);
@@ -139,9 +140,9 @@ char	*str_after_var(char *str, int pos);
 void	ft_token_check(t_shell *shell, char *str, int i);
 int		is_inside_quotes(char *str, int pos);
 
-/* p_trim.c */
+// p_trim.c
 void	ft_trim_tokens(t_shell *shell);
-/* p_trim_utils.c */
+// p_trim_utils.c
 char	*find_var(t_shell *shell, char *c, char *new_token, int *j);
 
 #endif

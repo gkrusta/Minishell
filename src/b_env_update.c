@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env_update.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:58:35 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/03 13:31:40 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/14 10:38:56 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	**ft_stddup_env(t_shell *shell)
 
 	i = 0;
 	env_lst_cpy = shell->env_lst;
-
 	env = malloc(sizeof(char *) * (count_env_var(shell) + 1));
 	if (!env)
 		return (NULL);

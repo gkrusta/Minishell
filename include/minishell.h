@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:22:01 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:45:39 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,20 @@
 # define MINISHELL_H
 # define _XOPEN_SOURCE 700 // para compilar signals en linux
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <termios.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <errno.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <fcntl.h>
+# include <termios.h>
 
-#include "../assets/libft/libft.h"
-#include "minishell_defines.h"
-#include "minishell_structs.h"
+# include "../assets/libft/libft.h"
+# include "minishell_structs.h"
 
-
-extern int shell_state;
+extern int	g_shell_state;
 
 // minishell.c
 
@@ -73,7 +71,7 @@ void	free_args(char **args);
 // b_cd_utils.c
 void	free_args(char **args);
 char	*get_value(t_shell *shell, char *key);
-void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir, char *args);
+void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir, char *arg);
 // b_pwd.c
 void	pwd(t_shell *shell);
 // b_env
@@ -94,8 +92,8 @@ char	**ft_stddup_env(t_shell *shell);
 char	*concat_env(t_list *env_lst_cpy, char **env, int pos);
 int		count_env_var(t_shell *shell);
 /* b_exit.c */
-int 	ft_exit(t_shell *shell, long i, char *args);
-int 	various_args(t_shell *shell, char **args, long i);
+int		ft_exit(t_shell *shell, long i, char *args);
+int		various_args(t_shell *shell, char **args, long i);
 void	exit_minishell(t_shell *shell, char **args);
 // e_make_nodes.c
 void	make_nodes(t_shell *shell, char *input, int mode);

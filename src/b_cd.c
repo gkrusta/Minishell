@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:45 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:26:47 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:42:18 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	cd(t_shell *shell, char *args)
 	i = 0;
 	if (args == NULL)
 		home_cd(shell, "HOME", args);
-	else if (ft_strcmp(args, "/") == 0) 
+	else if (ft_strcmp(args, "/") == 0)
 		home_cd(shell, "/", args);
 	else
 	{

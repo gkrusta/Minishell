@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:23:49 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:23:51 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:44:49 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	read_line(char **line)
 	ft_printf("> ");
 	try_read = 0;
 	try_read = read(0, &c, 1);
-	while (try_read && c != '\n' && c != '\0' && shell_state != 3)
+	while (try_read && c != '\n' && c != '\0' && g_shell_state != 3)
 	{
 		if (c != '\n' && c != '\0')
 			read_line[i] = c;
@@ -48,7 +48,7 @@ void	token_heredoc(char **tokens, int *i, t_cmd *node)
 	if (tokens[*i + 1])
 	{
 		pipe(fd);
-		while (read_line(&line) && shell_state != 3)
+		while (read_line(&line) && g_shell_state != 3)
 		{
 			if (ft_strncmp(line, tokens[*i +1], ft_strlen(tokens[*i +1])) == 0)
 				break ;

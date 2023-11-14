@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:25:59 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:44:56 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	dup2(node->infile, STDIN_FILENO);
 	if (node->next != NULL)
 		close(node->infile);
-	while (node && shell_state != 3)
+	while (node && g_shell_state != 3)
 	{
 		i = check_absolut(node);
 		if (run_node(node, shell) && node->next == NULL)
@@ -103,7 +103,7 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 			free(node->cmd);
 		node = node->next;
 	}
-	if (shell_state == 3)
+	if (g_shell_state == 3)
 		shell->exit_status = 130;
 	node = *nodes;
 	restore_std(shell->stdincpy, shell->stdoutcpy);

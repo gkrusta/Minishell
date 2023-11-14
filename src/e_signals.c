@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:23 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:25:24 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:44:17 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	is_sigint(void)
 {
-	if (shell_state == 1 || shell_state == 4)
+	if (g_shell_state == 1 || g_shell_state == 4)
 	{
 		rl_on_new_line();
 		rl_redisplay();
@@ -23,11 +23,11 @@ void	is_sigint(void)
 		rl_on_new_line();
 		rl_redisplay();
 		rl_replace_line("", 0);
-		shell_state = 4;
+		g_shell_state = 4;
 	}
 	else
 	{
-		shell_state = 3;
+		g_shell_state = 3;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 1);
@@ -40,7 +40,7 @@ void	signal_handler(int signal)
 		is_sigint();
 	else if (signal == EOF)
 	{
-		if (shell_state)
+		if (g_shell_state)
 			ft_printf("\nPresionado Ctrl+D en interactivo\n");
 		else
 			ft_printf("\nPresionado Ctrl+D durante una tarea\n");

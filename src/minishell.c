@@ -6,18 +6,18 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:34:18 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:46:28 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	shell_state;
+int	g_shell_state;
 
-/* void	ft_leaks(void)
+void	ft_leaks(void)
 {
 	system("leaks -q minishell");
-} */
+}
 
 void	final_cleanup(t_shell *shell, char *input)
 {
@@ -38,11 +38,11 @@ char	*zero(t_shell *shell)
 		shell->space_next[i] = '0';
 		i++;
 	}
-	shell_state = 1;
+	g_shell_state = 1;
 	input = readline("minishell> ");
-	if (shell_state == 4)
+	if (g_shell_state == 4)
 		shell->exit_status = 1;
-	shell_state = 0;
+	g_shell_state = 0;
 	return (input);
 }
 
@@ -83,7 +83,7 @@ int	main(int argc, char **argv, char **envp)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));
 	ft_init(shell, envp);
-	//atexit(ft_leaks);
+	atexit(ft_leaks);
 	while (1)
 	{
 		input = zero(shell);

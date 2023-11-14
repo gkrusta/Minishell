@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:51 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:26:54 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:45:57 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_value(t_shell *shell, char *key)
 	return (NULL);
 }
 
-void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir, char *args)
+void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir, char *arg)
 {
 	char	**changes;
 	char	*dir;
@@ -53,7 +53,7 @@ void	ft_export_pwds(t_shell *shell, char *old_dir, char *new_dir, char *args)
 	dir = ft_strrchr(new_dir, '/');
 	if (chdir(new_dir) == -1)
 	{
-		ft_printf("minishell: cd: %s: No such file or directory\n", args);
+		ft_printf("minishell: cd: %s: No such file or directory\n", arg);
 		shell->exit_status = 1;
 	}
 	changes = ft_calloc(3, sizeof(char *));

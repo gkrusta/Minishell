@@ -49,3 +49,12 @@ void	init_values(t_shell *shell, int *i)
 	*i = 0;
 	shell->fd_in = 0;
 }
+
+void	check_use_fd_in(t_cmd *new_node, t_shell *shell)
+{
+	if (shell->fd_in != 0)
+	{
+		new_node->infile = shell->fd_in;
+		shell->fd_in = 0;
+	}
+}

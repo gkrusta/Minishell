@@ -14,7 +14,7 @@ int	read_line(char **line)
 	ft_printf("> ");
 	try_read = 0;
 	try_read = read(0, &c, 1);
-	while (try_read && c != '\n' && c != '\0')
+	while (try_read && c != '\n' && c != '\0' && shell_state != 3)
 	{
 		if (c != '\n' && c != '\0')
 			read_line[i] = c;
@@ -36,20 +36,14 @@ void	token_heredoc(char **tokens, int *i, t_cmd *node)
 	if (tokens[*i + 1])
 	{
 		pipe(fd);
-		shell_state = 0;
 		while (read_line(&line) && shell_state != 3)
 		{
 			if (ft_strncmp(line, tokens[*i +1], ft_strlen(tokens[*i +1])) == 0)
-			{
-				shell_state = 0;
 				break ;
-			}
 			write(fd[1], line, ft_strlen(line));
 		}
-		shell_state = 1;
 		node->infile = fd[0];
 		close(fd[1]);
 		*i = *i + 1;
-		shell_state = 1;
 	}
 }

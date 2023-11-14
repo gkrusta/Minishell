@@ -2,21 +2,27 @@
 
 void	launch_key_error(t_shell *shell, char *cmd, t_list *arg)
 {
-	ft_printf("minishell: %s: `%s=%s': invalid identifier\n", cmd, (char *)(arg->key), (char *)(arg->value));
+	char	*key;
+	char	*value;
+
+	key = (char *)(arg->key);
+	value = (char *)(arg->value);
+	ft_printf("minishell: %s: `%s=%s': invalid identifier\n", cmd, key, value);
 	shell->exit_status = 1;
 }
 
 int	check_key(t_list *arg, int print, t_shell *shell, char *cmd)
 {
-	int	i;
+	int		i;
+	char	*key;
 
 	i = 0;
-	if ((((char *)(arg->key))[0]) && (((char *)(arg->key))[0] == '_' || ft_isalpha(((char *)(arg->key))[0])))
+	key = (char *)(arg->key);
+	if (key[0] && (key[0] == '_' || ft_isalpha(key[0])))
 	{
-		i++;
-		while (((char *)(arg->key))[i])
+		while (key[++i])
 		{
-			if (ft_isalnum(((char *)(arg->key))[i]) || ((char *)(arg->key))[i] == '_')
+			if (ft_isalnum(key[i]) || key[i] == '_')
 				i++;
 			else
 			{

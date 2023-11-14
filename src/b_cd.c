@@ -81,12 +81,29 @@ void	parent_dir(t_shell *shell, char *args)
 	}
 }
 
+<<<<<<< HEAD
 void	cd(t_shell *shell, char *args)
+=======
+void	cd_type(t_shell *shell, char **dir, int i)
+{
+	if (ft_strcmp(dir[i], "-") == 0)
+		home_cd(shell, "OLDPWD");
+	else if (ft_strcmp(dir[i], "~") == 0)
+		home_cd(shell, "HOME");
+	else if (ft_strcmp(dir[i], "..") == 0)
+		parent_dir(shell);
+	else
+		abs_path(shell, dir[i]);
+}
+
+void	cd(t_shell *shell, char **args)
+>>>>>>> pol
 {
 	int		i;
 	//char	**dir = NULL;
 
 	i = 0;
+<<<<<<< HEAD
 	if (args == NULL)
 		home_cd(shell, "HOME", args);
 	else if (ft_strcmp(args, "/") == 0) 
@@ -104,5 +121,22 @@ void	cd(t_shell *shell, char *args)
 		else
 			abs_path(shell, &args[i]);
 		//free_args(dir);
+=======
+	if (args[i] == NULL)
+		home_cd(shell, "HOME");
+	else if (ft_strcmp(args[i], "/") == 0) 
+		home_cd(shell, "/");
+	else
+	{
+		dir = ft_split(args[i], '/');
+		if (ft_strcmp(dir[i], ".") == 0)
+			i++;
+		while (dir[i])
+		{
+			cd_type(shell, dir, i);
+			i++;
+		}
+		free_args(dir);
+>>>>>>> pol
 	}
 }

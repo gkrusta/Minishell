@@ -82,7 +82,7 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	dup2(node->infile, STDIN_FILENO);
 	if (node->next != NULL)
 		close(node->infile);
-	while (node)
+	while (node && shell_state != 3)
 	{
 		i = check_absolut(node);
 		if (run_node(node, shell) && node->next == NULL)
@@ -91,6 +91,8 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 			free(node->cmd);
 		node = node->next;
 	}
+	if (shell_state == 3)
+		shell->exit_status = 130;
 	node = *nodes;
-	restore_std(node, shell->stdincpy, shell->stdoutcpy);
+	restore_std(shell->stdincpy, shell->stdoutcpy);
 }

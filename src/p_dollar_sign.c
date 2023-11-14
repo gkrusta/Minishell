@@ -87,7 +87,7 @@ void	ft_token_check(t_shell *shell, char *str, int i)
 		if (shell->tokens[i][j] == '$')
 		{
 			if (shell->tokens[i][j + 1] == '?')
-				break;
+				break ;
 			str_end = str_after_var(shell->tokens[i], j + 1);
 			var = after_dolor_sign(shell, shell->tokens[i], j + 1);
 			if (var)

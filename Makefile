@@ -6,13 +6,12 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/11/14 10:12:19 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/11/14 10:29:00 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-#valgrind --leak-check=full --track-origins=yes ./minishell
-CC = gcc -g #-fsanitize=address
+CC = gcc -g
 CFLAGS = -Wall -Wextra -Werror 
 REMOVE = rm -rf
 LREADLINE = -L /Users/$(USER)/.brew/opt/readline/lib -lreadline

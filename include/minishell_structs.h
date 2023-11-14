@@ -1,21 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_structs.h                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 10:28:38 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/11/14 10:28:52 by gkrusta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_STRUCTS_H
 # define MINISHELL_STRUCTS_H
 
-// structura que va a tener cada commando despues de lexer
 typedef struct		s_cmd
 {
-	char			*cmd; // solo commando
-	char			*cmd_path; // commando + su path
+	char			*cmd;
+	char			*cmd_path;
 	char			**args;
 	int				infile;
 	int				outfile;
-	struct s_cmd	*next; // apunta al siguiente commando
+	struct s_cmd	*next;
 }					t_cmd;
 
 typedef struct		s_shell
 {
-	char			**env; // copia de varibles entornos
-	t_list			*env_lst;  // copia de varibles entornos
+	char			**env;
+	t_list			*env_lst;
 	char			**tokens;
 	int				exit_status;
 	char			path[128];
@@ -26,20 +37,4 @@ typedef struct		s_shell
 	int				stdoutcpy;
 }					t_shell;
 
-// para guardar el path
-/* typedef struct		s_envp
-{
-	char			*key;
-	char			*value;
-	struct s_envp	*next;
-}					t_envp; */
-
-// estructura que hay en libft
-/*typedef struct		s_list
-{
-	void			*key;
-	void			*value;
-	struct s_list	*next;
-}					t_list;
-*/
 #endif

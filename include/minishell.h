@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:12:43 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:22:01 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ void	sort_array(char **str_array, int lst_size);
 void	unset(t_shell *shell, char **args);
 void	delete_value(t_shell *shell, int node_pos);
 void	free_node(t_list *node);
-
 // b_echo.c
 int		echo(t_shell *shell, char **args);
-
 // b_cd.c
 void	cd(t_shell *shell, char *args);
 void	parent_dir(t_shell *shell, char *args);

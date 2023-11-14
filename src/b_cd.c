@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_cd.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 10:26:45 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/11/14 10:26:47 by gkrusta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	abs_path(t_shell *shell, char *path)
 {
-	//char	*tmp;
-	//char	*new_dir;
 	char	*old_dir;
 
 	old_dir = getcwd(shell->path, 128);
@@ -13,16 +23,7 @@ void	abs_path(t_shell *shell, char *path)
 		shell->exit_status = 1;
 	}
 	else
-	{
-/* 		if (ft_strcmp(old_dir, "/") == 0)
-			tmp = ft_strdup("/");
-		else
-			tmp = ft_strjoin(old_dir, "/");
-		new_dir = ft_strjoin(tmp, path);
-		free(tmp); */
 		ft_export_pwds(shell, old_dir, path, path);
-		//free(new_dir);
-	}
 }
 
 void	home_cd(t_shell *shell, char *path, char *args)
@@ -81,29 +82,11 @@ void	parent_dir(t_shell *shell, char *args)
 	}
 }
 
-<<<<<<< HEAD
 void	cd(t_shell *shell, char *args)
-=======
-void	cd_type(t_shell *shell, char **dir, int i)
-{
-	if (ft_strcmp(dir[i], "-") == 0)
-		home_cd(shell, "OLDPWD");
-	else if (ft_strcmp(dir[i], "~") == 0)
-		home_cd(shell, "HOME");
-	else if (ft_strcmp(dir[i], "..") == 0)
-		parent_dir(shell);
-	else
-		abs_path(shell, dir[i]);
-}
-
-void	cd(t_shell *shell, char **args)
->>>>>>> pol
 {
 	int		i;
-	//char	**dir = NULL;
 
 	i = 0;
-<<<<<<< HEAD
 	if (args == NULL)
 		home_cd(shell, "HOME", args);
 	else if (ft_strcmp(args, "/") == 0) 
@@ -120,23 +103,5 @@ void	cd(t_shell *shell, char **args)
 			parent_dir(shell, &args[i]);
 		else
 			abs_path(shell, &args[i]);
-		//free_args(dir);
-=======
-	if (args[i] == NULL)
-		home_cd(shell, "HOME");
-	else if (ft_strcmp(args[i], "/") == 0) 
-		home_cd(shell, "/");
-	else
-	{
-		dir = ft_split(args[i], '/');
-		if (ft_strcmp(dir[i], ".") == 0)
-			i++;
-		while (dir[i])
-		{
-			cd_type(shell, dir, i);
-			i++;
-		}
-		free_args(dir);
->>>>>>> pol
 	}
 }

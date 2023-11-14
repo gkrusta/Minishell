@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:18:26 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 10:34:18 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_init(t_shell *shell, char **envp)
 	shell->stdoutcpy = 0;
 	parse_env(shell, envp);
 	shell->space_next = ft_calloc(50, sizeof(char));
-	printf("\n\nUSER is: @%s\n", getenv("USER"));
 }
 
 void	run_input(char *input, t_shell *shell, int mode)

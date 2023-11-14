@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_execute_nodes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 11:36:21 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 13:33:26 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	shell->stdoutcpy = dup(STDOUT_FILENO);
 	node = *nodes;
 	dup2(node->infile, STDIN_FILENO);
-	if (node->next != NULL)
-		close(node->infile);
 	while (node && g_shell_state != 3)
 	{
 		i = check_absolut(node);

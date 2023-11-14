@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 11:27:31 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 18:41:55 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <sys/ioctl.h>
 
 # include "../assets/libft/libft.h"
 # include "minishell_structs.h"
@@ -124,15 +125,15 @@ int		check_absolut(t_cmd *node);
 void	restore_std(int strincpy, int stdoutcpy);
 void	cmd_error_msg(t_cmd *node, t_shell *shell);
 // e_signals.c
-void	signal_handler(int signal);
-void	setup_signal_handling(struct sigaction *sa);
+//void	signal_handler(int signal);
+void	setup_signal_handling(void);
 // r_redir.c
 void	token_pipe(t_cmd *node, int *fd, t_shell *shell);
 void	token_input(char **tokens, int *i, t_cmd *node);
 void	token_output(char **tokens, int *i, t_cmd *node);
 void	token_output_cat(char **tokens, int *i, t_cmd *node);
 // r_redir_heredoc.c
-void	token_heredoc(char **tokens, int *i, t_cmd *node);
+void	token_heredoc(char **tok, int *i, t_cmd *node);
 // $
 int		varible_search(t_list *env_lst, char **var, int flag);
 int		check_end(char *str, int pos);

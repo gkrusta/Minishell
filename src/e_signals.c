@@ -3,55 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   e_signals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:23 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 11:30:50 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 18:35:10 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	is_sigint(void)
+void	is_sigint(int signal)
 {
+	(void)signal;
 	if (g_shell_state == 1 || g_shell_state == 4)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		rl_replace_line("", 0);
 		write(1, "\033[K\n", 5);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		rl_replace_line("", 0);
 		g_shell_state = 4;
+	}
+	else if (g_shell_state == 5)
+	{
+		g_shell_state = 3;
+		ioctl(0, TIOCSTI, "\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
 	}
 	else
 	{
 		g_shell_state = 3;
 		write(1, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 1);
+		rl_replace_line("", 0);
 	}
 }
 
-void	signal_handler(int signal)
+void	setup_signal_handling(void)
 {
-	if (signal == SIGINT)
-		is_sigint();
-	else if (signal == EOF)
-	{
-		if (g_shell_state)
-			ft_printf("\nPresionado Ctrl+D en interactivo\n");
-		else
-			ft_printf("\nPresionado Ctrl+D durante una tarea\n");
-	}
-}
-
-void	setup_signal_handling(struct sigaction *sa)
-{
-	sa->sa_handler = signal_handler;
-	sa->sa_flags = 0;
-	sa->sa_mask = 0;
-	sigaction(SIGINT, sa, NULL);
-	sigaction(SIGQUIT, sa, NULL);
+	signal(SIGINT, is_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_execute_nodes_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:03 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:26:04 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 14:19:10 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	restore_std(int stdincpy, int stdoutcpy)
 
 void	cmd_error_msg(t_cmd *node, t_shell *shell)
 {
-	if (node->cmd[0] == '\0')
+	if (node->cmd[0] == '\0' && node->args[0])
 		ft_printf("minshell: %s: command not found\n", node->args[0]);
 	if (node->cmd[0] == '/')
 		ft_printf("minshell: %s: command not found\n", node->cmd);

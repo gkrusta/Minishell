@@ -3,59 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   r_redir_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:23:49 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:44:49 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 18:41:37 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	read_line(char **line)
-{
-	int		i;
-	char	c;
-	int		try_read;
-	char	*read_line;
-
-	i = 0;
-	read_line = (char *)malloc(10000);
-	if (!read_line)
-		return (-1);
-	ft_printf("> ");
-	try_read = 0;
-	try_read = read(0, &c, 1);
-	while (try_read && c != '\n' && c != '\0' && g_shell_state != 3)
-	{
-		if (c != '\n' && c != '\0')
-			read_line[i] = c;
-		i++;
-		try_read = read(0, &c, 1);
-	}
-	read_line[i] = '\n';
-	read_line[++i] = '\0';
-	*line = read_line;
-	free(read_line);
-	return (try_read);
-}
-
-void	token_heredoc(char **tokens, int *i, t_cmd *node)
+void	token_heredoc(char **tok, int *i, t_cmd *node)
 {
 	int		fd[2];
 	char	*line;
 
-	if (tokens[*i + 1])
+	g_shell_state = 5;
+	line = NULL;
+	if (tok[*i + 1])
 	{
 		pipe(fd);
-		while (read_line(&line) && g_shell_state != 3)
+		while (1 && g_shell_state != 3)
 		{
-			if (ft_strncmp(line, tokens[*i +1], ft_strlen(tokens[*i +1])) == 0)
+			line = readline("> ");
+			if (!line)
+				break ;
+			if (ft_strncmp(line, tok[*i + 1], ft_strlen(tok[*i + 1]) + 1) == 0)
 				break ;
 			write(fd[1], line, ft_strlen(line));
+			free(line);
 		}
-		node->infile = fd[0];
+		if (g_shell_state != 3)
+			free(line);
 		close(fd[1]);
+		node->infile = fd[0];
 		*i = *i + 1;
 	}
 }

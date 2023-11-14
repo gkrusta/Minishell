@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:45:39 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 11:27:31 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*str_change_value(char *old_str, char *new_str);
 void	init_values(t_shell *shell, int *i);
 void	check_use_fd_in(t_cmd *new_node, t_shell *shell);
 // e_make_nodes_utils_b.c
-void	put_token(t_shell *shell, int i, t_cmd *node);
+void	put_token(t_shell *shell, int *i, t_cmd *node);
 int		type_three(t_shell *shell, int *i);
 // e_path_utils.c
 char	*find_path(char *command, char **envp, char *empty_str);

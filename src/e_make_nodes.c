@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:41 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:25:42 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 11:27:51 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 		check_use_fd_in(new_node, shell);
 		while (shell->tokens[i])
 		{
-			put_token(shell, i, new_node);
+			put_token(shell, &i, new_node);
 			if (type_three(shell, &i))
 				break ;
 			i++;

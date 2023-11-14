@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 11:36:21 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 13:26:24 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	fork_child(t_cmd *node, t_shell *shell)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell->exit_status = WEXITSTATUS(status);
+	g_shell_state = 1;
 	dup2((node->outfile - 1), STDIN_FILENO);
 	close(node->outfile);
 	close((node->outfile - 1));
@@ -92,8 +93,6 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	shell->stdoutcpy = dup(STDOUT_FILENO);
 	node = *nodes;
 	dup2(node->infile, STDIN_FILENO);
-	if (node->next != NULL)
-		close(node->infile);
 	while (node && g_shell_state != 3)
 	{
 		i = check_absolut(node);

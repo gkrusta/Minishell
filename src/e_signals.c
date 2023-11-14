@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:23 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 11:30:50 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/14 14:40:07 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	is_sigint(void)
 	{
 		g_shell_state = 3;
 		write(1, "\n", 1);
-		rl_on_new_line();
 		rl_replace_line("", 1);
+		rl_on_new_line();
 	}
 }
 

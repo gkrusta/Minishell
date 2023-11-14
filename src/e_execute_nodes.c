@@ -85,7 +85,7 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	while (node)
 	{
 		i = check_absolut(node);
-		if (run_node(node, shell))
+		if (run_node(node, shell) && node->next == NULL)
 			break ;
 		if (i == 1)
 			free(node->cmd);

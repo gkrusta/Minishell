@@ -58,8 +58,8 @@ void	restore_std(t_cmd *node, int stdincpy, int stdoutcpy)
 void	cmd_error_msg(t_cmd *node, t_shell *shell)
 {
 	if (node->cmd[0] == '\0')
-		ft_printf("%s: command not found\n", node->args[0]);
+		ft_printf("minshell: %s: command not found\n", node->args[0]);
 	if (node->cmd[0] == '/')
-		ft_printf("%s: command not found\n", node->cmd);
+		ft_printf("minshell: %s: command not found\n", node->cmd);
 	shell->exit_status = 127;
 }

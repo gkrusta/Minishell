@@ -6,16 +6,16 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/11/13 11:17:41 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/11/14 10:10:14 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 #valgrind --leak-check=full --track-origins=yes ./minishell
 CC = gcc -g #-fsanitize=address
-CFLAGS = -Wall -Wextra #-Werror 
+CFLAGS = -Wall -Wextra -Werror 
 REMOVE = rm -rf
-LREADLINE = -L /Users/gkrusta/.brew/opt/readline/lib -lreadline
+LREADLINE = -L /Users/$(USER)/.brew/opt/readline/lib -lreadline
 
 OBJ_PATH = obj
 SRC_PATH = src
@@ -24,7 +24,7 @@ INC_PATH = include
 LIBFT_PATH = assets/libft
 LIBFT_LIB_PATH = assets/libft/libft.a
 
-HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include -I /Users/gkrusta/.brew/opt/readline/include 
+HEADERS	= -I $(LIBFT_PATH)/include/ -I ./include -I /Users/$(USER)/.brew/opt/readline/include 
 
 SRC_FILES = b_cd_utils.c b_cd.c b_echo.c b_env_utils.c b_env.c b_env_update.c \
 			b_export_utils_b.c b_export_utils.c b_export.c b_pwd.c b_unset.c \

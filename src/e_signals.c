@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_signals.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:23 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 18:35:10 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:43:19 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	is_sigint(int signal)
 {
+	//printf("shel state %d  ", g_shell_state);
 	(void)signal;
-	if (g_shell_state == 1 || g_shell_state == 4)
+	if (g_shell_state == 1 || g_shell_state == 4 || g_shell_state == 6)
 	{
 		rl_on_new_line();
+		if (g_shell_state == 6)
+			write(1, "> ", 2);
 		rl_redisplay();
 		write(1, "\033[K\n", 5);
 		rl_replace_line("", 0);

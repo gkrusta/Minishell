@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 18:36:24 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:43:20 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	final_cleanup(t_shell *shell, char *input)
 {
 	if (input)
 		free (input);
+	else if (!input && g_shell_state == 0)
+		printf("exit\n");
 	free(shell->space_next);
 	free_params(shell);
 }
@@ -38,11 +40,13 @@ char	*zero(t_shell *shell)
 		shell->space_next[i] = '0';
 		i++;
 	}
-	g_shell_state = 1;
+	if (g_shell_state != 6)
+		g_shell_state = 1;
 	input = readline("minishell> ");
 	if (g_shell_state == 4)
 		shell->exit_status = 1;
-	g_shell_state = 0;
+	if (g_shell_state != 6)
+		g_shell_state = 0;
 	return (input);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   r_redir_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:23:49 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 18:41:37 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:41:58 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ void	token_heredoc(char **tok, int *i, t_cmd *node)
 		pipe(fd);
 		while (1 && g_shell_state != 3)
 		{
-			line = readline("> ");
+			write(STDOUT_FILENO, "> ", 2);
+			line = get_next_line(0);
 			if (!line)
+			{
+				g_shell_state = 6;
 				break ;
-			if (ft_strncmp(line, tok[*i + 1], ft_strlen(tok[*i + 1]) + 1) == 0)
+			}
+			if (ft_strncmp(line, tok[*i + 1], ft_strlen(tok[*i + 1]) + 1) == 10)
 				break ;
 			write(fd[1], line, ft_strlen(line));
 			free(line);

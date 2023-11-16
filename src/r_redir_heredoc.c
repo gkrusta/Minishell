@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:23:49 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/15 13:41:58 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:59:43 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	token_heredoc(char **tok, int *i, t_cmd *node)
 		{
 			write(STDOUT_FILENO, "> ", 2);
 			line = get_next_line(0);
-			if (!line)
+			if (!line && node->cmd == NULL)
 			{
 				g_shell_state = 6;
 				break ;

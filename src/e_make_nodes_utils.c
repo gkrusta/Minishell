@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:46 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/15 13:26:19 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/16 13:50:39 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,28 @@
 
 int	is_built_in(char *token)
 {
-	if (ft_strcmp(token, "env") == 0)
-		return (1);
-	else if (ft_strcmp(token, "export") == 0)
-		return (1);
-	else if (ft_strcmp(token, "unset") == 0)
-		return (1);
-	else if (ft_strcmp(token, "cd") == 0)
-		return (1);
-	else if (ft_strcmp(token, "echo") == 0)
-		return (1);
-	else if (ft_strcmp(token, "pwd") == 0)
-		return (1);
-	else if (ft_strcmp(token, "exit") == 0)
-		return (1);
-	return (0);
+	int		i;
+	char	*token_cpy;
+
+	token_cpy = convert_lowercase(token);
+	if (ft_strcmp(token_cpy, "env") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "export") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "unset") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "cd") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "echo") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "pwd") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "exit") == 0)
+		i = 1;
+	else
+		i = 0;
+	free(token_cpy);
+	return (i);
 }
 
 void	check_redir(t_cmd *node, int *i, t_shell *shell, int plus)

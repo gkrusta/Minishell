@@ -57,6 +57,8 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "libft.h": "c"
-  }
+    "libft.h": "c",
+    "__node_handle": "c"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }

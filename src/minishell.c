@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/15 13:43:20 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/16 17:00:33 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_init(t_shell *shell, char **envp)
 	shell->fd_in = 0;
 	shell->stdincpy = 0;
 	shell->stdoutcpy = 0;
+	shell->env_path = 1;
 	parse_env(shell, envp);
 	shell->space_next = ft_calloc(50, sizeof(char));
 }

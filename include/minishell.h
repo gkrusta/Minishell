@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 18:41:55 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:00:09 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	sort_array(char **str_array, int lst_size);
 // b_unset.c
 void	unset(t_shell *shell, char **args);
 void	delete_value(t_shell *shell, int node_pos);
-void	free_node(t_list *node);
+void	free_node(t_shell *shell, t_list *node);
 // b_echo.c
 int		echo(t_shell *shell, char **args);
 // b_cd.c
@@ -107,23 +107,25 @@ char	*str_change_value(char *old_str, char *new_str);
 void	init_values(t_shell *shell, int *i);
 void	check_use_fd_in(t_cmd *new_node, t_shell *shell);
 // e_make_nodes_utils_b.c
+char	*convert_lowercase(char *token);
 void	put_token(t_shell *shell, int *i, t_cmd *node);
 int		type_three(t_shell *shell, int *i);
 // e_path_utils.c
 char	*find_path(char *command, char **envp, char *empty_str);
 int		is_in_path(t_shell *shell, char *str);
 // e_nodes_utils.c
-void	ft_add_front_node(t_cmd **lst, t_cmd *new_node);
+void		ft_add_front_node(t_cmd **lst, t_cmd *new_node);
 t_cmd	*ft_add_back_node(t_cmd **lst, t_cmd *new_node);
-void	lst_clear_nodes(t_cmd **lst);
+void		lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
 // e_execute_nodes.c
 void	execute_nodes(t_cmd **nodes, t_shell *shell);
 // e_execute_nodes_utils.c
+int		built_invalid(char *cmd_old, char *cmd_new);
 void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy);
 int		check_absolut(t_cmd *node);
 void	restore_std(int strincpy, int stdoutcpy);
-void	cmd_error_msg(t_cmd *node, t_shell *shell);
+void	cmd_error_msg(t_cmd *node, t_shell *shell, char *cmd);
 // e_signals.c
 //void	signal_handler(int signal);
 void	setup_signal_handling(void);
@@ -136,13 +138,9 @@ void	token_output_cat(char **tokens, int *i, t_cmd *node);
 void	token_heredoc(char **tok, int *i, t_cmd *node);
 // $
 int		varible_search(t_list *env_lst, char **var, int flag);
-int		check_end(char *str, int pos);
 char	*after_dolor_sign(t_shell *shell, char *str, int i);
-char	*ft_concat(char *str, char *var, char *str_end, int *pos);
 char	*str_after_var(char *str, int pos);
 void	ft_token_check(t_shell *shell, char *str, int i);
-int		is_inside_quotes(char *str, int pos);
-
 // p_trim.c
 void	ft_trim_tokens(t_shell *shell);
 // p_trim_utils.c

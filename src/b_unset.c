@@ -6,14 +6,16 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:08 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:26:10 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/16 16:32:37 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_node(t_list *node)
+void	free_node(t_shell *shell, t_list *node)
 {
+	if (!ft_strcmp(node->key, "PATH"))
+		shell->env_path = 0;
 	free(node->key);
 	if (node->value)
 		free(node->value);
@@ -31,7 +33,7 @@ void	delete_value(t_shell *shell, int node_pos)
 	{
 		aux = node;
 		shell->env_lst = shell->env_lst->next;
-		free_node(aux);
+		free_node(shell, aux);
 	}
 	else
 	{
@@ -43,7 +45,7 @@ void	delete_value(t_shell *shell, int node_pos)
 			i++;
 		}
 		aux->next = node->next;
-		free_node(node);
+		free_node(shell, node);
 	}
 }
 
@@ -63,7 +65,7 @@ void	unset(t_shell *shell, char **args)
 		new_arg = ft_calloc(1, sizeof(t_list));
 		lst = shell->env_lst;
 		extract_values(args[i], new_arg);
-		while (lst && found == 0 && check_key(new_arg->key, 1, shell, "unset"))
+		while (lst && found == 0 && check_key(new_arg, 1, shell, "unset"))
 		{
 			if (key_found(new_arg->key, (char *)lst->key, &found))
 				delete_value(shell, node_pos);

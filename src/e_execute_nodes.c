@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_execute_nodes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 13:33:26 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:52:14 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	run_node(t_cmd *node, t_shell *shell)
 			return (1);
 		}
 		dup2(shell->stdoutcpy, STDOUT_FILENO);
-		cmd_error_msg(node, shell);
+		cmd_error_msg(node, shell, "42");
 		return (1);
 	}
 	else

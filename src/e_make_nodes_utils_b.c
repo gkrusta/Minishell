@@ -6,11 +6,27 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 11:27:17 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/16 15:35:53 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*convert_lowercase(char *token)
+{
+	int		i;
+	char	*token_cpy;
+
+	i = 0;
+	token_cpy = ft_strdup(token);
+	while (token_cpy[i])
+	{
+		token_cpy[i] = ft_tolower(token_cpy[i]);
+		i++;
+	}
+	token_cpy[i] = '\0';
+	return (token_cpy);
+}
 
 void	put_token(t_shell *shell, int *i, t_cmd *new_node)
 {

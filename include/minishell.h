@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/16 17:00:09 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/19 14:36:05 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,19 @@ void	exit_minishell(t_shell *shell, char **args);
 void	make_nodes(t_shell *shell, char *input, int mode);
 int		is_argument(char *token);
 void	add_argument(t_shell *shell, char *token, t_cmd *node);
+void	clean_nodes_data(t_cmd **exec_nodes, char *input, t_shell *shell);
 // e_make_nodes_utils.c
 int		is_built_in(char *token);
 void	check_redir(t_cmd *node, int *i, t_shell *shell, int plus);
 char	*str_change_value(char *old_str, char *new_str);
-void	init_values(t_shell *shell, int *i);
+int		built_invalid(char *cmd_old, char *cmd_new);
 void	check_use_fd_in(t_cmd *new_node, t_shell *shell);
 // e_make_nodes_utils_b.c
 char	*convert_lowercase(char *token);
 void	put_token(t_shell *shell, int *i, t_cmd *node);
 int		type_three(t_shell *shell, int *i);
 // e_path_utils.c
+void	free_path(char **str_list, char *empty_str);
 char	*find_path(char *command, char **envp, char *empty_str);
 int		is_in_path(t_shell *shell, char *str);
 // e_nodes_utils.c
@@ -119,6 +121,10 @@ t_cmd	*ft_add_back_node(t_cmd **lst, t_cmd *new_node);
 void		lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
 // e_execute_nodes.c
+int		new_mini(t_cmd *node);
+void	exec_comm(t_cmd *node, t_shell *shell);
+void	fork_child(t_cmd *node, t_shell *shell);
+int		run_node(t_cmd *node, t_shell *shell);
 void	execute_nodes(t_cmd **nodes, t_shell *shell);
 // e_execute_nodes_utils.c
 int		built_invalid(char *cmd_old, char *cmd_new);

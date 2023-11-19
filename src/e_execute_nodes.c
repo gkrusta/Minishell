@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/16 16:52:14 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/19 14:38:00 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	execute_nodes(t_cmd **nodes, t_shell *shell)
 	while (node && g_shell_state != 3)
 	{
 		i = check_absolut(node);
+		dbg_print_command_nodes(nodes, 2);
 		if (run_node(node, shell) && node->next == NULL)
 			break ;
 		if (i == 1)

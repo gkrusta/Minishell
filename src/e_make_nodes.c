@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:41 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/16 17:16:51 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/19 14:35:03 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 	t_cmd	**exec_nodes;
 	t_cmd	*new_node;
 
-	init_values(shell, &i);
+	i = 0;
+	shell->fd_in = 0;
 	new_node = NULL;
 	exec_nodes = ft_calloc(1, sizeof(t_cmd *));
 	while (shell->tokens[i])

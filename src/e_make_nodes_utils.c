@@ -6,11 +6,24 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:46 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/16 13:50:39 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/19 14:33:26 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	built_invalid(char *cmd_old, char *cmd_new)
+{
+	if (ft_strcmp(cmd_old, cmd_new))
+	{
+		if (!ft_strcmp("export", cmd_new) || !ft_strcmp("unset", cmd_new)
+			|| !ft_strcmp("exit", cmd_new))
+			return (1);
+		else if (!ft_strcmp("cd", cmd_old))
+			return (2);
+	}
+	return (0);
+}
 
 int	is_built_in(char *token)
 {
@@ -61,12 +74,6 @@ char	*str_change_value(char *old_str, char *new_str)
 	free(old_str);
 	old_str = new_str;
 	return (new_str);
-}
-
-void	init_values(t_shell *shell, int *i)
-{
-	*i = 0;
-	shell->fd_in = 0;
 }
 
 void	check_use_fd_in(t_cmd *new_node, t_shell *shell)

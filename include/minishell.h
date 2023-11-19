@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/19 14:36:05 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/19 14:46:09 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ void	free_path(char **str_list, char *empty_str);
 char	*find_path(char *command, char **envp, char *empty_str);
 int		is_in_path(t_shell *shell, char *str);
 // e_nodes_utils.c
-void		ft_add_front_node(t_cmd **lst, t_cmd *new_node);
+void	ft_add_front_node(t_cmd **lst, t_cmd *new_node);
 t_cmd	*ft_add_back_node(t_cmd **lst, t_cmd *new_node);
-void		lst_clear_nodes(t_cmd **lst);
+void	lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
 // e_execute_nodes.c
 int		new_mini(t_cmd *node);

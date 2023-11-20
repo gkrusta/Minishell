@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/19 14:46:09 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/20 18:03:02 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@
 
 extern int	g_shell_state;
 
-// minishell.c
-
-// mini_args.c
-void	mini_args(int argc, char *argv[], int *mode);
 // p_split.c
 void	p_split(char *input, t_shell *shell);
 int		ft_isspace(char c);
@@ -41,9 +37,6 @@ int		ft_isspace(char c);
 int		assign_type(char c);
 int		end_token(char c, int type, int *used);
 void	free_tokens(t_shell *shell);
-// p_dbg_print.c
-void	dbg_print_array_tokens(char **tokens, int mode, t_shell *shell);
-void	dbg_print_command_nodes(t_cmd **com_nodes, int mode);
 // b_export.c
 void	export(t_shell *shell, char **args);
 void	extract_values(char *arg, t_list *new_arg);
@@ -97,7 +90,7 @@ int		ft_exit(t_shell *shell, long i, char *args);
 int		various_args(t_shell *shell, char **args, long i);
 void	exit_minishell(t_shell *shell, char **args);
 // e_make_nodes.c
-void	make_nodes(t_shell *shell, char *input, int mode);
+void	make_nodes(t_shell *shell, char *input);
 int		is_argument(char *token);
 void	add_argument(t_shell *shell, char *token, t_cmd *node);
 void	clean_nodes_data(t_cmd **exec_nodes, char *input, t_shell *shell);
@@ -134,6 +127,8 @@ void	restore_std(int strincpy, int stdoutcpy);
 void	cmd_error_msg(t_cmd *node, t_shell *shell, char *cmd);
 // e_signals.c
 //void	signal_handler(int signal);
+void	signal_interactive(void);
+void	is_sigint(int signal);
 void	setup_signal_handling(void);
 // r_redir.c
 void	token_pipe(t_cmd *node, int *fd, t_shell *shell);
@@ -141,6 +136,7 @@ void	token_input(char **tokens, int *i, t_cmd *node);
 void	token_output(char **tokens, int *i, t_cmd *node);
 void	token_output_cat(char **tokens, int *i, t_cmd *node);
 // r_redir_heredoc.c
+void	read_line_cleanup(char *line, int fd[2], t_cmd *node, int *i);
 void	token_heredoc(char **tok, int *i, t_cmd *node);
 // $
 int		varible_search(t_list *env_lst, char **var, int flag);

@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:03 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/19 14:48:26 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:21:51 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,12 @@ void	restore_std(int stdincpy, int stdoutcpy)
 void	cmd_error_msg(t_cmd *node, t_shell *shell, char *cmd)
 {
 	if (!shell->env_path)
-		ft_printf("minshell: %s: No such file or directory\n", cmd);
-	else
 	{
-		printf("123\n");
+		ft_printf("minshell: %s: No such file or directory\n", cmd);
+		shell->exit_status = 127;
+	}
+	else if (node->args[0] && node->cmd)
+	{
 		if (node->args[0][0] == '/')
 			ft_printf("minshell: %s: No such file or directory\n",
 				node->args[0]);
@@ -108,6 +110,6 @@ void	cmd_error_msg(t_cmd *node, t_shell *shell, char *cmd)
 			ft_printf("minshell: %s: command not found\n", node->args[0]);
 		else
 			ft_printf("minshell: %s: No such file or directory\n", node->cmd);
+		shell->exit_status = 127;
 	}
-	shell->exit_status = 127;
 }

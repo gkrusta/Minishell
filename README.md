@@ -3,7 +3,7 @@
 This project is a simple shell implementation written in C, with features such as command execution, built-in commands, and signal handling.
 
 ## Project Structure
-
+```
 minishell-project
 │
 ├── Makefile
@@ -26,10 +26,9 @@ minishell-project
     ├── b_export_utils_b.c
     ├── ... (other source files)
     └── r_redir.c
+``````
 ## Usage
 
 To compile the project, use the provided `Makefile`. Run the following command:
-
-```bash
+```
 make
-

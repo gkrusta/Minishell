@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:58:35 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:38:56 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/16 13:46:23 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ void	update_env(t_shell *shell)
 		shell->env = ft_stddup_env(shell);
 	}
 	else
-		printf("Error: no env variables\n");
+		printf("Error\n");
 }

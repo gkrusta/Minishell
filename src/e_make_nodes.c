@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:41 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 16:51:47 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/21 16:11:31 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ void	clean_nodes_data(t_cmd **exec_nodes, char *input, t_shell *shell)
 	free_tokens(shell);
 }
 
-void	make_nodes(t_shell *shell, char *input, int mode)
+void	make_nodes(t_shell *shell, char *input)
 {
 	int		i;
 	t_cmd	**exec_nodes;
 	t_cmd	*new_node;
 
-	init_values(shell, &i);
+	i = 0;
+	shell->fd_in = 0;
 	new_node = NULL;
 	exec_nodes = ft_calloc(1, sizeof(t_cmd *));
 	while (shell->tokens[i])
@@ -79,7 +80,6 @@ void	make_nodes(t_shell *shell, char *input, int mode)
 			i++;
 		}
 	}
-	dbg_print_command_nodes(exec_nodes, mode);
 	if (!ft_strcmp(shell->tokens[0], "exit" ))
 		exit_minishell(shell, shell->tokens);
 	if (*exec_nodes)

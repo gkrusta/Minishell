@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 13:26:24 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/21 16:11:22 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	run_node(t_cmd *node, t_shell *shell)
 			return (1);
 		}
 		dup2(shell->stdoutcpy, STDOUT_FILENO);
-		cmd_error_msg(node, shell);
+		cmd_error_msg(node, shell, "42");
 		return (1);
 	}
 	else

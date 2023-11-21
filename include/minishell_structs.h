@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:28:38 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:37:38 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:01:36 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_shell
 	int				fd_in;
 	int				stdincpy;
 	int				stdoutcpy;
+	int				env_path;
 }					t_shell;
 
 #endif

@@ -6,14 +6,16 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:08 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 13:18:42 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/21 16:10:54 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_node(t_list *node)
+void	free_node(t_shell *shell, t_list *node)
 {
+	if (!ft_strcmp(node->key, "PATH"))
+		shell->env_path = 0;
 	free(node->key);
 	if (node->value)
 		free(node->value);
@@ -31,7 +33,7 @@ void	delete_value(t_shell *shell, int node_pos)
 	{
 		aux = node;
 		shell->env_lst = shell->env_lst->next;
-		free_node(aux);
+		free_node(shell, aux);
 	}
 	else
 	{
@@ -43,7 +45,7 @@ void	delete_value(t_shell *shell, int node_pos)
 			i++;
 		}
 		aux->next = node->next;
-		free_node(node);
+		free_node(shell, node);
 	}
 }
 

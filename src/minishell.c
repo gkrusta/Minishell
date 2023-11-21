@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 13:39:14 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/21 16:11:38 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 int	g_shell_state;
 
-void	ft_leaks(void)
-{
-	system("leaks -q minishell");
-}
-
 void	final_cleanup(t_shell *shell, char *input)
 {
 	if (input)
 		free (input);
+	else if (!input)
+		printf("exit\n");
 	free(shell->space_next);
 	free_params(shell);
 }
@@ -38,7 +35,8 @@ char	*zero(t_shell *shell)
 		shell->space_next[i] = '0';
 		i++;
 	}
-	g_shell_state = 1;
+	if (g_shell_state != 2)
+		g_shell_state = 1;
 	input = readline("minishell> ");
 	if (g_shell_state == 4)
 		shell->exit_status = 1;
@@ -57,40 +55,36 @@ void	ft_init(t_shell *shell, char **envp)
 	shell->fd_in = 0;
 	shell->stdincpy = 0;
 	shell->stdoutcpy = 0;
+	shell->env_path = 1;
 	parse_env(shell, envp);
 	shell->space_next = ft_calloc(50, sizeof(char));
 }
 
-void	run_input(char *input, t_shell *shell, int mode)
+void	run_input(char *input, t_shell *shell)
 {
 	add_history(input);
 	p_split(input, shell);
-	dbg_print_array_tokens(shell->tokens, mode, shell);
 	ft_trim_tokens(shell);
-	dbg_print_array_tokens(shell->tokens, mode, shell);
-	make_nodes(shell, input, mode);
+	make_nodes(shell, input);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input;
 	t_shell				*shell;
-	int					mode;
-	struct sigaction	sa;
 
-	setup_signal_handling(&sa);
-	if (argc > 1)
-		mini_args(argc, argv, &mode);
+	(void)argc;
+	(void)argv;
 	shell = malloc(sizeof(t_shell));
 	ft_init(shell, envp);
-	atexit(ft_leaks);
 	while (1)
 	{
+		setup_signal_handling();
 		input = zero(shell);
 		if (!input)
 			break ;
 		if (ft_strlen(input) > 0)
-			run_input(input, shell, mode);
+			run_input(input, shell);
 		else
 			free(input);
 	}

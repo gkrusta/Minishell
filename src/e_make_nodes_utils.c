@@ -6,29 +6,49 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:46 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:36:44 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/20 14:48:47 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	built_invalid(char *cmd_old, char *cmd_new)
+{
+	if (ft_strcmp(cmd_old, cmd_new))
+	{
+		if (!ft_strcmp("export", cmd_new) || !ft_strcmp("unset", cmd_new)
+			|| !ft_strcmp("exit", cmd_new))
+			return (1);
+		else if (!ft_strcmp("cd", cmd_old))
+			return (2);
+	}
+	return (0);
+}
+
 int	is_built_in(char *token)
 {
-	if (ft_strcmp(token, "env") == 0)
-		return (1);
-	else if (ft_strcmp(token, "export") == 0)
-		return (1);
-	else if (ft_strcmp(token, "unset") == 0)
-		return (1);
-	else if (ft_strcmp(token, "cd") == 0)
-		return (1);
-	else if (ft_strcmp(token, "echo") == 0)
-		return (1);
-	else if (ft_strcmp(token, "pwd") == 0)
-		return (1);
-	else if (ft_strcmp(token, "exit") == 0)
-		return (1);
-	return (0);
+	int		i;
+	char	*token_cpy;
+
+	token_cpy = convert_lowercase(token);
+	if (ft_strcmp(token_cpy, "env") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "export") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "unset") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "cd") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "echo") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "pwd") == 0)
+		i = 1;
+	else if (ft_strcmp(token_cpy, "exit") == 0)
+		i = 1;
+	else
+		i = 0;
+	free(token_cpy);
+	return (i);
 }
 
 void	check_redir(t_cmd *node, int *i, t_shell *shell, int plus)
@@ -54,12 +74,6 @@ char	*str_change_value(char *old_str, char *new_str)
 	free(old_str);
 	old_str = new_str;
 	return (new_str);
-}
-
-void	init_values(t_shell *shell, int *i)
-{
-	*i = 0;
-	shell->fd_in = 0;
 }
 
 void	check_use_fd_in(t_cmd *new_node, t_shell *shell)

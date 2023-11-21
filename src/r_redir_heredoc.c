@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:23:49 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/20 18:11:03 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:42:38 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	read_line_cleanup(char *line, int fd[2], t_cmd *node, int *i)
 {
 	if (g_shell_state != 3)
 		free(line);
+	(void)line;
 	close(fd[1]);
 	node->infile = fd[0];
 	*i = *i + 1;

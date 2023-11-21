@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:23 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/20 18:10:41 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:26:20 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,15 @@ void	is_sigint(int signal)
 	(void)signal;
 	if (g_shell_state == 1 || g_shell_state == 4 || g_shell_state == 2)
 		signal_interactive();
-	else if (g_shell_state == 5)
-	{
-		g_shell_state = 3;
-		ioctl(0, TIOCSTI, "\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-	}
 	else
 	{
-		g_shell_state = 3;
-		write(1, "\n", 1);
-		rl_on_new_line();
+		if (g_shell_state == 5)
+			ioctl(0, TIOCSTI, "\n");
+		else
+			write(1, "\n", 1);
 		rl_replace_line("", 0);
+		rl_on_new_line();
+		g_shell_state = 3;
 	}
 }
 

@@ -3,20 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 14:18:30 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:14:26 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	shell_state;
+int	g_shell_state;
 
-void	zero(t_shell *shell)
+void	final_cleanup(t_shell *shell, char *input)
 {
-	int	i;
+	if (input)
+		free (input);
+	else if (!input)
+		printf("exit\n");
+	free(shell->space_next);
+	free_params(shell);
+}
+
+char	*zero(t_shell *shell)
+{
+	char	*input;
+	int		i;
 
 	i = 0;
 	while (i < 50)
@@ -24,49 +35,59 @@ void	zero(t_shell *shell)
 		shell->space_next[i] = '0';
 		i++;
 	}
+	if (g_shell_state != 2)
+		g_shell_state = 1;
+	input = readline("minishell> ");
+	if (g_shell_state == 4)
+		shell->exit_status = 1;
+	g_shell_state = 0;
+	return (input);
 }
 
-void	ft_leaks(void)
+void	ft_init(t_shell *shell, char **envp)
 {
-	system("leaks -q minishell");
+	shell->env = NULL;
+	shell->env_lst = NULL;
+	shell->tokens = NULL;
+	shell->exit_status = 0;
+	shell->space_next = NULL;
+	shell->lvl = 1;
+	shell->fd_in = 0;
+	shell->stdincpy = 0;
+	shell->stdoutcpy = 0;
+	shell->env_path = 1;
+	parse_env(shell, envp);
+	shell->space_next = ft_calloc(50, sizeof(char));
+}
+
+void	run_input(char *input, t_shell *shell)
+{
+	add_history(input);
+	p_split(input, shell);
+	ft_trim_tokens(shell);
+	make_nodes(shell, input);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
-	t_shell	*shell;
-	int		mode;
+	char				*input;
+	t_shell				*shell;
 
-	setup_signal_handling();
-	input = NULL;
-	if (argc > 1)
-		mini_args(argc, argv, &mode);
+	(void)argc;
+	(void)argv;
 	shell = malloc(sizeof(t_shell));
-	shell->exit_status = 0;
-	atexit(ft_leaks);
-	printf("\n\nUSER is: @%s\n", getenv("USER"));
-	parse_env(shell, envp);
-	shell->space_next = ft_calloc(50, sizeof(char));
+	ft_init(shell, envp);
 	while (1)
 	{
-		zero(shell);
-		shell_state = 1;
-		input = readline("minishell> ");
-		shell_state = 0;
-		if (!input || !ft_strcmp(input, "exit"))
+		setup_signal_handling();
+		input = zero(shell);
+		if (!input)
 			break ;
 		if (ft_strlen(input) > 0)
-		{
-			add_history(input);
-			shell->tokens = p_split(input, shell);
-			dbg_print_array_tokens(shell->tokens, mode, shell);
-			make_nodes(shell, input, mode);
-		}
+			run_input(input, shell);
 		else
 			free(input);
 	}
-	free(shell->space_next);
-	free_params(shell);
-	free (input);
+	final_cleanup(shell, input);
 	return (0);
 }

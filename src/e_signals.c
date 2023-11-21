@@ -1,44 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   e_signals.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 10:25:23 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/11/21 16:03:22 by gkrusta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	signal_handler(int signal)
+void	signal_interactive(void)
 {
-	if (signal == SIGINT)
-	{
-		if (shell_state)
-			ft_printf("\nminishell> ");
-		else
-			ft_printf("\nPresionado Ctrl+C durante una tarea\n");
-	}
-	else if (signal == EOF)
-	{
-		if (shell_state)
-			ft_printf("\nPresionado Ctrl+D en interactivo\n");
-		else
-			ft_printf("\nPresionado Ctrl+D durante una tarea\n");
-	}
-	else if (signal == SIGQUIT)
-	{
-		if (shell_state)
-			ft_printf("\nPresionado Ctrl+\\ en interactivo\n");
-		else
-			ft_printf("\nPresionado Ctrl+\\ (SIGQUIT) durante una tarea\n");
-	}
+	rl_on_new_line();
+	if (g_shell_state == 2)
+		write(1, "> ", 2);
+	rl_redisplay();
+	write(1, "\033[K\n", 5);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	g_shell_state = 4;
 }
-void	reset_signal_handling(void)
+
+void	is_sigint(int signal)
 {
-	
+	(void)signal;
+	if (g_shell_state == 1 || g_shell_state == 4 || g_shell_state == 2)
+		signal_interactive();
+	else
+	{
+		if (g_shell_state == 5)
+			ioctl(0, TIOCSTI, "\n");
+		else
+			write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		g_shell_state = 3;
+	}
 }
 
 void	setup_signal_handling(void)
 {
-	struct sigaction	sa;
-	struct termios		term;
-
-	sa.sa_handler = signal_handler;
-	sa.sa_flags = 0;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~ECHO;
+	signal(SIGINT, is_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }

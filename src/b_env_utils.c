@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:35:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 11:43:00 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:08:31 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*check_level(char *lvl)
 		if (ft_isdigit(lvl[i]) == 0)
 		{
 			lvl = ft_strdup("1");
-			return (lvl); 
+			return (lvl);
 		}
 		i++;
 	}
@@ -51,7 +51,6 @@ void	update_level(t_shell *shell, int flag)
 		aux = node_search(shell->env_lst, "SHLVL");
 		lvl[0] = check_level(aux->value);
 		lvl[1] = ft_strjoin("SHLVL=", lvl[0]);
-		printf("new level    %s\n", lvl[0]);
 		if (lvl[0] != NULL && lvl[1] != NULL)
 			export(shell, &lvl[1]);
 		free_args(lvl);

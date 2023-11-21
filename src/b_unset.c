@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_unset.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 10:26:08 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/11/19 14:38:27 by gkrusta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	free_node(t_list *node)
+void	free_node(t_shell *shell, t_list *node)
 {
+	if (!ft_strcmp(node->key, "PATH"))
+		shell->env_path = 0;
 	free(node->key);
 	if (node->value)
 		free(node->value);
@@ -19,7 +33,7 @@ void	delete_value(t_shell *shell, int node_pos)
 	{
 		aux = node;
 		shell->env_lst = shell->env_lst->next;
-		free_node(aux);
+		free_node(shell, aux);
 	}
 	else
 	{
@@ -31,13 +45,13 @@ void	delete_value(t_shell *shell, int node_pos)
 			i++;
 		}
 		aux->next = node->next;
-		free_node(node);
+		free_node(shell, node);
 	}
 }
 
 void	unset(t_shell *shell, char **args)
 {
-	t_list	*env_list;
+	t_list	*lst;
 	int		i;
 	int		found;
 	t_list	*new_arg;
@@ -49,13 +63,13 @@ void	unset(t_shell *shell, char **args)
 		found = 0;
 		node_pos = 0;
 		new_arg = ft_calloc(1, sizeof(t_list));
-		env_list = shell->env_lst;
+		lst = shell->env_lst;
 		extract_values(args[i], new_arg);
-		while (env_list && found == 0 && check_key(new_arg->key, 1, shell, "unset"))
+		while (lst && found == 0 && check_key(new_arg, 1, shell, "unset"))
 		{
-			if (key_found(new_arg->key, (char *)env_list->key, &found))
+			if (key_found(new_arg->key, (char *)lst->key, &found))
 				delete_value(shell, node_pos);
-			env_list = env_list->next;
+			lst = lst->next;
 			node_pos++;
 		}
 		free_arg(new_arg);

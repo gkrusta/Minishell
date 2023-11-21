@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:58:35 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/02 11:03:24 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/16 13:46:23 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_env_var(t_shell *shell)
 
 	i = 0;
 	env_lst_cpy = shell->env_lst;
-	while(env_lst_cpy)
+	while (env_lst_cpy)
 	{
 		i++;
 		env_lst_cpy = env_lst_cpy->next;
@@ -51,7 +51,6 @@ char	**ft_stddup_env(t_shell *shell)
 
 	i = 0;
 	env_lst_cpy = shell->env_lst;
-
 	env = malloc(sizeof(char *) * (count_env_var(shell) + 1));
 	if (!env)
 		return (NULL);
@@ -73,6 +72,5 @@ void	update_env(t_shell *shell)
 		shell->env = ft_stddup_env(shell);
 	}
 	else
-		printf("Error: no env variables\n");
-	//free_env(shell);
+		printf("Error\n");
 }

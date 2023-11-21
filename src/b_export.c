@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_export.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 10:26:18 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/11/14 10:26:20 by gkrusta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	copy_value(t_list *env_list, t_list *new_arg)
@@ -69,7 +81,7 @@ void	extract_values(char *arg, t_list *new_arg)
 
 void	export(t_shell *shell, char **args)
 {
-	t_list	*env_list;
+	t_list	*lst;
 	int		i;
 	int		found;
 	t_list	*new_arg;
@@ -79,15 +91,15 @@ void	export(t_shell *shell, char **args)
 	{
 		found = 0;
 		new_arg = ft_calloc(1, sizeof(t_list));
-		env_list = shell->env_lst;
+		lst = shell->env_lst;
 		extract_values(args[i], new_arg);
-		while (env_list && found == 0 && check_key(new_arg->key, 1, shell, "export"))
+		while (lst && found == 0 && check_key(new_arg, 1, shell, "export"))
 		{
-			if (key_found(new_arg->key, (char *)env_list->key, &found))
-				copy_value(env_list, new_arg);
-			env_list = env_list->next;
+			if (key_found(new_arg->key, (char *)lst->key, &found))
+				copy_value(lst, new_arg);
+			lst = lst->next;
 		}
-		if (!found && check_key(new_arg->key, 0, shell, "export"))
+		if (!found && check_key(new_arg, 0, shell, "export"))
 			create_key(shell->env_lst, new_arg);
 		free_arg(new_arg);
 		i++;

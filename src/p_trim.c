@@ -1,69 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   p_trim.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 10:23:56 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/11/14 10:23:57 by gkrusta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-// if pair "" or ' is found return the lenght of content
-int	pair_exists(char *str, char c)
+void	solve_quotes(int *quotes, char *c)
 {
-	int	len;
-	int	i;
-
-	len = 0;
-	i = 1;
-	while (str[i])
+	if (*quotes == 0)
 	{
-		if (str[i] == c)
-			return (len);
-		i++;
-		len++;
+		*quotes = 2 - (*c % 2);
+		c[0] = '\0';
 	}
-	ft_printf("Error");// pair not found
-	exit(1);
+	else if ((*quotes == 1 && *c == 39) || (*quotes == 2 && *c == 34))
+	{
+		*quotes = 0;
+		c[0] = '\0';
+	}
 }
 
-char *trim_quotes(char *str)
+char	*add_char(char *new_token, char *c, int *j)
 {
-	char	*result;
-	int		len;
+	char	*aux;
 
-	if (str == NULL)
-		return NULL;
-	result = NULL;
-	if (str[2] != '\0' && str[0] == 34)
-	{
-		len = pair_exists(str, 34);
-		if (len > 0)
-			result = ft_substr(str, 1, len);
-	}
-	else if (str[2] != '\0' && str[0] == 39)
-	{
-		len = pair_exists(str, 39);
-		if (len > 0)
-			result = ft_substr(str, 1, len);
-	}
-	else
-		result = ft_strdup("");
-	free(str);
-	return (result);
+	aux = new_token;
+	new_token = ft_strjoin(aux, c);
+	*j = *j + 1;
+	free(aux);
+	return (new_token);
 }
 
-// Function to trim extra double quotes (") and single quotes (') from a string
-// and replaces $ if needed with env varible
-int	ft_trim(t_shell *shell)
+void	change_token_value(char *new_token, t_shell *shell, int *i)
 {
-	int	i;
+	free(shell->tokens[*i]);
+	shell->tokens[*i] = new_token;
+	*i = *i + 1;
+}
+
+void	ft_trim_tokens(t_shell *shell)
+{
+	int		i;
+	int		j;
+	int		quotes;
+	char	*new_token;
+	char	*c;
 
 	i = 0;
 	while (shell->tokens[i])
 	{
-		if (shell->tokens[i][0] == 34 && pair_exists(shell->tokens[i], 34))
+		new_token = ft_calloc(1, sizeof(char));
+		quotes = 0;
+		j = 0;
+		while (shell->tokens[i][j])
 		{
-			ft_token_check(shell, shell->tokens[i], i);
-			shell->tokens[i] = trim_quotes(shell->tokens[i]);
+			c = ft_calloc(2, sizeof(char));
+			c[0] = shell->tokens[i][j];
+			if (*c == 39 || *c == 34)
+				solve_quotes(&quotes, c);
+			if (*c == '$' && quotes != 1)
+				c = find_var(shell, c, &shell->tokens[i][j], &j);
+			new_token = add_char(new_token, c, &j);
+			free(c);
 		}
-		else if (shell->tokens[i][0] == 39 && pair_exists(shell->tokens[i], 39))
-			shell->tokens[i] = trim_quotes(shell->tokens[i]);
-		else
-			ft_token_check(shell, shell->tokens[i], i);
-		i++;
+		change_token_value(new_token, shell, &i);
 	}
-	return (0);
 }

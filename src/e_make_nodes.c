@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   e_make_nodes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/14 10:25:41 by gkrusta           #+#    #+#             */
+/*   Updated: 2023/11/20 17:59:13 by gkrusta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	add_argument(t_shell *shell, char *token, t_cmd *node)
@@ -39,40 +51,38 @@ int	is_argument(char *token)
 		return (0);
 }
 
-void	make_nodes(t_shell *shell, char *input, int mode)
+void	clean_nodes_data(t_cmd **exec_nodes, char *input, t_shell *shell)
+{
+	lst_clear_nodes(exec_nodes);
+	free(input);
+	free_tokens(shell);
+}
+
+void	make_nodes(t_shell *shell, char *input)
 {
 	int		i;
 	t_cmd	**exec_nodes;
 	t_cmd	*new_node;
-	int		fd_in;
 
 	i = 0;
-	fd_in = 0;
+	shell->fd_in = 0;
 	new_node = NULL;
 	exec_nodes = ft_calloc(1, sizeof(t_cmd *));
 	while (shell->tokens[i])
 	{
-		if (!new_node || (new_node && new_node->cmd[0]))
+		new_node = ft_add_back_node(exec_nodes, lst_new_node());
+		check_use_fd_in(new_node, shell);
+		while (shell->tokens[i])
 		{
-			new_node = lst_new_node();
-			ft_add_back_node(exec_nodes, new_node);
-		}
-		while (shell->tokens[i] && is_argument(shell->tokens[i]))
-		{
-			add_argument(shell, shell->tokens[i], new_node);
-			if (!shell->tokens[i + 1])
-				check_redir(new_node, shell->tokens, &i, &fd_in);
-			i++;
-		}
-		if (shell->tokens[i])
-		{
-			check_redir(new_node, shell->tokens, &i, &fd_in);
+			put_token(shell, &i, new_node);
+			if (type_three(shell, &i))
+				break ;
 			i++;
 		}
 	}
-	dbg_print_command_nodes(exec_nodes, mode);
-	execute_nodes(exec_nodes, shell);
-	lst_clear_nodes(exec_nodes);
-	free(input);
-	free_tokens(shell);
+	if (!ft_strcmp(shell->tokens[0], "exit" ))
+		exit_minishell(shell, shell->tokens);
+	if (*exec_nodes)
+		execute_nodes(exec_nodes, shell);
+	clean_nodes_data(exec_nodes, input, shell);
 }

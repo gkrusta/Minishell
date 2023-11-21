@@ -6,7 +6,7 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 16:20:08 by gkrusta           #+#    #+#              #
-#    Updated: 2023/07/18 14:05:37 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/11/08 12:40:53 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,9 @@ SRCS = ft_bzero.c  ft_isalnum.c ft_memcpy.c \
 
 OBJS = $(SRCS:.c=.o)
 
-CC = gcc
+CC = gcc -g0
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 

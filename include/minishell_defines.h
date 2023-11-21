@@ -1,5 +1,0 @@
-#ifndef MINISHELL_DEFINES_H
-# define MINISHELL_DEFINES_H
-
-
-#endif

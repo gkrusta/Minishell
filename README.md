@@ -30,5 +30,5 @@ minishell-project
 ## Usage
 
 To compile the project, use the provided `Makefile`. Run the following command:
-```
+
 make

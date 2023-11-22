@@ -1,4 +1,9 @@
 # Minishell
+123
+123
+123
+
+
 
 This project is a simple shell implementation written in C, with features such as command execution, built-in commands, and signal handling.
 

@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/21 16:05:09 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/23 18:36:06 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,20 @@ void	free_path(char **str_list, char *empty_str);
 char	*find_path(char *command, char **envp, char *empty_str);
 int		is_in_path(t_shell *shell, char *str);
 // e_nodes_utils.c
+int		ft_tcmdsize(t_cmd *lst);
 void	ft_add_front_node(t_cmd **lst, t_cmd *new_node);
 t_cmd	*ft_add_back_node(t_cmd **lst, t_cmd *new_node);
 void	lst_clear_nodes(t_cmd **lst);
 t_cmd	*lst_new_node(void);
 // e_execute_nodes.c
 int		new_mini(t_cmd *node);
-void	exec_comm(t_cmd *node, t_shell *shell);
-void	fork_child(t_cmd *node, t_shell *shell);
-int		run_node(t_cmd *node, t_shell *shell);
+void	exec_comm(t_cmd *node, t_shell *shell, int cmd_count);
+void	fork_child(t_cmd *node, t_shell *shell, int cmd_count);
+int		run_node(t_cmd *node, t_shell *shell, int cmd_count);
 void	execute_nodes(t_cmd **nodes, t_shell *shell);
 // e_execute_nodes_utils.c
 int		built_invalid(char *cmd_old, char *cmd_new);
-void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy);
+void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy, int cmd_count);
 int		check_absolut(t_cmd *node);
 void	restore_std(int strincpy, int stdoutcpy);
 void	cmd_error_msg(t_cmd *node, t_shell *shell, char *cmd);

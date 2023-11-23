@@ -6,11 +6,24 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:35 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/19 14:30:35 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/23 18:35:41 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_tcmdsize(t_cmd *lst)
+{
+	int	len;
+
+	len = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		len++;
+	}
+	return (len);
+}
 
 void	ft_add_front_node(t_cmd **lst, t_cmd *new_node)
 {

@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:03 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/23 18:32:22 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/23 20:54:42 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy, int cmd_count)
 	char	*old_cmd;
 
 	old_cmd = ft_strdup(node->cmd);
-	free(node->cmd);
+	if (cmd_count == 1)
+		free(node->cmd);
 	node->cmd = convert_lowercase(old_cmd);
 	if (!built_invalid(old_cmd, node->cmd))
-	{
 		built_valid(node, shell, stdoutcpy, old_cmd);
-		if (cmd_count > 1)
-			exit (shell->exit_status);
-	}
 	else if (built_invalid(old_cmd, node->cmd) == 1)
 		cmd_error_msg(node, shell, old_cmd);
-	free(old_cmd);
+	if (cmd_count > 1)
+		end_child();
+/* 	if (cmd_count == 1)
+		free(old_cmd); */
 }
 
 int	check_absolut(t_cmd *node)
@@ -107,14 +107,13 @@ void	cmd_error_msg(t_cmd *node, t_shell *shell, char *cmd)
 	}
 	else if (node->args[0] && node->cmd)
 	{
-		printf("hola\n");
-		if (node->args[0][0] == '/')
+		if (node->args[0][0] == '/' || node->args[0][0] == '.')
 			ft_printf("minshell: %s: No such file or directory\n",
 				node->args[0]);
 		else if (node->cmd[0] == '\0' && node->args[0])
 			ft_printf("minshell: %s: command not found\n", node->args[0]);
 		else
-			ft_printf("minshell: %s: No such file or directory\n", node->cmd);
+			ft_printf("minshell: %s: No such file or directory\n", cmd);
 		shell->exit_status = 127;
 	}
 }

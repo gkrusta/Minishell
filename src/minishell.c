@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/20 18:14:26 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/23 18:39:23 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ void	run_input(char *input, t_shell *shell)
 	make_nodes(shell, input);
 }
 
+void	ft_leaks(void)
+{
+	system("leaks -q minishell");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*input;
@@ -75,6 +80,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	atexit(ft_leaks);
 	shell = malloc(sizeof(t_shell));
 	ft_init(shell, envp);
 	while (1)

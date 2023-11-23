@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/23 18:36:06 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/23 20:32:28 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,14 @@ int		is_argument(char *token);
 void	add_argument(t_shell *shell, char *token, t_cmd *node);
 void	clean_nodes_data(t_cmd **exec_nodes, char *input, t_shell *shell);
 // e_make_nodes_utils.c
+void	built_valid(t_cmd *node, t_shell *shell, int stdoutcpy, char *old_cmd);
 int		is_built_in(char *token);
 void	check_redir(t_cmd *node, int *i, t_shell *shell, int plus);
 char	*str_change_value(char *old_str, char *new_str);
-int		built_invalid(char *cmd_old, char *cmd_new);
 void	check_use_fd_in(t_cmd *new_node, t_shell *shell);
 // e_make_nodes_utils_b.c
 char	*convert_lowercase(char *token);
+int		built_invalid(char *cmd_old, char *cmd_new);
 void	put_token(t_shell *shell, int *i, t_cmd *node);
 int		type_three(t_shell *shell, int *i);
 // e_path_utils.c
@@ -127,6 +128,11 @@ int		check_absolut(t_cmd *node);
 void	restore_std(int strincpy, int stdoutcpy);
 void	cmd_error_msg(t_cmd *node, t_shell *shell, char *cmd);
 // e_signals.c
+void	signal_interactive(void);
+void	is_sigint(int signal);
+void	setup_signal_handling(void);
+// e_end_child.c
+void	end_child(void);
 //void	signal_handler(int signal);
 void	signal_interactive(void);
 void	is_sigint(int signal);

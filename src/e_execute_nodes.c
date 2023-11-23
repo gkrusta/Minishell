@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/23 18:37:53 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/23 20:29:36 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	new_mini(t_cmd *node)
 	{
 		if (ft_strlen(node->args[0]) >= 2)
 		{
-			if (node->args[0][0] == '.' && node->args[0][1] == '/')
+			if (node->args[0][0] == '.' && node->args[0][1] == '/'
+				&& access(node->args[0], X_OK) == 0)
 				return (1);
 		}
 	}
@@ -70,9 +71,7 @@ void	fork_child(t_cmd *node, t_shell *shell, int cmd_count)
 int	run_node(t_cmd *node, t_shell *shell, int cmd_count)
 {
 	if (is_built_in(node->cmd) && cmd_count == 1)
-	{
 		exec_built(node, shell, shell->stdoutcpy, cmd_count);
-	}
 	else if (!is_built_in(node->cmd)
 		&& (node->cmd_path[0] == '\0' || node->cmd[0] == '/'))
 	{

@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/24 16:12:42 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/24 16:40:30 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ void	exec_comm(t_cmd *node, t_shell *shell, int cmd_count)
 		execve(node->args[0], &node->args[1], shell->env);
 	else
 	{
-		//update_env(shell);
-		printf("cmd path is %s\n", node->cmd_path);
 		node->args[0] = node->cmd;
-		execve(node->cmd_path, node->args, shell->env);
+		if (shell->env_path)
+			execve(node->cmd_path, node->args, shell->env);
+		else
+		{
+			printf("minishell: %s: No such file or directory\n", node->cmd);
+			end_child();
+		}
 	}
 }
 
@@ -65,6 +69,8 @@ void	fork_child(t_cmd *node, t_shell *shell, int cmd_count)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell->exit_status = WEXITSTATUS(status);
+	if (!shell->env_path)
+		shell->exit_status = 127;
 	dup2((node->outfile - 1), STDIN_FILENO);
 	close(node->outfile);
 	close((node->outfile - 1));

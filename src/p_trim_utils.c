@@ -6,11 +6,25 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:24:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:32:56 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/24 12:48:45 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	empty_input(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] != 32)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 char	*add_env_var(char *new_token, char *value)
 {

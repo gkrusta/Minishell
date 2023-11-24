@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/23 20:32:28 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/24 12:45:51 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,10 @@ void	ft_token_check(t_shell *shell, char *str, int i);
 // p_trim.c
 void	ft_trim_tokens(t_shell *shell);
 // p_trim_utils.c
+int	    empty_input(char *input);
+char	*add_env_var(char *new_token, char *value);
+void	*find_value(t_shell *shell, char *name);
+char	*capture_key(char *c);
 char	*find_var(t_shell *shell, char *c, char *new_token, int *j);
 
 #endif

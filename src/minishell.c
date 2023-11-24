@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/23 18:39:23 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:02:03 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,18 @@ void	ft_init(t_shell *shell, char **envp)
 
 void	run_input(char *input, t_shell *shell)
 {
+	int	i;
+
+	i = 0;
 	add_history(input);
-	p_split(input, shell);
-	ft_trim_tokens(shell);
-	make_nodes(shell, input);
+	if (!empty_input(input))
+	{
+		p_split(input, shell);
+		ft_trim_tokens(shell);
+		make_nodes(shell, input);
+	}
+	else
+		free (input);
 }
 
 void	ft_leaks(void)

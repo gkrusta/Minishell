@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:03 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/23 20:54:42 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/24 10:19:46 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 void	built_valid(t_cmd *node, t_shell *shell, int stdoutcpy, char *old_cmd)
 {
 	dup2(node->outfile, STDOUT_FILENO);
-	if (ft_strcmp(node->cmd, "env") == 0)
+	if (ft_strcmp(old_cmd, "env") == 0)
 	{
 		if (!shell->env_path)
-			cmd_error_msg(node, shell, old_cmd);
+			cmd_error_msg(node, shell, node->cmd);
 		else
 			print_env_variables(shell, shell->env_lst);
 	}
-	else if (ft_strcmp(node->cmd, "export") == 0)
+	else if (ft_strcmp(old_cmd, "export") == 0)
 		export(shell, node->args);
-	else if (ft_strcmp(node->cmd, "echo") == 0)
+	else if (ft_strcmp(old_cmd, "echo") == 0)
 		echo(shell, node->args);
-	else if (ft_strcmp(node->cmd, "cd") == 0)
+	else if (ft_strcmp(old_cmd, "cd") == 0)
 		cd(shell, node->args[0]);
-	else if (ft_strcmp(node->cmd, "unset") == 0)
+	else if (ft_strcmp(old_cmd, "unset") == 0)
 		unset(shell, node->args);
-	else if (ft_strcmp(node->cmd, "pwd") == 0)
+	else if (ft_strcmp(old_cmd, "pwd") == 0)
 		pwd(shell);
 	dup2(stdoutcpy, STDOUT_FILENO);
 	dup2((node->outfile - 1), STDIN_FILENO);
@@ -42,18 +42,14 @@ void	exec_built(t_cmd *node, t_shell *shell, int stdoutcpy, int cmd_count)
 {
 	char	*old_cmd;
 
-	old_cmd = ft_strdup(node->cmd);
-	if (cmd_count == 1)
-		free(node->cmd);
-	node->cmd = convert_lowercase(old_cmd);
-	if (!built_invalid(old_cmd, node->cmd))
+	old_cmd = convert_lowercase(node->cmd);
+	if (!built_invalid(node->cmd, old_cmd))
 		built_valid(node, shell, stdoutcpy, old_cmd);
-	else if (built_invalid(old_cmd, node->cmd) == 1)
-		cmd_error_msg(node, shell, old_cmd);
+	else if (built_invalid(node->cmd, old_cmd) == 1)
+		cmd_error_msg(node, shell, node->cmd);
+	free(old_cmd);
 	if (cmd_count > 1)
 		end_child();
-/* 	if (cmd_count == 1)
-		free(old_cmd); */
 }
 
 int	check_absolut(t_cmd *node)

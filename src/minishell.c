@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/13 17:55:02 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:22:41 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	main(int argc, char **argv, char **envp)
 	char				*input;
 	t_shell				*shell;
 	int					mode;
-	struct sigaction	sa;
+	//struct sigaction	sa;
 
-	setup_signal_handling(&sa);
+	
 	if (argc > 1)
 		mini_args(argc, argv, &mode);
 	shell = malloc(sizeof(t_shell));

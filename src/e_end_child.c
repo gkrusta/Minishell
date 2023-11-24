@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:12:53 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/24 13:00:00 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:53:51 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	end_child(void)
 {
-/* 	char	**args;
+	char	**args;
 	char	*cmd;
 
 	args = malloc(sizeof (char *) * 3);
@@ -22,6 +22,5 @@ void	end_child(void)
 	args[1] = ft_strdup("0");
 	args[2] = NULL;
 	cmd = ft_strdup("/bin/sleep");
-	execve(cmd, args, NULL); */
-	exit(EXIT_SUCCESS);
+	execve(cmd, args, NULL);
 }

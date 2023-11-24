@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:29 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:25:31 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/24 16:21:32 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*find_path(char *command, char **envp, char *empty_str)
 	i = 0;
 	while (ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
+	if (!envp[i])
+		return (command);
 	path_list = ft_split(envp[i] + 5, ':');
 	i = 0;
 	while (path_list[i])
@@ -44,7 +46,7 @@ char	*find_path(char *command, char **envp, char *empty_str)
 		path_root = ft_strjoin(path_list[i], "/");
 		final_path = ft_strjoin(path_root, command);
 		free(path_root);
-		if (access(final_path, F_OK) == 0)
+		if (access(final_path, X_OK) == 0)
 		{
 			free_path(path_list, empty_str);
 			return (final_path);

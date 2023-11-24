@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/23 20:29:36 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/24 16:12:42 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	exec_comm(t_cmd *node, t_shell *shell, int cmd_count)
 		execve(node->args[0], &node->args[1], shell->env);
 	else
 	{
+		//update_env(shell);
+		printf("cmd path is %s\n", node->cmd_path);
 		node->args[0] = node->cmd;
 		execve(node->cmd_path, node->args, shell->env);
 	}
@@ -73,7 +75,7 @@ int	run_node(t_cmd *node, t_shell *shell, int cmd_count)
 	if (is_built_in(node->cmd) && cmd_count == 1)
 		exec_built(node, shell, shell->stdoutcpy, cmd_count);
 	else if (!is_built_in(node->cmd)
-		&& (node->cmd_path[0] == '\0' || node->cmd[0] == '/'))
+		&& (node->cmd_path[0] == '\0' || node->cmd[0] == '.'))
 	{
 		if (new_mini(node))
 		{

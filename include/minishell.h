@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:01:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/24 16:45:09 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:31:48 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ extern int	g_shell_state;
 
 // p_split.c
 void	p_split(char *input, t_shell *shell);
+char	**add_token(char **tokens, char *buff);
+int		chk_end_token(char *input, int *i, int *start);
+char	*read_token(char *input, int *i);
 int		ft_isspace(char c);
 // p_split_utils.c
+int		redir_check(char *str, char *str_next);
 int		assign_type(char c);
 int		end_token(char c, int type, int *used);
 void	free_tokens(t_shell *shell);
@@ -151,6 +155,7 @@ char	*str_after_var(char *str, int pos);
 void	ft_token_check(t_shell *shell, char *str, int i);
 // p_trim.c
 void	ft_trim_tokens(t_shell *shell);
+int		syntax_check(char **tokens, t_shell *shell);
 // p_trim_utils.c
 int		empty_input(char *input);
 char	*add_env_var(char *new_token, char *value);

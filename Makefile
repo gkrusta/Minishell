@@ -6,13 +6,13 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/11/26 10:51:22 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/11/26 13:48:11 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc -g
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 REMOVE = rm -rf
 LREADLINE = -L /Users/$(USER)/.brew/opt/readline/lib -lreadline
 

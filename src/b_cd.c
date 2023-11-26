@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:26:45 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:42:18 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:29:33 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	cd(t_shell *shell, char *args)
 		home_cd(shell, "/", args);
 	else
 	{
-		if (ft_strcmp(args, ".") == 0)
+		if (ft_strcmp(args, ".") == 0 && args[i + 1])
 			i = 1;
 		if (ft_strcmp(&args[i], "-") == 0)
 			home_cd(shell, "OLDPWD", &args[i]);

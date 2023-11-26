@@ -6,11 +6,31 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:24:05 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/14 10:24:21 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:34:55 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	redir_check(char *str, char *str_next)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] && str[i + 1])
+	{
+		if ((str[i] == '|' || str[i] == '>')
+			&& (str[i + 1] == '|' || str[i + 1] == '>'))
+			return (2);
+	}
+	else if (str[i] && str_next[i])
+	{
+		if ((str[i] == '|' || str[i] == '>')
+			&& (str_next[i] == '|' || str_next[i] == '>'))
+			return (1);
+	}
+	return (0);
+}
 
 int	assign_type(char c)
 {

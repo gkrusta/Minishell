@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:29 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/26 12:06:02 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:31:25 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ void	free_path(char **str_list, char *empty_str)
 	free(str_list);
 }
 
+char	**find_path_helper(char **envp)
+{
+	int		i;
+	char	**path_list;
+
+	i = 0;
+	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+	{
+		if (envp[i + 1] == NULL)
+			return (0);
+		i++;
+	}
+	path_list = ft_split(envp[i] + 5, ':');
+	return (path_list);
+}
+
 char	*find_path(char *command, char **envp, char *empty_str)
 {
 	char	**path_list;
@@ -34,14 +50,9 @@ char	*find_path(char *command, char **envp, char *empty_str)
 	char	*final_path;
 	int		i;
 
-	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
-	{
-		if (envp[i + 1] == NULL)
-			return NULL;
-		i++;
-	}
-	path_list = ft_split(envp[i] + 5, ':');
+	path_list = find_path_helper(envp);
+	if (path_list == 0)
+		return (NULL);
 	i = 0;
 	while (path_list[i])
 	{

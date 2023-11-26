@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:23:56 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/24 12:44:18 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 14:31:08 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,34 @@ void	change_token_value(char *new_token, t_shell *shell, int *i)
 	free(shell->tokens[*i]);
 	shell->tokens[*i] = new_token;
 	*i = *i + 1;
+}
+
+int	syntax_check(char **tokens, t_shell *shell)
+{
+	int	i;
+	int	found;
+
+	i = 0;
+	found = 0;
+	while (tokens[i] && tokens[i + 1])
+	{
+		found += redir_check(tokens[i], tokens[i + 1]);
+		if (found == 2)
+		{
+			printf("minishell: syntax error: unexpected end of file\n");
+			shell->exit_status = 258;
+			return (0);
+		}
+		else if (found == 3)
+		{
+			printf("minishell: syntax error near unexpected token `%s'\n",
+				tokens[i]);
+			shell->exit_status = 258;
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
 void	ft_trim_tokens(t_shell *shell)

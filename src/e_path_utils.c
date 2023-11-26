@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:29 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/24 16:44:50 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 12:06:02 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ char	*find_path(char *command, char **envp, char *empty_str)
 
 	i = 0;
 	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+	{
+		if (envp[i + 1] == NULL)
+			return NULL;
 		i++;
+	}
 	path_list = ft_split(envp[i] + 5, ':');
 	i = 0;
 	while (path_list[i])

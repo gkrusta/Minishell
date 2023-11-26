@@ -6,7 +6,7 @@
 #    By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 13:19:25 by pvilchez          #+#    #+#              #
-#    Updated: 2023/11/26 09:41:18 by gkrusta          ###   ########.fr        #
+#    Updated: 2023/11/26 10:51:22 by gkrusta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC_FILES = b_cd_utils.c b_cd.c b_echo.c b_env_utils.c b_env.c b_env_update.c \
 			p_dollar_sign.c p_split_utils.c p_split.c p_trim.c p_trim_utils.c \
 			r_redir_heredoc.c r_redir.c b_exit.c e_signals.c\
 
-SRC := $(addprefix $(SRC_PATH)/, $(SRC_F ILES))
+SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 
 ORANGE = \033[1;38;5;208m

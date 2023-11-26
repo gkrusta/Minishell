@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:58 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/24 16:40:30 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 12:09:14 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,7 @@ void	exec_comm(t_cmd *node, t_shell *shell, int cmd_count)
 	else
 	{
 		node->args[0] = node->cmd;
-		if (shell->env_path)
-			execve(node->cmd_path, node->args, shell->env);
-		else
-		{
-			printf("minishell: %s: No such file or directory\n", node->cmd);
-			end_child();
-		}
+		execve(node->cmd_path, node->args, shell->env);
 	}
 }
 

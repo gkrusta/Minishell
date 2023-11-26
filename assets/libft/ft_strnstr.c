@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 08:05:56 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/10/10 16:24:49 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 11:35:34 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 	while ((i + j) < len)
 	{
 		j = 0;
-		while (str[i + j] == to_find[j] && (i + j) < len)
+		while ((i + j) < len && str[i + j] == to_find[j])
 		{
 			if (to_find[++j] == '\0')
 				return ((char *)&str[i]);

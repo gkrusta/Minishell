@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:25:41 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/24 16:21:26 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/26 12:06:09 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	add_argument(t_shell *shell, char *token, t_cmd *node)
 	i = 0;
 	if (!node->cmd[0])
 	{
+		update_env(shell);
 		if (is_in_path(shell, token) || is_built_in(token))
 		{
 			node->cmd = str_change_value(node->cmd, token);

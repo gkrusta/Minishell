@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:23:49 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/23 20:47:24 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/27 12:19:04 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	read_line_cleanup(char *line, int fd[2], t_cmd *node, int *i)
 {
-	if (g_shell_state != 3 && line)
+	if (g_shell_state != CTRL_C_IN_COMMAND && line)
 		free(line);
 	close(fd[1]);
 	node->infile = fd[0];
@@ -26,19 +26,19 @@ void	token_heredoc(char **tok, int *i, t_cmd *node)
 	int		fd[2];
 	char	*line;
 
-	g_shell_state = 5;
+	g_shell_state = IN_HERE_DOC;
 	line = NULL;
 	if (tok[*i + 1])
 	{
 		pipe(fd);
-		while (1 && g_shell_state != 3)
+		while (1 && g_shell_state != CTRL_C_IN_COMMAND)
 		{
 			write(STDOUT_FILENO, "> ", 2);
 			line = get_next_line(0);
 			if (!line)
 			{
 				if (!node->cmd)
-					g_shell_state = 2;
+					g_shell_state = ENDED_HERE_DOC;
 				break ;
 			}
 			if (ft_strncmp(line, tok[*i + 1], ft_strlen(tok[*i + 1]) + 1) == 10)

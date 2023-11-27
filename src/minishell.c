@@ -6,7 +6,7 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:30:52 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/26 14:36:35 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/27 12:49:21 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ char	*zero(t_shell *shell)
 		shell->space_next[i] = '0';
 		i++;
 	}
-	if (g_shell_state != 2)
-		g_shell_state = 1;
+	if (g_shell_state != ENDED_HERE_DOC)
+		g_shell_state = INIT;
 	input = readline("minishell> ");
-	if (g_shell_state == 4)
+	if (g_shell_state == CTRL_C)
 		shell->exit_status = 1;
-	g_shell_state = 0;
+	g_shell_state = RUNNING;
 	return (input);
 }
 

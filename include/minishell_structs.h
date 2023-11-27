@@ -6,12 +6,22 @@
 /*   By: gkrusta <gkrusta@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:28:38 by gkrusta           #+#    #+#             */
-/*   Updated: 2023/11/20 17:01:36 by gkrusta          ###   ########.fr       */
+/*   Updated: 2023/11/27 12:44:53 by gkrusta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_STRUCTS_H
 # define MINISHELL_STRUCTS_H
+
+typedef enum e_shell_state
+{
+	RUNNING = 0,
+	INIT,
+	ENDED_HERE_DOC,
+	CTRL_C_IN_COMMAND,
+	CTRL_C,
+	IN_HERE_DOC,
+}	t_shell_state;
 
 typedef struct s_cmd
 {

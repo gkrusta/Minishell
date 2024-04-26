@@ -27,8 +27,24 @@ minishell-project
     ├── ... (other source files)
     └── r_redir.c
 ``````
-## Usage
+## Installation:
 
-To compile the project, use the provided `Makefile`. Run the following command:
+1. **Clone the Repository**:
 
-make
+```bash
+git clone https://github.com/gkrusta/Minishell minishell
+```
+
+2. **Build the Project**:
+
+```bash
+cd minishell && make
+```
+
+3. **Run the Server**:
+
+```bash
+./Minishell
+```
+
+### Teammate: 🦍   [pvilchez](https://github.com/pablovilchez)

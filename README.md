@@ -41,7 +41,7 @@ git clone https://github.com/gkrusta/Minishell minishell
 cd minishell && make
 ```
 
-3. **Run the Server**:
+3. **Run the Shell**:
 
 ```bash
 ./Minishell
